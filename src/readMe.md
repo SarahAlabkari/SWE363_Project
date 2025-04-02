@@ -46,4 +46,3 @@ The `src/` folder contains **all the source code** for the React application. Th
 - Write clear, meaningful comments if something isn’t obvious
 - Keep your code readable and consistent (indentation, naming, etc.)
 
----
