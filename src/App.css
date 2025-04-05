@@ -1,1 +1,31 @@
+:root {
+    --brown-color: #584335;
+    --green-color: #9abf80;
+    --purpule-color: #6a669d;
+    --node-color: #e5e3d4;
+    --page-title-font: "Open Sans Bold";
+    --page-title-size: 45px;
+    --subheading-font: "Open Sans";
+    --subheading-size: 35px;
+    --body-text-font: "Ubuntu";
+    --body-text-size: 20px;
 
+
+    background-color: var(--node-color);
+}
+
+.App {
+    
+    background-color: var(--node-color);
+}
+
+#evnt-details-button {
+    border-color: var(--green-color);
+    background-color: var(--node-color);
+    color: 'black'!important;
+    transition: background-color 0.3s ease;
+}
+#evnt-details-button:hover {
+    color: white;
+    background-color: var(--green-color);
+}
