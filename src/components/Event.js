@@ -24,12 +24,11 @@ function Event(props) {
         return(<div>Loading....</div>);
     }
 
-    return(<div className="card" style={{width: '15rem', margin: '10px', borderColor: 'var(--green-color)', borderWidth: '3px', padding: '5px'}}>
+    return(<div className="card" style={{width: '12rem', margin: '10px', borderColor: 'var(--green-color)', borderWidth: '3px', padding: '5px'}}>
         <img src={event.imageUrl} className="card-img-top" alt="Event image" style={{ height: '45%', marginBottom: '5px'}}/>
         <div className="card-body" style={{padding: '3px'}}>
             <h5 className="card-title">{event.name}</h5>
             <p className="card-subtitle text-body-secondary">By: {event.owner}</p>
-            <p className="card-text" style={{marginTop: '7px'}}>{event.description}</p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button type="button" id="evnt-details-button" className="btn">More details</button>
             </div>        
