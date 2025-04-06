@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides"
 import GuideProfile from './pages/GuideProfile';
+import ActivitiesCarousel from './components/ActivitiesCarousel';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/pages/Home" element={<Home/>} />
           <Route path="/pages/TourGuides" element={<TourGuides />} />
           <Route path="/guide/:guideName" element={<GuideProfile />} />
+          <Route path='/ActivitiesCarousel' element={ <ActivitiesCarousel /> } />
         </Routes>
     </div>
   );
