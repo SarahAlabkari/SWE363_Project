@@ -2,15 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const GuideTopBar = () => {
-    // return (<div style={{ backgroundColor: 'white', textAlign: 'center'}}> 
-    //     <div style={{width: '100%', display: 'flex', flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
-    //         <Link to="/Home" style={{ hover: 'underline' }}>Home</Link>
-    //         <Link to="/About" style={{ hover: 'underline' }} >About</Link>
-    //         <img src="./jadwill logo.png" alt="Logo" style={{ width: '5rem'}} />
-    //         <Link to="/GuideProfile" style={{ hover: 'underline' }} >Profile</Link>
-    //     </div>
-    // </div> 
-    // );
     return (
         <div
             style={{

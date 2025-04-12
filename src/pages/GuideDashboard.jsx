@@ -1,11 +1,12 @@
 import React from "react";
 import GuideTopBar from "../components/GuideTopBar";
+import GuideSideBar from "../components/GuideSideBar";
 
 const GuideDashboard = () => {
     return (<div>
         <GuideTopBar />
         <div className="d-flex">
-            {/* <GuideSideBar /> */}
+            <GuideSideBar />
             <main className="container">
                 <div className="row">
                     {/* <GuideCalendar />
