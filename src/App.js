@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides"
 import GuideProfile from './pages/GuideProfile';
 import ActivitiesCarousel from './components/ActivitiesCarousel';
+import GuideDashboard from "./pages/GuideDashboard";
 
 function App() {
   return (
@@ -16,10 +17,10 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<PlanExperience />} /> */}
           <Route path="/payment" element={<Payment />} />
-          <Route path="/pages/Home" element={<Home/>} />
-          <Route path="/pages/TourGuides" element={<TourGuides />} />
+          <Route path="/Home" element={<Home/>} />
+          <Route path="/TourGuides" element={<TourGuides />} />
           <Route path="/guide/:guideName" element={<GuideProfile />} />
-          <Route path='/ActivitiesCarousel' element={ <ActivitiesCarousel /> } />
+          <Route path='/GuideDashboard' element={<GuideDashboard />} />
         </Routes>
     </div>
   );
