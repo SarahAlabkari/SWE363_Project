@@ -11,6 +11,14 @@ const GuideDashboard = () => {
                     {/* <GuideCalendar />
                     <GuideTour />  */}
                 </div>
+                <div className="row">
+                    {/* <GuideStatistics />
+                    <GuideReviews /> */}
+                </div>
+                <div className="row">
+                    {/* <GuideEarningPMonth />
+                    <GuideTopAttendees /> */}
+                </div>
             </main>
         </div>
     </div>);
