@@ -10,10 +10,11 @@ import TourGuides from "./pages/TourGuides"
 import GuideProfile from './pages/GuideProfile';
 import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
-
+import Navbar from './components/Navbar';
 function App() {
   return (
     <div className="App">
+       <Navbar />
         <Routes>
           {/* <Route path="/" element={<PlanExperience />} /> */}
           <Route path="/payment" element={<Payment />} />
