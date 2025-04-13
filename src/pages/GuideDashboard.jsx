@@ -6,11 +6,10 @@ const GuideDashboard = () => {
     return (<div>
         <GuideTopBar />
         <div className="d-flex">
-            <GuideSideBar />
             <main className="container">
                 <div className="row">
                     {/* <GuideCalendar />
-                    <GuideTour /> */}
+                    <GuideTour />  */}
                 </div>
             </main>
         </div>

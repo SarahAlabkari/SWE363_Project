@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 const GuideSideBar = () => {
     return (
         <div
-            className="d-flex flex-column align-items-center"
+            className="d-flex flex-column"
             style={{
                 backgroundColor: 'var(--green-color)',
-                height: '30rem',
+                height: '100vh',
                 width: '7rem',
                 borderRadius: '10px',
-                justifyContent: 'space-evenly',
-                textAlign: 'center',
+                paddingLeft: '0.5rem',
+                gap: '5rem',
             }}>
             <Link to={'/GuideDashboard'} >Dashboard</Link>
             <Link to={'/GuideProfile'}>Profile</Link>
