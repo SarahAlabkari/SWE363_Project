@@ -1,4 +1,5 @@
 import './App.css';
+import Profile from './pages/Profile';
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
 //import PlanExperience from './pages/PlanExperience';
@@ -21,6 +22,8 @@ function App() {
           <Route path="/TourGuides" element={<TourGuides />} />
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
     </div>
   );
