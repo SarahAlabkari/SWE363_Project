@@ -11,7 +11,6 @@ function ActivitiesCarousel() {
         </div>
         <div className="col-sm">
           <Activity />
-
         </div>
         <div className="col-sm">
           <Activity />

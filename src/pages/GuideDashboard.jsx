@@ -2,6 +2,7 @@ import React from "react";
 import GuideTopBar from "../components/GuideTopBar";
 import CalendarComponent from "../components/CalendarComponent";
 import ActivitiesCarousel from "../components/ActivitiesCarousel";
+import GuideReviews from "../components/GuideReviews";
 
 const GuideDashboard = () => {
     return (<div>
@@ -19,13 +20,22 @@ const GuideDashboard = () => {
                         <p>Happining on this day</p>
                         <ActivitiesCarousel />
                     </div>
-
                 </div>
-                <div className="row">
-                    {/* <GuideStatistics />
-                    <GuideReviews /> */}
+                <div className="d-flex" style={{justifyContent: 'space-around'}}>
+                    <div>
+                        <p>How many?</p>
+                        <div>
+                            {/* <GuideStatistics /> */}
+                        </div>
+                    </div>
+                    <div>
+                        <p>Reviews</p>
+                        <div>
+                            <GuideReviews />
+                        </div>
+                    </div>
                 </div>
-                <div className="row">
+                <div className="d-flex" style={{justifyContent: 'space-around'}}>
                     {/* <GuideEarningPMonth />
                     <GuideTopAttendees /> */}
                 </div>
