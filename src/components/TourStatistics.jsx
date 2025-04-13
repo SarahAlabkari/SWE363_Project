@@ -9,7 +9,6 @@ const TourStatistics = () => {
 
   return (
     <div className="tour-statistics">
-      <h2 className="section-title">How many?</h2>
 
       <div className="date-range">
   <div className="date-field">

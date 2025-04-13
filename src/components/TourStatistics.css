@@ -10,7 +10,7 @@
   max-width: 500px;
 }
 
-.section-title {
+/* .section-title {
   font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   font-size: 45px;
@@ -19,7 +19,7 @@
   margin-bottom: 1.5rem;
   padding-bottom: 0.2rem;
   width: 100%;
-}
+} */
 
 .date-range {
     display: flex;
