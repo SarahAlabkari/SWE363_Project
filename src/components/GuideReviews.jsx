@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactStars from "react-rating-stars-component";
+import StarRating from './StarRating';
 
 
 const GuideReviews = () => {
@@ -22,49 +22,30 @@ const GuideReviews = () => {
         <div
             style={{
                 backgroundColor: 'white',
-                width: '30rem',
+                width: '25rem',
                 padding: '0.5rem',
-                justifyContent: 'space-around',
             }}
             className="rounded"
         >
-            <div className='d-flex'>
+            <div className='d-flex' style={{justifyContent: 'space-around'}}>
                 <p>By: {review.name}</p>
                 <div>
-                    <ReactStars
-                        count={5}
-                        value={review.stars}
-                        size={24}
-                        activeColor={'var(--green-color)'}
-                    />
+                    <StarRating rating={review.stars} />
                 </div>
-                
             </div>
-            <div className='d-flex'>
+                        <div className='d-flex' style={{justifyContent: 'space-around'}}>
                 <p>By: {review.name}</p>
                 <div>
-                    <ReactStars
-                        count={5}
-                        value={review.stars}
-                        size={24}
-                        activeColor={'var(--green-color)'}
-                    />
+                    <StarRating rating={review.stars} />
                 </div>
             </div>
-             <div className='d-flex'>
+                        <div className='d-flex' style={{justifyContent: 'space-around'}}>
                 <p>By: {review.name}</p>
                 <div>
-                    <ReactStars
-                        count={5}
-                        value={review.stars}
-                        size={24}
-                        activeColor={'var(--green-color)'}
-                    />
+                    <StarRating rating={review.stars} />
                 </div>
-                
             </div>
-
-
+            
         </div>
     );
 }
