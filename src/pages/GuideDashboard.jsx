@@ -1,15 +1,25 @@
 import React from "react";
 import GuideTopBar from "../components/GuideTopBar";
-import GuideSideBar from "../components/GuideSideBar";
+import CalendarComponent from "../components/CalendarComponent";
+import ActivitiesCarousel from "../components/ActivitiesCarousel";
 
 const GuideDashboard = () => {
     return (<div>
         <GuideTopBar />
-        <div className="d-flex">
-            <main className="container">
-                <div className="row">
-                    {/* <GuideCalendar />
-                    <GuideTour />  */}
+        <div>
+            <main style={{margin: '15px'}}>
+                <div className="d-flex" style={{justifyContent: 'space-around'}}>
+                    <div>
+                        <p>Happining on this month</p>
+                        <div style={{ width: '2rem' }}>
+                            <CalendarComponent />
+                        </div>
+                    </div>
+                    <div>
+                        <p>Happining on this day</p>
+                        <ActivitiesCarousel />
+                    </div>
+
                 </div>
                 <div className="row">
                     {/* <GuideStatistics />

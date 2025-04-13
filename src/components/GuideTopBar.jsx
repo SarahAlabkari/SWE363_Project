@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../App.css';
+
 
 const GuideTopBar = () => {
     return (
@@ -28,7 +30,7 @@ const GuideTopBar = () => {
                 <Link to="/GuideProfile">Profile</Link>
                 <Link to="/GuideDashboard">Dashboard</Link>
                 <Link to="/GuideTourCenter">Tour Center</Link>
-                <button>Logout</button>
+                <button type="button" id="logout-button" className="btn">Log out</button>
             </div>
         </div>
     );
