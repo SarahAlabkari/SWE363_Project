@@ -1,24 +1,30 @@
 import React from 'react';
+// Optional if you want to style further
 
 const HowItWorks = () => {
+  const steps = [
+    { number: 1, text: "Match with Saudi Locals" },
+    { number: 2, text: "Find Unique Experiences" },
+    { number: 3, text: "Enjoy your trip!" },
+  ];
+
   return (
-    <div className="container text-center py-5">
-      <h2 className="mb-4 fw-bold">How It Works</h2>
-      <div className="row">
-        <div className="col-md-4 mb-3">
-          <h3 className="display-4 fw-bold">1</h3>
-          <p className="fs-5">Match with Saudi Locals</p>
-        </div>
-        <div className="col-md-4 mb-3">
-          <h3 className="display-4 fw-bold">2</h3>
-          <p className="fs-5">Find Unique Experiences</p>
-        </div>
-        <div className="col-md-4 mb-3">
-          <h3 className="display-4 fw-bold">3</h3>
-          <p className="fs-5">Enjoy your trip!</p>
+    <section className="how-it-works-section text-center py-5 bg-white">
+      <div className="container">
+        <h2 className="mb-5">
+          How It Works
+        </h2>
+
+        <div className="d-flex justify-content-center flex-wrap gap-5">
+          {steps.map((step, index) => (
+            <div key={index} className="how-step text-center">
+              <div className="step-number mb-2"><h3>{step.number}</h3></div>
+              <p className="step-text">{step.text}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
