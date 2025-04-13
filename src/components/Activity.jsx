@@ -8,13 +8,13 @@ function Activity(props) {
     //This will later be fetched from a database
     useEffect(() => {
         const mockActivity = {
-          name: 'Coding Bootcamp 2025',
-          owner: 'KFUPM',
+          name: 'Alula Tour',
+          owner: 'Safer',
           date: 'April 10, 2025',
           time: '9:00 AM - 4:00 PM',
-          location: 'San Francisco, CA',
-          description: 'Join us for a day of hands-on coding workshops!',
-          imageUrl: 'https://www.okoone.com/wp-content/uploads/2025/02/Tech-innovation-391.jpg',
+          location: 'Alula, Saudi Arabia',
+          description: 'Join us for a day full of adventure!',
+          imageUrl: "/alula2.jpg",
           state: 'Active',
         };
         setActivity(mockActivity);
