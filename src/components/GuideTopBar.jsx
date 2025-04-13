@@ -25,7 +25,9 @@ const GuideTopBar = () => {
             <div style={{ display: 'flex', flexDirection: 'row', gap: '5rem' }}>
                 <Link to="/Home">Home</Link>
                 <Link to="/About">About</Link>
-                <Link to="/GuideDashboard">Profile</Link>
+                <Link to="/GuideProfile">Profile</Link>
+                <Link to="/GuideDashboard">Dashboard</Link>
+                <Link to="/GuideTourCenter">Tour Center</Link>
                 <button>Logout</button>
             </div>
         </div>
