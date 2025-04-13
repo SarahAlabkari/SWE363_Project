@@ -1,16 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../App.css';
+
 
 const GuideTopBar = () => {
-    // return (<div style={{ backgroundColor: 'white', textAlign: 'center'}}> 
-    //     <div style={{width: '100%', display: 'flex', flexDirection: 'row',  justifyContent: 'space-between', alignItems: 'center'}}>
-    //         <Link to="/Home" style={{ hover: 'underline' }}>Home</Link>
-    //         <Link to="/About" style={{ hover: 'underline' }} >About</Link>
-    //         <img src="./jadwill logo.png" alt="Logo" style={{ width: '5rem'}} />
-    //         <Link to="/GuideProfile" style={{ hover: 'underline' }} >Profile</Link>
-    //     </div>
-    // </div> 
-    // );
     return (
         <div
             style={{
@@ -34,8 +27,10 @@ const GuideTopBar = () => {
             <div style={{ display: 'flex', flexDirection: 'row', gap: '5rem' }}>
                 <Link to="/Home">Home</Link>
                 <Link to="/About">About</Link>
-                <Link to="/GuideDashboard">Profile</Link>
-                <button>Logout</button>
+                <Link to="/GuideProfile">Profile</Link>
+                <Link to="/GuideDashboard">Dashboard</Link>
+                <Link to="/GuideTourCenter">Tour Center</Link>
+                <button type="button" id="logout-button" className="btn">Log out</button>
             </div>
         </div>
     );

@@ -20,13 +20,13 @@
     background-color: var(--node-color);
 }
 
-#evnt-details-button {
+#evnt-details-button, #logout-button{
     border-color: var(--green-color);
     background-color: var(--node-color);
     color: 'black'!important;
     transition: background-color 0.3s ease;
 }
-#evnt-details-button:hover {
+#evnt-details-button:hover, #logout-button:hover {
     color: white;
     background-color: var(--green-color);
 }

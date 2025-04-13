@@ -11,10 +11,11 @@ import TourGuides from "./pages/TourGuides"
 import GuideProfile from './pages/GuideProfile';
 import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
-
+import Navbar from './components/Navbar';
 function App() {
   return (
     <div className="App">
+       <Navbar />
         <Routes>
           {/* <Route path="/" element={<PlanExperience />} /> */}
           <Route path="/payment" element={<Payment />} />
@@ -22,8 +23,12 @@ function App() {
           <Route path="/TourGuides" element={<TourGuides />} />
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
+
           <Route path="/profile" element={<Profile />} />
 
+
+          {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
+ 
         </Routes>
     </div>
   );

@@ -30,7 +30,7 @@ function Activity(props) {
             <h5 className="card-title">{activity.name}</h5>
             <p className="card-subtitle text-body-secondary">By: {activity.owner}</p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn">More details</button>
+                <button type="button" id="evnt-details-button" className="btn guide-button">More details</button>
             </div>        
         </div>
     </div>);
