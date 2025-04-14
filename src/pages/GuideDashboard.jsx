@@ -1,7 +1,6 @@
 // Path: src/pages/GuideDashboard.jsx
 
 import React from "react";
-import GuideTopBar from "../components/GuideTopBar";
 import CalendarComponent from "../components/CalendarComponent";
 import ActivitiesCarousel from "../components/ActivitiesCarousel";
 import GuideReviews from "../components/GuideReviews";
@@ -9,6 +8,9 @@ import TourStatistics from "../components/TourStatistics";
 import GuideTopTours from "../components/GuideTopTours";
 import MenuBar from "../components/MenuBar";
 import "./GuideDashboard.css";
+import Activity from "../components/Activity";
+import Tour from "../components/Tour";
+import CardSlider from "../components/CardSlider";
 
 const GuideDashboard = () => {
 
@@ -25,21 +27,37 @@ const navLinks = [
     return (<div>
         <MenuBar links={navLinks}/>
         <div>
-            <main style={{margin: '15px'}}>
-                <div className="d-flex" style={{justifyContent: 'space-around'}}>
+            <main className="d-flex flex-column" style={{ margin: '3rem', gap: '5rem'}}>
+                
+                <div className="d-flex" id='dashboardRow1' style={{justifyContent: 'space-around', gap: '10rem'}}>
                     <div>
-                        <p className="section-title">Happining on this month</p>
                         <div style={{ width: '2rem' }}>
                             <CalendarComponent />
                         </div>
                     </div>
-                    <div>
-                        <p className="section-title">Happining on this day</p>
-                        <ActivitiesCarousel />
+                    <div className="d-flex flex-column">
+                        <div>
+                            <p className="section-title">Happining on this day</p>
+                            <CardSlider>
+                                <Activity />
+                                <Activity />
+                                <Activity />
+                            </CardSlider>
+                        </div>
+                        <div>
+                            <p className="section-title">Happining on this month</p>
+                                                    <CardSlider>
+                                <Tour />
+                                <Tour />
+                                <Tour />
+                            </CardSlider>
+                        </div>
                     </div>
                 </div>
-                <div className="d-flex" style={{justifyContent: 'space-around'}}>
+
+                <div className="d-flex" id="dashboardRow2" style={{justifyContent: 'space-around'}}>
                     <div>
+                    
                         <p className="section-title">How many?</p>
                         <div>
                             <TourStatistics />
@@ -52,7 +70,8 @@ const navLinks = [
                         </div>
                     </div>
                 </div>
-                <div className="d-flex" style={{justifyContent: 'space-around'}}>
+
+                <div className="d-flex" id="dashboardRow3" style={{justifyContent: 'space-around'}}>
                     <div>
                         {/* <GuideEarningPMonth /> */}
                     </div>
