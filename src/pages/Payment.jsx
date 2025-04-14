@@ -48,6 +48,21 @@ function PaymentPage() {
                 <input type="text" placeholder="1234 5678 9012 3456" />
               </label>
               <div className="row">
+  <div className="form-group half-width">
+    <label>
+      Expiry
+      <input type="text" placeholder="MM/YY" />
+    </label>
+  </div>
+  <div className="form-group half-width">
+    <label>
+      CVC
+      <input type="text" placeholder="123" />
+    </label>
+  </div>
+</div>
+
+              {/* <div className="row">
                 <label>
                   Expiry
                   <input type="text" placeholder="MM/YY" />
@@ -56,7 +71,11 @@ function PaymentPage() {
                   CVC
                   <input type="text" placeholder="123" />
                 </label>
-              </div>
+              </div> */}
+
+              
+
+              
               <label>
                 Total Price
                 <input type="text" value="" readOnly />

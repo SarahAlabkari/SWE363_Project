@@ -2,10 +2,25 @@ import React from 'react';
 import DropdownMenu from '../components/DropdownMenu';
 import CalendarComponent from '../components/CalendarComponent';
 import './PlanExperience.css';
+import MenuBar from "../components/MenuBar";
 
 function PlanExperience() {
+
+  const navLinks = [
+    { label: "Home", path: "/" },
+    { label: "About", path: "/" },
+    { label: "Where To?", path: "/pages/PlanExperience" },
+    { label: "Find a Local", path: "/pages/TourGuides" },
+    { label: "My Plan", path: "/" },
+    { label: "Wishlist", path: "/" },
+    { label: "Login", path: "/" },
+  ];
+
   return (
+    
     <div className="experience-page">
+      <MenuBar links={navLinks} />
+      
       <div className="hero-section"
       style={{
         backgroundImage: "url('/desert.jpeg')",
