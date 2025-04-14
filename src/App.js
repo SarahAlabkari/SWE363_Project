@@ -15,6 +15,7 @@ import MyPlan from './pages/MyPlan';
 import About from './pages/About';
 import MyWishList from "./pages/MyWishList";
 
+
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
         <Route path="/pages/About" element={<About />} />
         <Route path="/pages/MyWishList" element={<MyWishList />} />
         <Route path="/pages/MyPlan" element={<MyPlan />} />
+
       </Routes>
     </div>
   );
