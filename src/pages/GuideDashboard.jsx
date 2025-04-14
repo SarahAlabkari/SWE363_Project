@@ -7,11 +7,23 @@ import ActivitiesCarousel from "../components/ActivitiesCarousel";
 import GuideReviews from "../components/GuideReviews";
 import TourStatistics from "../components/TourStatistics";
 import GuideTopTours from "../components/GuideTopTours";
-import "./GuideDashboard.css"
+import MenuBar from "../components/MenuBar";
+import "./GuideDashboard.css";
 
 const GuideDashboard = () => {
+
+const navLinks = [
+    { label: "Home", path: "/Home" },
+    { label: "About", path: "/About" },
+    { label: "Profile", path: "" },
+    { label: "Dashboard", path: "/GuideDashboard" },
+    { label: "Tour Center", path: "" },
+    ];
+    
+
+
     return (<div>
-        <GuideTopBar />
+        <MenuBar links={navLinks}/>
         <div>
             <main style={{margin: '15px'}}>
                 <div className="d-flex" style={{justifyContent: 'space-around'}}>
