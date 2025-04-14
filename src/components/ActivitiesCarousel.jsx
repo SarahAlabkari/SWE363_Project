@@ -20,4 +20,5 @@ function ActivitiesCarousel() {
   );
 }
 
+
 export default ActivitiesCarousel;
