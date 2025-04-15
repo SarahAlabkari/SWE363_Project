@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import './DropdownMenu.css';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 
+
 const saudiCities = [
   "Abha", "Alahssa", "Alqasim", "AlUla", "Bisha", "Buraidah", "Dammam",
   "Dhahran", "Hail", "Jazan", "Jeddah", "Jubail", "Khafji", "Khobar",
