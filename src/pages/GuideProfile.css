@@ -11,6 +11,7 @@
   object-fit: cover;
   border-radius: 12px;
   background-color: #eaeaea;
+  margin-top: 20px;
 }
 
 .bio-box-container {
@@ -35,6 +36,7 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
+  margin-top: -35px;
   
 }
 
@@ -72,12 +74,16 @@
 }
 
 
-.carousel-full-width-wrapper {
-  width: 100vw; 
-  margin-left: calc(-50vw + 50%);
-  background-color: var(--brown-color); 
-  padding: 2rem 3rem;
+.bio-box-container label {
+  color: var(--purpule-color);
 }
+
+
+.customize-box h4 {
+  color: var(--purpule-color);
+}
+
+
 
 
 

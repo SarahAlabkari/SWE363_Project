@@ -1,10 +1,11 @@
 import React from 'react';
 import DropdownMenu from '../components/DropdownMenu';
 import CalendarComponent from '../components/CalendarComponent';
-import './PlanExperience.css';
+import './WhereTo.css';
 import MenuBar from "../components/MenuBar";
 
-function PlanExperience() {
+
+function WhereTo() {
 
   const navLinks = [
     { label: "Home", path: "/" },
@@ -23,7 +24,8 @@ function PlanExperience() {
       
       <div className="hero-section"
       style={{
-        backgroundImage: "url('/desert.jpeg')",
+        
+        backgroundImage: "url('/Alula-Image.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '250px',
@@ -32,7 +34,7 @@ function PlanExperience() {
         alignItems: 'center'
       }}
       >
-        <h1 className="hero-heading">Plan Your Experience!</h1>
+        <h1 className="hero-heading" >Plan Your Experience!</h1>
       </div>
 
       <div className="form-section">
@@ -53,4 +55,4 @@ function PlanExperience() {
   );
 }
 
-export default PlanExperience;
+export default WhereTo;

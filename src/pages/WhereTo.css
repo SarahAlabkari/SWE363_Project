@@ -5,26 +5,13 @@
   
   /* Top banner section */
   .hero-section {
-
-  
-  
-    
     height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  /*.hero-heading {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 700;
-    font-size: 45px;
-    color: #000;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 10px 20px;
-    border-radius: 12px;
-  }
-  */
+
 
   .hero-heading {
     font-family: 'Open Sans', sans-serif;
@@ -44,12 +31,12 @@
       align-items: flex-start;
       gap: 60px;
       margin-top: 40px;
-      padding: 0 60px; /* Add padding on both sides for balance */
+      padding: 0 60px; 
       flex-wrap: wrap;
     }
     
     .dropdown-container {
-      transform: translateX(-100px); /* subtle shift left */
+      transform: translateX(-100px); 
     }
     
   .dropdown-container,
@@ -68,7 +55,7 @@
     margin-bottom: 12px;
   }
   
-  /* Button */
+  
   .button-wrapper {
     display: flex;
     justify-content: center;

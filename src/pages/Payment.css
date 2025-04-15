@@ -1,27 +1,38 @@
+:root {
+  --page-title-font: 'Open Sans', sans-serif;
+  --page-title-size: 45px;
+
+  --subheading-font: 'Open Sans', sans-serif;
+  --subheading-size: 35px;
+
+  --body-text-font: 'Ubuntu', sans-serif;
+  --body-text-size: 20px;
+}
+
 body,
-.payment-page,
 label,
 input,
 button,
 p {
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 20px;
+  font-family: var(--body-text-font);
+  font-size: var(--body-text-size);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 .payment-page {
-  padding: 40px;
+  padding: 0px 40px 40px 40px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .page-title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--page-title-font);
+  font-size: var(--page-title-size);
   font-weight: 700;
-  font-size: 45px;
   margin-bottom: 30px;
+  color: #5c4033;
 }
 
 .payment-layout {
@@ -50,8 +61,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 20px;
   background-color: #fff;
+  font-size: var(--body-text-size);
   gap: 10px;
 }
 
@@ -98,7 +109,6 @@ p {
   gap: 20px;
 }
 
-
 .form-group {
   flex: 1;
 }
@@ -107,15 +117,14 @@ p {
   max-width: 50%;
 }
 
-
 .summary-box {
   flex: 1;
   background-color: white;
   border-radius: 24px;
   padding: 24px;
   min-width: 280px;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 20px;
+  font-family: var(--body-text-font);
+  font-size: var(--body-text-size);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -123,17 +132,19 @@ p {
 }
 
 .summary-box h2 {
-  font-size: 28px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--subheading-font);
+  font-size: var(--subheading-size);
+  color: var(--brown-color);
   font-weight: 700;
   margin-bottom: 20px;
   text-align: center;
 }
 
 .summary-box p {
+  font-family: var(--body-text-font);
+  font-size: var(--body-text-size);
   margin-bottom: 12px;
   color: #333;
-  font-size: 18px;
   text-align: center;
 }
 
@@ -144,10 +155,12 @@ p {
 
 .summary-line {
   display: flex;
-  justify-content: space-between;
+
+  justify-content: flex-start; 
+  gap: 10px; 
   margin: 8px 0;
   padding: 0 8px;
-  font-size: 18px;
+  font-size: var(--body-text-size);
   color: #333;
 }
 
@@ -165,4 +178,14 @@ p {
   font-size: 14px;
 }
 
+.menu-bar-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  
+}
 
+.summary-content p strong {
+  color: var(--purpule-color);
+}
