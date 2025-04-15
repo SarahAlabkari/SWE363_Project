@@ -31,12 +31,12 @@ function PaymentPage() {
   }, []);
 
   const navLinks = [
-    { label: "Home", path: "/" },
-    { label: "About", path: "/" },
+    { label: "Home", path: "/pages/Home" },
+    { label: "About", path: "/pages/About" },
     { label: "Where To?", path: "/WhereTo" },
     { label: "Find a Local", path: "/pages/TourGuides" },
-    { label: "My Plan", path: "/" },
-    { label: "Wishlist", path: "/" },
+    { label: "My Plan", path: "/pages/MyPlan" },
+    { label: "Wishlist", path: "/pages/MyWishlist" },
     { label: "Login", path: "/" },
   ];
 
