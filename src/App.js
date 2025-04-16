@@ -13,7 +13,6 @@ import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
 import Navbar from './components/Navbar';
 import Reservations from './pages/Reservations';
-import Profile from './pages/Profile';
 function App() {
   return (
       <div className="App">
