@@ -26,6 +26,7 @@ function App() {
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
           <Route path="/reservations" element={<Reservations />} />
+
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
         </Routes>
     </div>
