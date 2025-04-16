@@ -178,3 +178,86 @@ body {
   background-color: #7da46b;
   transform: translateY(-2px);
 }
+
+textarea.body-text {
+  font-size: 18px;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  box-sizing: border-box;
+}
+input.body-text {
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.textarea-full {
+  width: 100%;
+  min-height: 100px;
+}
+.overview-box {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.add-button {
+  width: 120px;
+  height: 120px;
+  background-color: #f4f4f4;
+  border: 2px dashed #aaa;
+  font-size: 24px;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #e5e3d4;
+}
+
+.cert-box {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background-color: #ccc;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cert-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.cert-box button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #ffdddd;
+  border: none;
+  color: #a00;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
