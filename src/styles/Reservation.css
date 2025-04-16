@@ -95,3 +95,21 @@ td.actions {
   color: white;
   transform: scale(0.95);
 }
+/* PHONES */
+@media (max-width: 768px) {
+  .reservations-page {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  td {
+    padding: 10px;
+  }
+}

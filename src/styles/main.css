@@ -274,3 +274,32 @@ input.body-text {
   cursor: pointer;
   margin-top: 10px;
 }
+@media (max-width: 768px) {
+  .page-container {
+    padding: 30px 20px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-logo {
+    width: 100%;
+    height: auto;
+  }
+
+  .services-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carousel {
+    flex-direction: column;
+  }
+
+  .certs-list {
+    justify-content: center;
+  }
+}
