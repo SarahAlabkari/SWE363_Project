@@ -13,6 +13,7 @@ import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
 import Navbar from './components/Navbar';
 import Reservations from './pages/Reservations';
+import EventsHistory from './pages/EventsHistory';
 function App() {
   return (
       <div className="App">
@@ -26,6 +27,7 @@ function App() {
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/eventshistory" element={<EventsHistory />} />
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
  
         </Routes>
