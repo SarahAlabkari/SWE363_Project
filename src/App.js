@@ -12,7 +12,7 @@ import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
 import Navbar from './components/Navbar';
 import Reservations from './pages/Reservations';
-
+import Profile from './pages/Profile';
 function App() {
   return (
       <div className="App">
@@ -25,6 +25,7 @@ function App() {
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
           <Route path="/reservations" element={<Reservations />} />
+          <Route path="/profile" element={<Profile />} />
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
         </Routes>
     </div>
