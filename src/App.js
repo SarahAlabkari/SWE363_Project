@@ -1,4 +1,5 @@
 import './App.css';
+import Profile from './pages/Profile';
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
 //import PlanExperience from './pages/PlanExperience';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/profile" element={<Profile />} />
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
+ 
         </Routes>
     </div>
   );
