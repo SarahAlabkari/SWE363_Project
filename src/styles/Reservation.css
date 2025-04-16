@@ -1,0 +1,97 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Ubuntu&display=swap');
+
+:root {
+  --beige: #e5e3d4;
+  --purple: #6a669d;
+  --brown: #584335;
+  --green: #9abf80;
+
+  --font-title: 'Open Sans', sans-serif;
+  --font-body: 'Ubuntu', sans-serif;
+
+  --size-title: 45px;
+  --size-subheading: 35px;
+  --size-body: 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--beige);
+  font-family: var(--font-body);
+}
+
+.reservations-page {
+  padding: 50px 80px;
+  background-color: var(--beige);
+}
+
+.page-title {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: var(--size-title);
+  font-weight: bold;
+  color: var(--purple);
+  margin-bottom: 40px;
+}
+
+.reservation-table {
+  background-color: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 16px;
+  font-size: var(--size-body);
+  font-family: var(--font-body);
+  color: var(--brown);
+}
+
+th {
+  text-align: left;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+td {
+  background-color: #f8f8f8;
+  padding: 14px 20px;
+  border-radius: 12px;
+}
+
+td.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-text {
+  margin-right: 10px;
+}
+
+.icon-btn {
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.icon-btn:hover {
+  opacity: 0.8;
+}
+
+.icon-btn.pressed {
+  background-color: var(--green);
+  color: white;
+  transform: scale(0.95);
+}

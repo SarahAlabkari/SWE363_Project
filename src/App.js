@@ -16,8 +16,8 @@ import Reservations from './pages/Reservations';
 function App() {
   return (
     <Router>
-    <div className="App">
-       <Navbar />
+      <div className="App">
+        <Navbar />
         <Routes>
           {/* <Route path="/" element={<PlanExperience />} /> */}
           <Route path="/payment" element={<Payment />} />
@@ -26,7 +26,6 @@ function App() {
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
           <Route path="/reservations" element={<Reservations />} />
-
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
         </Routes>
     </div>
