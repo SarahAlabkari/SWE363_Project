@@ -13,7 +13,7 @@ const Navbar = () => {
             <NavLink to="/home" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Home</NavLink>
             <NavLink to="/profile" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Profile</NavLink>
             <NavLink to="/reservations" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Reservations</NavLink>
-            <NavLink to="/events" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Events History</NavLink>
+            <NavLink to="/eventshistory" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Events History</NavLink>
             <NavLink to="/" className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}>Sign Out</NavLink>
           </div>
 
