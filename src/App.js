@@ -10,8 +10,8 @@ import TourGuides from "./pages/TourGuides"
 import GuideProfile from './pages/GuideProfile';
 import ActivitiesCarousel from './components/ActivitiesCarousel';
 import GuideDashboard from "./pages/GuideDashboard";
-import Reservations from './pages/Reservations';
-
+//import Reservations from './pages/Reservations';
+import EventsHistory from './pages/EventsHistory';
 function App() {
   return (
     <div className="App">
@@ -22,7 +22,7 @@ function App() {
           <Route path="/TourGuides" element={<TourGuides />} />
           <Route path="/guide/:guideName" element={<GuideProfile />} />
           <Route path='/GuideDashboard' element={<GuideDashboard />} />
-          <Route path="/reservations" element={<Reservations />} />
+          <Route path="/eventshistory" element={<EventsHistory />} />
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
         </Routes>
     </div>
