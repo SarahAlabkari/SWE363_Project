@@ -1,0 +1,41 @@
+.events-history-page {
+    padding: 60px 80px;
+    background-color: #e5e3d4;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .page-title {
+    font-size: 45px;
+    font-family: 'Open Sans', sans-serif;
+    color: #6a669d;
+    margin-bottom: 40px;
+  }
+  
+  .event-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  
+  .event-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-align: center;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .event-image {
+    width: 100%;
+    height: 120px;
+    background-color: #ccc;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  
