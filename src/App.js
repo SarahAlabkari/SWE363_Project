@@ -15,7 +15,6 @@ import Reservations from './pages/Reservations';
 
 function App() {
   return (
-    <Router>
       <div className="App">
         <Navbar />
         <Routes>
@@ -29,7 +28,6 @@ function App() {
           {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
         </Routes>
     </div>
-    </Router>
   );
 }
 
