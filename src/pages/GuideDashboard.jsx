@@ -11,80 +11,80 @@ import "./GuideDashboard.css";
 import Activity from "../components/Activity";
 import Tour from "../components/Tour";
 import CardSlider from "../components/CardSlider";
+import EarningPerMonth from "../components/EarningPerMonth"; // Earning / Month component
 
 const GuideDashboard = () => {
-
-const navLinks = [
+  const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
     { label: "Profile", path: "" },
     { label: "Dashboard", path: "/GuideDashboard" },
     { label: "Tour Center", path: "" },
-    ];
-    
+  ];
 
+  return (
+    <div>
+      <MenuBar links={navLinks} />
+      <div>
+        <main className="d-flex flex-column" style={{ margin: '3rem', gap: '5rem' }}>
 
-    return (<div>
-        <MenuBar links={navLinks}/>
-        <div>
-            <main className="d-flex flex-column" style={{ margin: '3rem', gap: '5rem'}}>
-                
-                <div className="d-flex" id='dashboardRow1' style={{justifyContent: 'space-around', gap: '10rem'}}>
-                    <div>
-                        <div style={{ width: '2rem' }}>
-                            <CalendarComponent />
-                        </div>
-                    </div>
-                    <div className="d-flex flex-column">
-                        <div>
-                            <p className="section-title">Happining on this day</p>
-                            <CardSlider>
-                                <Activity />
-                                <Activity />
-                                <Activity />
-                            </CardSlider>
-                        </div>
-                        <div>
-                            <p className="section-title">Happining on this month</p>
-                                                    <CardSlider>
-                                <Tour />
-                                <Tour />
-                                <Tour />
-                            </CardSlider>
-                        </div>
-                    </div>
-                </div>
+          {/* First row: calendar and activities */}
+          <div className="d-flex" id='dashboardRow1' style={{ justifyContent: 'space-around', gap: '10rem' }}>
+            <div>
+              <div style={{ width: '2rem' }}>
+                <CalendarComponent />
+              </div>
+            </div>
+            <div className="d-flex flex-column">
+              <div>
+                <p className="section-title">Happining on this day</p>
+                <CardSlider>
+                  <Activity />
+                  <Activity />
+                  <Activity />
+                </CardSlider>
+              </div>
+              <div>
+                <p className="section-title">Happining on this month</p>
+                <CardSlider>
+                  <Tour />
+                  <Tour />
+                  <Tour />
+                </CardSlider>
+              </div>
+            </div>
+          </div>
 
-                <div className="d-flex" id="dashboardRow2" style={{justifyContent: 'space-around'}}>
-                    <div>
-                    
-                        <p className="section-title">How many?</p>
-                        <div>
-                            <TourStatistics />
-                        </div>
-                    </div>
-                    <div>
-                        <p className="section-title">Reviews</p>
-                        <div>
-                            <GuideReviews />
-                        </div>
-                    </div>
-                </div>
+          {/* Second row: statistics and reviews */}
+          <div className="d-flex" id="dashboardRow2" style={{ justifyContent: 'space-around', gap: '5rem' }}>
+            <div>
+              <p className="section-title">How many?</p>
+              <TourStatistics />
+            </div>
 
-                <div className="d-flex" id="dashboardRow3" style={{justifyContent: 'space-around'}}>
-                    <div>
-                        {/* <GuideEarningPMonth /> */}
-                    </div>
-                    <div>
-                        <p className="section-title">Top 3 Attendded Tours</p>
-                        <div>
-                            <GuideTopTours />
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>);
-}
+            <div>
+              <p className="section-title">Reviews</p>
+              <GuideReviews />
+            </div>
+          </div>
+
+          {/* Third row: earning and top attended tours */}
+          <div className="d-flex" id="dashboardRow3" style={{ justifyContent: 'space-around', gap: '5rem' }}>
+            <div>
+              <EarningPerMonth />
+            </div>
+
+            <div>
+              <p className="section-title">Top 3 Attended Tours</p>
+              <GuideTopTours />
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  );
+};
 
 export default GuideDashboard;
+

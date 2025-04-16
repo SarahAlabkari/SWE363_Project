@@ -1,0 +1,64 @@
+/* Path: src/components/CalendarView.css */
+
+.calendar-container {
+    background-color: #e5e3d4;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .calendar-title {
+    font-family: 'Open Sans Bold', sans-serif;
+    font-size: 35px;
+    color: #584335;
+    margin-bottom: 1.5rem;
+  }
+  
+  .calendar-month-dropdown {
+    font-size: 16px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #d9d9d9;
+    margin-bottom: 2rem;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .calendar-box {
+    background-color: #d9d9d9;
+    height: 300px;
+    border-radius: 20px;
+    margin: 0 auto 2rem;
+  }
+  
+  .calendar-filters {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .calendar-date {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #d9d9d9;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .calendar-delete-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    border: none;
+    background-color: #d9d9d9;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  .calendar-delete-btn:hover {
+    background-color: #c3c3c3;
+  }
+  
