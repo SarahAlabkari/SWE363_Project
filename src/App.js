@@ -34,21 +34,18 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/pages/Home" element={<Home />} />
-        <Route path="/pages/TourGuides" element={<TourGuides />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />
         <Route path="/GuideDashboard" element={<GuideDashboard />} />
-        <Route path="/pages/About" element={<About />} />
-        <Route path="/pages/MyWishList" element={<MyWishList />} />
-        <Route path="/pages/MyPlan" element={<MyPlan />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/MyWishList" element={<MyWishList />} />
+        <Route path="/MyPlan" element={<MyPlan />} />
         <Route path="/TourCenter" element={<TourCenter />} />
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
         <Route path='/TourDetails/:id' element={<TourDetails />} />
-
-        
         <Route path="/CreateAccount" element={<CreateAccount />} />
         <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
         <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />
@@ -56,7 +53,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path='/TestError' element={ <TestError /> } />
+        <Route path='/TestError' element={<TestError />} />
       </Routes>
     </div>
   );
