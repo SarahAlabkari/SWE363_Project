@@ -4,7 +4,7 @@ import ImageBlock from "../components/ImageBlock";
 import FeatureCard from "../components/FeatureCard";
 import HowItWorks from "../components/HowItWorks";
 import Activity from "../components/Activity";
-import ActivitiesCarousel from "../components/ActivitiesCarousel";
+import CardSlider from "../components/CardSlider";
 // ✅ If the image is in /public, use this path. Otherwise import it.
 const heroImagePath = "/hero9.png"; // Make sure this exists in your public folder
 
@@ -71,7 +71,11 @@ const Home = () => {
       {/* Final Tagline */}
       <section className="text-center py-5 bg-light">
         <h2 className="fw-bold">Explore Saudi Like Never Before</h2>
-        <ActivitiesCarousel/>
+        <CardSlider>
+          <Activity />
+          <Activity />
+          <Activity />
+        </CardSlider>
       </section>
     </div>
   );

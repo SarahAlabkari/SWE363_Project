@@ -11,7 +11,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
-import ActivitiesCarousel from './components/ActivitiesCarousel';
+import ActivityDetails from './pages/ActivityDatails';
+import TourDetails from './pages/TourDetails';
 
 import GuideDashboard from "./pages/GuideDashboard";
 import MyPlan from './pages/MyPlan';
@@ -43,6 +44,8 @@ function App() {
         <Route path="/pages/MyWishList" element={<MyWishList />} />
         <Route path="/pages/MyPlan" element={<MyPlan />} />
         <Route path="/TourCenter" element={<TourCenter />} />
+        <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
+        <Route path='/TourDetails/:id' element={<TourDetails />} />
 
         
         <Route path="/CreateAccount" element={<CreateAccount />} />

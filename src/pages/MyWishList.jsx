@@ -1,7 +1,7 @@
 import React from "react";
 import MenuBar from "../components/MenuBar";
-import ActivitiesCarousel from "../components/ActivitiesCarousel";
-
+import CardSlider from "../components/CardSlider";
+import Activity from "../components/Activity";
 const navLinks = [
     { label: "Home", path: "/pages/Home" },
     { label: "About", path: "/pages/About" },
@@ -17,8 +17,12 @@ const navLinks = [
     <div>
     <MenuBar links = {navLinks}/>
     <div className="container mt-5 text-center">
-    <h2>My WishList</h2>
-    <ActivitiesCarousel/>
+          <h2>My WishList</h2>
+          <CardSlider>
+            <Activity />
+            <Activity />
+            <Activity />
+          </CardSlider>
     </div>
     </div>
     )
