@@ -6,12 +6,13 @@ import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
 
 const links = [
-    { path: "../pages/Events", label: "Home" },
+    { path: "../Events", label: "Home" },
     { path: "/profile", label: "Profile" },
     { path: "/reservations", label: "Reservations" },
     { path: "/events-history", label: "Events History" },
     { path: "/sign-out", label: "Sign Out" },
 ];
+
 
 const EventDetail = () => {
     const { eventId } = useParams();
@@ -71,7 +72,7 @@ const EventDetail = () => {
 
     const handleCancel = () => {
         alert('Event cancelled!');
-        navigate('/');
+        navigate('../Events');
     };
 
     return (
