@@ -13,6 +13,7 @@ import EarningPerMonth from "../components/EarningPerMonth"; // Earning / Month 
 import "./GuideDashboard.css"; // Optional: where you put your scrollbar styling
 
 const GuideDashboard = () => {
+
   const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
@@ -105,9 +106,10 @@ const GuideDashboard = () => {
             </div>
           </div>
         </main>
-      </div>
+          </div>
     </div>
   );
 };
 
 export default GuideDashboard;
+
