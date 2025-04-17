@@ -34,16 +34,16 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/pages/Home" element={<Home />} />
-        <Route path="/pages/TourGuides" element={<TourGuides />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />
         <Route path="/GuideDashboard" element={<GuideDashboard />} />
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
+<<<<<<< HEAD
 
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetail />} />
@@ -53,6 +53,11 @@ function App() {
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
         <Route path='/TourDetails/:id' element={<TourDetails />} />
 
+=======
+        <Route path="/TourCenter" element={<TourCenter />} />
+        <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
+        <Route path='/TourDetails/:id' element={<TourDetails />} />
+>>>>>>> 00b7b0a17f44a35263f673e7d70bc61044fa9487
         <Route path="/CreateAccount" element={<CreateAccount />} />
         <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
         <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />
@@ -60,7 +65,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path='/TestError' element={ <TestError /> } />
+        <Route path='/TestError' element={<TestError />} />
       </Routes>
     </div>
   );

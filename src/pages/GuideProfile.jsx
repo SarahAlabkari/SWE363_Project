@@ -8,13 +8,11 @@ import Activity from '../components/Activity';
 
 const GuideProfile = () => {
   const navLinks = [
-    { label: "Home", path: "/" },
-    { label: "About", path: "/" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/pages/TourGuides" },
-    { label: "My Plan", path: "/" },
-    { label: "Wishlist", path: "/" },
-    { label: "Login", path: "/" },
+    { label: "Home", path: "/Home" },
+    { label: "About", path: "/About" },
+    { label: "Profile", path: "/GuideProfile" },
+    { label: "Dashboard", path: "/GuideDashboard" },
+    { label: "Tour Center", path: "/TourCenter" },
   ];
 
   const { guideName } = useParams();

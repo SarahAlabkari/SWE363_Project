@@ -2,12 +2,12 @@ import React from "react";
 import MenuBar from "../components/MenuBar";
 
 const navLinks = [
-    { label: "Home", path: "/pages/Home" },
-    { label: "About", path: "/pages/About" },
+    { label: "Home", path: "/Home" },
+    { label: "About", path: "/About" },
     { label: "Where To?", path: "" },
-    { label: "Find a Local", path: "/pages/TourGuides" },
-    { label: "My Plan", path: "/pages/MyPlan" },
-    { label: "Wishlist", path: "/pages/MyWishlist" },
+    { label: "Find a Local", path: "/TourGuides" },
+    { label: "My Plan", path: "/MyPlan" },
+    { label: "Wishlist", path: "/MyWishlist" },
     { label: "Login", path: "/Login" },
   ];
 
