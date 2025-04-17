@@ -32,11 +32,11 @@ const services = [
 const navLinks = [
   { label: "Home", path: "/pages/Home" },
   { label: "About", path: "/pages/About" },
-  { label: "Where To?", path: "" },
+  { label: "Where To?", path: "/WhereTo" },
   { label: "Find a Local", path: "/pages/TourGuides" },
   { label: "My Plan", path: "/pages/MyPlan" },
   { label: "Wishlist", path: "/pages/MyWishlist" },
-  { label: "Login", path: "/" },
+  { label: "Login", path: "/Login" },
 ];
 
 const Home = () => {

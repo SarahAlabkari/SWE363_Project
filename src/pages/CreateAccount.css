@@ -1,0 +1,109 @@
+/* Path: src/Components/CreateAccount.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Ubuntu&display=swap');
+
+/* Container for the entire page */
+.create-account-container {
+  height: 100vh;
+  background-color: #e5e3d4; /* Soft cream background */
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0; /* Remove any default margins */
+  width: 100%; /* Make sure it fills the width */
+}
+
+/* Title Styling */
+.create-account-title {
+  font-size: 45px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  color: #6a669d; /* Purple */
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+/* Button container for the 3 options */
+.create-account-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Each button styling */
+.create-account-button {
+  width: 180px;
+  padding: 1rem;
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #e5e3d4;
+  color: #6a669d; /* Purple text */
+  border: 2px solid #6a669d;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.create-account-button:hover {
+  background-color: #9abf80; /* Green background on hover */
+  color: white; /* White text on hover */
+}
+
+/* Icon styling inside each button */
+.create-account-icon {
+  width: 160px; /* Adjust size to match the second image */
+  height: 160px; /* Adjust size */
+  object-fit: cover; /* Ensure image doesn't stretch */
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+/* Text Styling inside the button */
+.button-text-typeI {
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #6a669d;
+  position: absolute;
+  bottom: -40px; /* Position text outside the button below the image */
+  text-align: center;
+  width: 100%;
+}
+
+.button-text-typeII {
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #6a669d;
+  position: absolute;
+  bottom: -65px; /* Position text outside the button below the image */
+  text-align: center;
+  width: 100%;
+}
+
+/* Link Styling */
+.create-account-link {
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #6a669d;
+  text-align: center;
+  margin-top: 5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.create-account-link a {
+  text-decoration: none; /* No underline by default */
+}
+
+.create-account-link a:hover {
+  text-decoration: underline; /* Underline on hover */
+}

@@ -8,15 +8,14 @@ function Activity(props) {
     //This will later be fetched from a database
     useEffect(() => {
         const mockActivity = {
-            name: 'Hiking in AlUlas rock formations',
-            activityID: 1,
-            activityPrvider: 'Safer',
-            date: 'April 10, 2025',
-            time: '9:00 AM',
-            location: 'Alula, Saudi Arabia',
-            description: 'Join us for a day full of advenExplore AlUlas scenic trails and rock formations on a guided desert hike.',
-            imageUrl: "/alula2.jpg",
-            state: 'Active',
+          name: 'Coding Bootcamp 2025',
+          owner: 'KFUPM',
+          date: 'April 10, 2025',
+          time: '9:00 AM - 4:00 PM',
+          location: 'San Francisco, CA',
+          description: 'Join us for a day of hands-on coding workshops!',
+          imageUrl: 'https://www.okoone.com/wp-content/uploads/2025/02/Tech-innovation-391.jpg',
+          state: 'Active',
         };
         setActivity(mockActivity);
     }, []);
@@ -29,9 +28,9 @@ function Activity(props) {
         <img src={activity.imageUrl} className="card-img-top" alt="Event image" style={{ height: '45%', marginBottom: '5px'}}/>
         <div className="card-body" style={{padding: '3px'}}>
             <h5 className="card-title">{activity.name}</h5>
-            <p className="card-subtitle text-body-secondary">By: {activity.activityPrvider}</p>
+            <p className="card-subtitle text-body-secondary">By: {activity.owner}</p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn guide-button">More details</button>
+                <button type="button" id="evnt-details-button" className="btn">More details</button>
             </div>        
         </div>
     </div>);
@@ -39,4 +38,3 @@ function Activity(props) {
 }
 
 export default Activity;
-

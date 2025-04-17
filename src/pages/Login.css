@@ -1,0 +1,140 @@
+/* Path: src/pages/Login.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Ubuntu&display=swap');
+
+/* Container for the entire page */
+.login-container {
+  height: 100vh;
+  background-color: #e5e3d4; /* Soft cream background */
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0; /* Remove any default margins */
+  width: 100%; /* Make sure it fills the width */
+}
+
+/* Title Styling */
+.login-title {
+  font-size: 45px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  color: #6a669d; /* Purple */
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Login Form Styling */
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: #ffffff; /* Soft cream to match the background */
+}
+
+/* Input fields styling */
+.login-input {
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 2px solid #6a669d; /* Light purple border */
+  border-radius: 25px;
+  background-color: transparent;
+  color: #584335;
+}
+
+.login-input::placeholder {
+  color: #9abf80; /* Green placeholder color */
+}
+
+/* Forgot Password text styling */
+.forgot-password {
+  font-size: 20px;
+  font-family: 'Ubuntu', sans-serif;
+  /* color: #584335; */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.forgot-password a {
+  font-size: 18px;
+  text-decoration: none; /* No underline by default */
+  
+}
+
+.forgot-password a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Login Button Styling */
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 20px;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #9abf80; /* Green */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit button */
+.form-button {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 300px; /* Smaller width for the button */
+  padding: 0.5rem; /* Reduced padding for smaller button */
+  font-size: 18px; /* Reduced font size */
+  background-color: #9abf80; /* Olive green */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.login-button:hover {
+  background-color: #6a669d; /* Dark purple on hover */
+}
+
+/* Create Account Link Styling */
+.create-account {
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #6a669d; /* Purple */
+  text-align: center;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  text-decoration: none; /* No underline by default */
+}
+
+.create-account a {
+  font-size: 18px;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  text-decoration: none; /* No underline by default */
+}
+
+.create-account a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 14px;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+  margin-bottom: 1rem;
+}
