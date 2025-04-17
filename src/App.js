@@ -43,7 +43,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/Events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetail />} />
         <Route path="/create-event" element={<CreateEvent />} />
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
@@ -58,6 +58,7 @@ function App() {
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path='/TestError' element={<TestError />} />
       </Routes>
+      
     </div>
   );
 }
