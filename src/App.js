@@ -18,6 +18,8 @@ import GuideDashboard from "./pages/GuideDashboard";
 import MyPlan from './pages/MyPlan';
 import About from './pages/About';
 import MyWishList from "./pages/MyWishList";
+import TourCenter from './pages/TourCenter';
+
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
         <Route path="/pages/About" element={<About />} />
         <Route path="/pages/MyWishList" element={<MyWishList />} />
         <Route path="/pages/MyPlan" element={<MyPlan />} />
+        <Route path="/TourCenter" element={<TourCenter />} />
+        
 
       </Routes>
     </div>
