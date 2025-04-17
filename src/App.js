@@ -1,25 +1,21 @@
 // Path: src/App.js
-
 import './App.css';
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
 import WhereTo from './pages/WhereTo';
 import Payment from './pages/Payment';
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-
+import { Routes, Route, Navigate , Link} from "react-router-dom";
 import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
-
 import GuideDashboard from "./pages/GuideDashboard";
 import MyPlan from './pages/MyPlan';
 import About from './pages/About';
 import MyWishList from "./pages/MyWishList";
 import TourCenter from './pages/TourCenter';
-
 
 import CreateAccount from './pages/CreateAccount';
 import CreateActivityProviderAccount from './pages/CreateActivityProviderAccount';
@@ -29,6 +25,10 @@ import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TestError from './pages/TestError';
+
+import Events from './pages/Events';
+import EventDetail from './pages/EventDetail';
+import CreateEvent from './pages/CreateEvent';
 
 function App() {
   return (
@@ -43,9 +43,12 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
-        <Route path="/TourCenter" element={<TourCenter />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/event/:eventId" element={<EventDetail />} />
+        <Route path="/create-event" element={<CreateEvent />} />
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
         <Route path='/TourDetails/:id' element={<TourDetails />} />
+        <Route path="/TourCenter" element={<TourCenter />} />
         <Route path="/CreateAccount" element={<CreateAccount />} />
         <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
         <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />
