@@ -13,7 +13,6 @@ import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
 import ActivitiesCarousel from './components/ActivitiesCarousel';
 
-
 import GuideDashboard from "./pages/GuideDashboard";
 import MyPlan from './pages/MyPlan';
 import About from './pages/About';
@@ -21,12 +20,17 @@ import MyWishList from "./pages/MyWishList";
 import TourCenter from './pages/TourCenter';
 
 
+import CreateAccount from './pages/CreateAccount';
+import CreateActivityProviderAccount from './pages/CreateActivityProviderAccount';
+import CreateTourGuideAccount from './pages/CreateTourGuideAccount';
+import CreateTouristAccount from './pages/CreateTouristAccount';
+import ForgetPassword from './pages/ForgetPassword';
+import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
     <div className="App">
-      
-        
       <Routes>
         <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/WhereTo" element={<WhereTo />} />
@@ -39,8 +43,15 @@ function App() {
         <Route path="/pages/MyWishList" element={<MyWishList />} />
         <Route path="/pages/MyPlan" element={<MyPlan />} />
         <Route path="/TourCenter" element={<TourCenter />} />
-        
 
+        
+        <Route path="/CreateAccount" element={<CreateAccount />} />
+        <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
+        <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />
+        <Route path="/CreateTouristAccount" element={<CreateTouristAccount />} />
+        <Route path="/ForgetPassword" element={<ForgetPassword />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
       </Routes>
     </div>
   );

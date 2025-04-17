@@ -8,7 +8,7 @@ const navLinks = [
     { label: "Find a Local", path: "/pages/TourGuides" },
     { label: "My Plan", path: "/pages/MyPlan" },
     { label: "Wishlist", path: "/pages/MyWishlist" },
-    { label: "Login", path: "/" },
+    { label: "Login", path: "/Login" },
   ];
 
 const About = () => {
