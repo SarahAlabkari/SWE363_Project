@@ -22,14 +22,12 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Container */
 .page-container {
   padding: 60px 80px;
   max-width: 1200px;
   margin: auto;
 }
 
-/* Titles */
 .page-title {
   font-family: var(--font-title);
   font-weight: bold;
@@ -39,20 +37,6 @@ body {
   text-align: center;
 }
 
-.subheading {
-  font-family: var(--font-title);
-  font-size: var(--size-subheading);
-  color: var(--brown);
-  margin-bottom: 15px;
-}
-
-.body-text {
-  font-size: var(--size-body);
-  color: var(--brown);
-  line-height: 1.7;
-}
-
-/* Reusable Section Styling */
 .section {
   background-color: white;
   padding: 30px;
@@ -75,19 +59,24 @@ body {
   padding-bottom: 10px;
 }
 
-/* Top Card */
+.body-text {
+  font-size: var(--size-body);
+  color: var(--brown);
+  line-height: 1.7;
+}
+
+/* Profile */
 .profile-header {
   display: flex;
   align-items: flex-start;
-  padding: 30px;
   gap: 30px;
 }
 
 .profile-logo {
   width: 250px;
   height: 250px;
-  border-radius: 16px;
   object-fit: cover;
+  border-radius: 16px;
   flex-shrink: 0;
 }
 
@@ -98,50 +87,63 @@ body {
   max-width: 700px;
 }
 
-/* Carousel */
-.carousel {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
 }
 
-.carousel-btn {
-  background-color: transparent;
-  border: none;
-  font-size: 30px;
-  color: var(--purple);
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.carousel-btn:hover {
-  color: var(--green);
-}
-
-.services-list {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding: 10px 0;
-}
-
-.service-box {
-  min-width: 160px;
-  height: 100px;
-  background-color: #f1f1f1;
+.service-card {
+  background-color: white;
   border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--size-body);
-  color: var(--brown);
-  white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
-.service-box:hover {
-  transform: translateY(-5px);
+.service-card:hover {
+  transform: translateY(-6px);
+}
+
+.service-image-wrapper {
+  position: relative;
+}
+
+.service-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 6px;
+}
+
+.service-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0 5px;
+  color: var(--brown);
+}
+
+.service-description {
+  color: #777;
+  font-size: 16px;
+  padding: 0 15px;
 }
 
 /* Certifications */
@@ -152,12 +154,82 @@ body {
 }
 
 .cert-box {
+  position: relative;
   width: 120px;
   height: 120px;
   background-color: #ccc;
   border-radius: 14px;
-  object-fit: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cert-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.cert-box button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #ffdddd;
+  border: none;
+  color: #a00;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* Add/Upload Buttons */
+.add-button {
+  width: 120px;
+  height: 120px;
+  background-color: #f4f4f4;
+  border: 2px dashed #aaa;
+  font-size: 24px;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #e5e3d4;
+}
+
+.upload-btn {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  background-color: var(--green);
+  color: white;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Form Fields */
+textarea.body-text,
+input.body-text {
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
 /* Edit Button */
@@ -179,101 +251,7 @@ body {
   transform: translateY(-2px);
 }
 
-textarea.body-text {
-  font-size: 18px;
-  padding: 10px;
-  margin-top: 8px;
-  margin-bottom: 10px;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  resize: vertical;
-  box-sizing: border-box;
-}
-input.body-text {
-  font-size: 18px;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: block;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-.textarea-full {
-  width: 100%;
-  min-height: 100px;
-}
-.overview-box {
-  width: 100%;
-  min-height: 120px;
-  padding: 10px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  resize: vertical;
-  box-sizing: border-box;
-}
-.add-button {
-  width: 120px;
-  height: 120px;
-  background-color: #f4f4f4;
-  border: 2px dashed #aaa;
-  font-size: 24px;
-  color: #666;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.add-button:hover {
-  background-color: #e5e3d4;
-}
-
-.cert-box {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  background-color: #ccc;
-  border-radius: 14px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cert-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 14px;
-}
-
-.cert-box button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: #ffdddd;
-  border: none;
-  color: #a00;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-.upload-btn {
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  background-color: var(--green);
-  color: white;
-  padding: 6px 12px;
-  font-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+/* Responsive */
 @media (max-width: 768px) {
   .page-container {
     padding: 30px 20px;
@@ -290,13 +268,8 @@ input.body-text {
     height: auto;
   }
 
-  .services-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .carousel {
-    flex-direction: column;
+  .services-grid {
+    grid-template-columns: 1fr;
   }
 
   .certs-list {

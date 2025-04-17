@@ -1,27 +1,35 @@
-
 import React, { useState, useRef } from 'react';
 import '../styles/main.css';
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("Skyward Journeys");
-  const [overview, setOverview] = useState("Skyward Journeys is a premier travel agency...");
-  const [about, setAbout] = useState("FOR FUN AND ADVENTURE");
-  const [email, setEmail] = useState("xxxxx@gmail.com");
-  const [phone, setPhone] = useState("966xxxxxxx");
-  const [telephone, setTelephone] = useState("022xxxxxxxx");
+  const [overview, setOverview] = useState("Skyward Journeys is a premium travel and adventure company specializing in desert experiences and outdoor excursions.");
+  const [about, setAbout] = useState("At Skyward Journeys, we believe that every journey should be as extraordinary as the destination.");
+  const [email, setEmail] = useState("Skyward@gmail.com");
+  const [phone, setPhone] = useState("966556748762");
+  const [telephone, setTelephone] = useState("01778655");
 
-  const [certifications, setCertifications] = useState([]);
-  const [services, setServices] = useState([
-    "Dune Bashing",
-    "Desert Camping",
-    "Stargazing",
-    "Henna Painting"
+  const [certifications, setCertifications] = useState(["/maroof.jpg"]);
+    const [services, setServices] = useState([
+    {
+      image: "/hiking in desert.jpg",
+      title: "Hiking",
+      description: "Experience the thrill of hiking! Walk through scenic trails, breathe fresh air, and discover the beauty of nature – one step at a time."
+    },
+    {
+      image: "/camles-riding.jpg",
+      title: "Camel Riding",
+      description: "Ride through the golden sands on a camel’s back! Feel the rhythm of the desert, enjoy the calm breeze, and connect with timeless Bedouin tradition."
+    }
   ]);
-  const [logo, setLogo] = useState("/logo-desert.png");
+  const [logo, setLogo] = useState("/skyward.jpg");
 
   const logoInputRef = useRef(null);
   const certInputRef = useRef(null);
+  const [newServiceImage, setNewServiceImage] = useState(null);
+  const [newServiceTitle, setNewServiceTitle] = useState("");
+  const [newServiceDescription, setNewServiceDescription] = useState("");
 
   const handleRemoveCert = (index) => {
     const updated = [...certifications];
@@ -29,15 +37,26 @@ const Profile = () => {
     setCertifications(updated);
   };
 
-  const handleAddService = () => {
-    const newService = prompt("Enter new service name:");
-    if (newService) setServices([...services, newService]);
-  };
-
   const handleRemoveService = (index) => {
     const updated = [...services];
     updated.splice(index, 1);
     setServices(updated);
+  };
+
+  const handleAddService = () => {
+    if (newServiceImage && newServiceTitle) {
+      setServices([
+        ...services,
+        {
+          image: newServiceImage,
+          title: newServiceTitle,
+          description: newServiceDescription
+        }
+      ]);
+      setNewServiceImage(null);
+      setNewServiceTitle("");
+      setNewServiceDescription("");
+    }
   };
 
   return (
@@ -97,33 +116,56 @@ const Profile = () => {
       </div>
 
       <div className="section">
-        <h2 className="section-title">Our Contact Info:</h2>
-        {isEditing ? (
-          <>
-            <input type="text" className="body-text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input type="text" className="body-text" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            <input type="text" className="body-text" value={telephone} onChange={(e) => setTelephone(e.target.value)} />
-          </>
-        ) : (
-          <>
-            <p className="body-text">Email: {email}</p>
-            <p className="body-text">Phone: {phone}</p>
-            <p className="body-text">Telephone: {telephone}</p>
-          </>
-        )}
-      </div>
-
-      <div className="section">
         <h2 className="section-title">Services Offered</h2>
-        <div className="certs-list">
+        <div className="services-grid">
           {services.map((service, i) => (
-            <div key={i} className="cert-box">
-              <span className="body-text">{service}</span>
-              {isEditing && <button onClick={() => handleRemoveService(i)}>🗑</button>}
+            <div key={i} className="service-card">
+              <div className="service-image-wrapper">
+                <img src={service.image} className="service-image" alt={service.title} />
+                {isEditing && (
+                  <button className="delete-btn" onClick={() => handleRemoveService(i)}>🗑</button>
+                )}
+              </div>
+              <h3 className="service-title">{service.title}</h3>
+              <p className="service-description">{service.description}</p>
             </div>
           ))}
           {isEditing && (
-            <button className="add-button" onClick={handleAddService}>+ Add</button>
+            <div className="service-card">
+              <div className="service-image-wrapper">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const url = URL.createObjectURL(file);
+                      setNewServiceImage(url);
+                    }
+                  }}
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Title"
+                value={newServiceTitle}
+                onChange={(e) => setNewServiceTitle(e.target.value)}
+                className="body-text"
+              />
+              <textarea
+                placeholder="Description"
+                value={newServiceDescription}
+                onChange={(e) => setNewServiceDescription(e.target.value)}
+                className="body-text"
+              />
+              <button
+                className="upload-btn"
+                style={{ position: 'static', marginTop: '10px' }}
+                onClick={handleAddService}
+              >
+                Add
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -156,6 +198,23 @@ const Profile = () => {
             </>
           )}
         </div>
+      </div>
+
+      <div className="section">
+        <h2 className="section-title">Our Contact Info:</h2>
+        {isEditing ? (
+          <>
+            <input type="text" className="body-text" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" className="body-text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input type="text" className="body-text" value={telephone} onChange={(e) => setTelephone(e.target.value)} />
+          </>
+        ) : (
+          <>
+            <p className="body-text">Email: {email}</p>
+            <p className="body-text">Phone: {phone}</p>
+            <p className="body-text">Telephone: {telephone}</p>
+          </>
+        )}
       </div>
 
       <button className="edit-button" onClick={() => setIsEditing(!isEditing)}>
