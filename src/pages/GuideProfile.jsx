@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import './GuideProfile.css';
 import ReviewComponent from '../components/ReviewComponent';
 import MenuBar from "../components/MenuBar";
-import ActivitiesCarousel from '../components/ActivitiesCarousel.jsx';
+import CardSlider from '../components/CardSlider';
+import Activity from '../components/Activity';
 
 const GuideProfile = () => {
   const navLinks = [
@@ -95,7 +96,11 @@ const GuideProfile = () => {
 
         {/* Activity section */}
         <div className="my-5">
-          <ActivitiesCarousel />
+          <CardSlider>
+            <Activity />
+            <Activity />
+            <Activity />
+          </CardSlider>
         </div>
 
         {/* Traveler Thoughts Section */}

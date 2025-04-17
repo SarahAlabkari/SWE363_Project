@@ -5,6 +5,8 @@ import MenuBar from "../components/MenuBar";
 import CalendarView from "../components/CalendarView"; // Already implemented
 import "./GuideDashboard.css"; // Reuse title styling
 import "./TourCenter.css"; // Custom styles for this page
+import CardSlider from "../components/CardSlider";
+import Activity from "../components/Activity";
 
 const TourCenter = () => {
   const navLinks = [
@@ -28,18 +30,15 @@ const TourCenter = () => {
             {/* You can populate with actual dates */}
           </select>
 
-          <div className="tour-carousel">
-            {/* Placeholder cards (replace with dynamic components later) */}
-            {[1, 2, 3, 4].map((_, index) => (
-              <div key={index} className="tour-card">
-                <div className="tour-image-placeholder"></div>
-                <p className="tour-title">Event name</p>
-                <div className="tour-actions">
-                  <button className="tour-btn">Learn more</button>
-                  <button className="tour-status">Status</button>
-                </div>
-              </div>
-            ))}
+          <div>
+              <CardSlider>
+                <Activity />
+                <Activity />
+                <Activity />
+                <Activity />
+                <Activity />
+              
+              </CardSlider>
           </div>
 
           <div className="tour-controls">

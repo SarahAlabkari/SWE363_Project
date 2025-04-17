@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 function Tour(props) {
 
     const [tour, setTour] = useState(null);
+    const navigate = useNavigate();
 
     //This will later be fetched from a database
     useEffect(() => {
@@ -38,7 +40,7 @@ function Tour(props) {
             </ul>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn guide-button">More details</button>
+                <button type="button" id="evnt-details-button" className="btn guide-button" onClick={() => navigate(`/TourDetails/${tour.tourI}`)}>More details</button>
             </div>        
         </div>
     </div>);
