@@ -31,9 +31,29 @@ import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TestError from './pages/TestError';
 
+import Navbar from './components/Navbar';
+import Reservations from './pages/Reservations';
+import EventsHistory from './pages/EventsHistory';
+import EventDetails from './pages/EventDetails';
+import PendingRegistrations from './pages/PendingRegistrations';
+import { useLocation } from "react-router-dom";
+
+
 function App() {
+  const location = useLocation();
+
+  const showNavbarRoutes = [
+    "/reservations",
+    "/profile",
+    "/eventshistory"
+  ];
+
+  const shouldShowNavbar = showNavbarRoutes.includes(location.pathname) || 
+    location.pathname.startsWith("/events-history/");
+
   return (
     <div className="App">
+       {shouldShowNavbar && <Navbar />}
       <Routes>
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
@@ -55,6 +75,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path='/TestError' element={<TestError />} />
+        <Route path="/reservations" element={<Reservations />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/eventshistory" element={<EventsHistory />} />
+        <Route path="/events-history/:eventId" element={<EventDetails />} />
+        <Route path="/pending-registrations" element={<PendingRegistrations />} />
+
       </Routes>
     </div>
   );
