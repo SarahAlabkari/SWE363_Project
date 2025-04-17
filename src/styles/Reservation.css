@@ -1,13 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Ubuntu&display=swap');
 
-/* Theme variables */
 :root {
   --beige: #e5e3d4;
   --purple: #6a669d;
   --brown: #584335;
   --green: #9abf80;
 
-  --font-title: 'Segoe UI', sans-serif;
-  --font-body: 'Segoe UI', sans-serif;
+  --font-title: 'Open Sans', sans-serif;
+  --font-body: 'Ubuntu', sans-serif;
 
   --size-title: 45px;
   --size-subheading: 35px;
@@ -22,34 +22,56 @@ body {
   font-family: var(--font-body);
 }
 
-.reservations-page {
+/* Page container */
+.reservations-page,
+.registrations-page {
   padding: 40px 80px;
   background-color: var(--beige);
 }
 
+/* Page title */
 .page-title {
   text-align: center;
   font-family: var(--font-title);
   font-size: var(--size-title);
   font-weight: bold;
   color: var(--brown);
-  margin-bottom: 30px;
+  margin: 50px 0 30px; /* adjusted to move title down */
 }
 
-/* Table container */
-.reservation-table {
+/* Controls for filtering and search */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.filter-dropdown,
+.search-box {
+  font-size: 18px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+/* Table wrapper */
+.reservation-table,
+.registration-table {
   background-color: white;
   border-radius: 16px;
-  padding: 0; 
+  padding: 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   width: 100%;
   overflow-x: auto;
+  margin: auto;
 }
 
 /* Table */
 table {
   width: 100%;
-  border-collapse: collapse; /* Tighter layout */
+  border-collapse: collapse;
   font-size: var(--size-body);
   font-family: var(--font-body);
   color: var(--brown);
@@ -67,7 +89,7 @@ th {
   font-weight: bold;
 }
 
-/* Table body */
+/* Table rows */
 tbody tr {
   background-color: #ffffff;
   border-bottom: 1px solid #eee;
@@ -83,7 +105,13 @@ td {
   vertical-align: middle;
 }
 
-/* Status label */
+td.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Status tags */
 .status-text {
   padding: 4px 10px;
   border-radius: 6px;
@@ -102,7 +130,7 @@ td {
   color: #4a3d00;
 }
 
-/* Icon button */
+/* Buttons */
 .icon-btn {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -123,9 +151,94 @@ td {
   color: white;
 }
 
-/* Responsive styles */
+.accept-btn {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reject-btn {
+  background-color: #e58a8a;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.view-btn {
+  background-color: var(--purple);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.accept-btn:hover,
+.reject-btn:hover,
+.view-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
+
+/* Confirmation dialog styling (if used later) */
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirm-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.confirm-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-buttons .confirm {
+  background-color: var(--green);
+  color: white;
+}
+
+.confirm-buttons .cancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .reservations-page {
+  .reservations-page,
+  .registrations-page {
     padding: 20px;
   }
 
@@ -139,5 +252,14 @@ td {
 
   td {
     padding: 10px;
+  }
+
+  .top-controls {
+    flex-direction: column;
+  }
+
+  .filter-dropdown,
+  .search-box {
+    width: 100%;
   }
 }
