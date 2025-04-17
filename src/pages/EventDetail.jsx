@@ -19,7 +19,7 @@ const EventDetail = () => {
 
     const eventsData = {
         1: {
-            description: 'A fun adventure event',
+            description: 'A Fun Adventure Event',
             region: 'Khobar',
             capacity: 50,
             time: '10:00 AM',

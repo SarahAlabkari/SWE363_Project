@@ -43,21 +43,12 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
-<<<<<<< HEAD
-
         <Route path="/events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetail />} />
         <Route path="/create-event" element={<CreateEvent />} />
-
-        <Route path="/TourCenter" element={<TourCenter />} />
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
         <Route path='/TourDetails/:id' element={<TourDetails />} />
-
-=======
         <Route path="/TourCenter" element={<TourCenter />} />
-        <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
-        <Route path='/TourDetails/:id' element={<TourDetails />} />
->>>>>>> 00b7b0a17f44a35263f673e7d70bc61044fa9487
         <Route path="/CreateAccount" element={<CreateAccount />} />
         <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
         <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />

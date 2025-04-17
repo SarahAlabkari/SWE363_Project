@@ -52,7 +52,7 @@ const CreateEvent = () => {
             <header className="header-background">
                 <h1>Joyful Journeys</h1>
                 <p>
-                    Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups.
+                    Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups!!
                 </p>
             </header>
 

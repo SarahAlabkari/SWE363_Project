@@ -30,7 +30,7 @@ const Events = () => {
     const handleEventClick = (eventId) => {
         navigate(`/pages/event/${eventId}`);
     };
-   // "/pages/event/:eventId"
+
 
     const handleCreateEventClick = () => {
         navigate('/pages/create-event');
@@ -45,7 +45,7 @@ const Events = () => {
             <header className="header-background">
                 <h1>Joyful Journeys</h1>
                 <p>
-                    Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey.
+                    Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
                 </p>
             </header>
 
