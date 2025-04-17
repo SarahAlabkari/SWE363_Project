@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 function Activity(props) {
 
     const [activity, setActivity] = useState(null);
+    const navigate = useNavigate();
+
 
     //This will later be fetched from a database
     useEffect(() => {
@@ -31,7 +34,7 @@ function Activity(props) {
             <h5 className="card-title">{activity.name}</h5>
             <p className="card-subtitle text-body-secondary">By: {activity.activityPrvider}</p>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn guide-button">More details</button>
+                <button type="button" id="evnt-details-button" className="btn guide-button" onClick={() => navigate(`/ActivityDetails/${activity.activityID}`)}>More details</button>
             </div>        
         </div>
     </div>);
