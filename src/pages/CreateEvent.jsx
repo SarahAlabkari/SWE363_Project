@@ -45,6 +45,7 @@ const CreateEvent = () => {
         navigate('/');
     };
 
+    ActivityProviderPages
     return (
         <>
             <MenuBar links={links} />
