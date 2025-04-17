@@ -1,0 +1,89 @@
+.profile-img-placeholder {
+  width: 120px;
+  height: 120px;
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.profile-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+  background-color: #eaeaea;
+  margin-top: 20px;
+}
+
+.bio-box-container {
+  flex: 1.5;
+  min-width: 250px;
+}
+
+.bio-box {
+  background-color: #eaeaea;
+  padding: 16px;
+  border-radius: 10px;
+  height: 100px;
+}
+
+.contact-box-small {
+  background-color: #eaeaea;
+  padding: 16px;
+  border-radius: 10px;
+  height: 100px;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  margin-top: -35px;
+  
+}
+
+.contact-box-small p {
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+.rating-box {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+.customize-box {
+  background-color: #eee;
+  border-radius: 8px;
+}
+
+.review-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+
+.activities-carousel-wrapper #activitiesCarousel {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: var(--brown-color); 
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+
+.bio-box-container label {
+  color: var(--purpule-color);
+}
+
+
+.customize-box h4 {
+  color: var(--purpule-color);
+}
+
+
+
+
+

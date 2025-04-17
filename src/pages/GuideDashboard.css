@@ -1,0 +1,10 @@
+.section-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #584335;
+  border-bottom: 4px solid #6a669d;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.2rem;
+  width: 100%;
+}

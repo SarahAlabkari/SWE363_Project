@@ -1,12 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import './Payment.css';
+import MenuBar from "../components/MenuBar";
 
 function PaymentPage() {
-  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' or 'apple'
+  const [paymentMethod, setPaymentMethod] = useState('card');
+
+  const [activitySummary, setActivitySummary] = useState({
+    title: '',
+    description: '',
+    pricePerSeat: '',
+    numberOfTickets: ''
+  });
+
+  useEffect(() => {
+    // This will be fetched later with real data 
+    const fetchSummary = async () => {
+      
+      const mockData = {
+        title: 'AlUla Heritage Tour',
+        description: 'Explore the stunning landscapes and historical sites of AlUla with a local guide.',
+        pricePerSeat: '250 SAR',
+        numberOfTickets: '2'
+      };
+
+      setActivitySummary(mockData);
+    };
+
+    fetchSummary();
+  }, []);
+
+  const navLinks = [
+    { label: "Home", path: "/Home" },
+    { label: "About", path: "/About" },
+    { label: "Where To?", path: "/WhereTo" },
+    { label: "Find a Local", path: "/TourGuides" },
+    { label: "My Plan", path: "/MyPlan" },
+    { label: "Wishlist", path: "/MyWishlist" },
+    { label: "Login", path: "/" },
+  ];
 
   return (
     <div className="payment-page">
-      <h1 className="page-title">Pay & Confirm</h1>
+      <div className="menu-bar-wrapper">
+        <MenuBar links={navLinks} />
+      </div>
+
+     
+      
+      <h1 className="page-title" style={{ color: '#5c4033' }}>Pay & Confirm</h1>
 
       <div className="payment-layout">
         {/* Payment Form */}
@@ -48,14 +90,18 @@ function PaymentPage() {
                 <input type="text" placeholder="1234 5678 9012 3456" />
               </label>
               <div className="row">
-                <label>
-                  Expiry
-                  <input type="text" placeholder="MM/YY" />
-                </label>
-                <label>
-                  CVC
-                  <input type="text" placeholder="123" />
-                </label>
+                <div className="form-group half-width">
+                  <label>
+                    Expiry
+                    <input type="text" placeholder="MM/YY" />
+                  </label>
+                </div>
+                <div className="form-group half-width">
+                  <label>
+                    CVC
+                    <input type="text" placeholder="123" />
+                  </label>
+                </div>
               </div>
               <label>
                 Total Price
@@ -69,17 +115,17 @@ function PaymentPage() {
         <div className="summary-box">
           <h2>Summary</h2>
           <div className="summary-content">
-            <p><strong>Activity Title</strong></p>
-            <p>Description</p>
+            <p><strong>{activitySummary.title || 'Activity Title'}</strong></p>
+            <p>{activitySummary.description || 'Description'}</p>
           </div>
           <div className="summary-footer">
             <div className="summary-line">
               <span>Price/Seat:</span>
-              
+              <span>{activitySummary.pricePerSeat || '-'}</span>
             </div>
             <div className="summary-line">
               <span>Number of Tickets:</span>
-              
+              <span>{activitySummary.numberOfTickets || '-'}</span>
             </div>
           </div>
         </div>

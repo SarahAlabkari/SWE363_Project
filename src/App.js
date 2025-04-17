@@ -1,42 +1,61 @@
+// Path: src/App.js
+
 import './App.css';
 import Profile from './pages/Profile';
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
-//import PlanExperience from './pages/PlanExperience';
+import WhereTo from './pages/WhereTo';
 import Payment from './pages/Payment';
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import Home from "./pages/Home";
-import TourGuides from "./pages/TourGuides"
+import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
-import ActivitiesCarousel from './components/ActivitiesCarousel';
+import ActivityDetails from './pages/ActivityDatails';
+import TourDetails from './pages/TourDetails';
+
 import GuideDashboard from "./pages/GuideDashboard";
-import Navbar from './components/Navbar';
-import Reservations from './pages/Reservations';
-import EventsHistory from './pages/EventsHistory';
-import EventDetails from './pages/EventDetails';
-import PendingRegistrations from './pages/PendingRegistrations';
+import MyPlan from './pages/MyPlan';
+import About from './pages/About';
+import MyWishList from "./pages/MyWishList";
+import TourCenter from './pages/TourCenter';
+
+
+import CreateAccount from './pages/CreateAccount';
+import CreateActivityProviderAccount from './pages/CreateActivityProviderAccount';
+import CreateTourGuideAccount from './pages/CreateTourGuideAccount';
+import CreateTouristAccount from './pages/CreateTouristAccount';
+import ForgetPassword from './pages/ForgetPassword';
+import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
+import TestError from './pages/TestError';
 
 function App() {
   return (
-      <div className="App">
-        <Navbar />
-        <Routes>
-          {/* <Route path="/" element={<PlanExperience />} /> */}
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/Home" element={<Home/>} />
-          <Route path="/TourGuides" element={<TourGuides />} />
-          <Route path="/guide/:guideName" element={<GuideProfile />} />
-          <Route path='/GuideDashboard' element={<GuideDashboard />} />
-          <Route path="/reservations" element={<Reservations />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/eventshistory" element={<EventsHistory />} />
-          <Route path="/events-history/:eventId" element={<EventDetails />} />
-          <Route path="/pending-registrations" element={<PendingRegistrations />} />
-
-          {/* <Route path='/ToursCenter' element={<ToursCenter />} /> */}
- 
-        </Routes>
+    <div className="App">
+      <Routes>
+        <Route path="/WhereTo" element={<WhereTo />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/TourGuides" element={<TourGuides />} />
+        <Route path="/guide/:guideName" element={<GuideProfile />} />
+        <Route path="/GuideDashboard" element={<GuideDashboard />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/MyWishList" element={<MyWishList />} />
+        <Route path="/MyPlan" element={<MyPlan />} />
+        <Route path="/TourCenter" element={<TourCenter />} />
+        <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
+        <Route path='/TourDetails/:id' element={<TourDetails />} />
+        <Route path="/CreateAccount" element={<CreateAccount />} />
+        <Route path="/CreateActivityProviderAccount" element={<CreateActivityProviderAccount />} />
+        <Route path="/CreateTourGuideAccount" element={<CreateTourGuideAccount />} />
+        <Route path="/CreateTouristAccount" element={<CreateTouristAccount />} />
+        <Route path="/ForgetPassword" element={<ForgetPassword />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route path='/TestError' element={<TestError />} />
+      </Routes>
     </div>
   );
 }
