@@ -28,6 +28,7 @@ import CreateTouristAccount from './pages/CreateTouristAccount';
 import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
+import TestError from './pages/TestError';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route path='/TestError' element={ <TestError /> } />
       </Routes>
     </div>
   );
