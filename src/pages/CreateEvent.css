@@ -1,0 +1,50 @@
+.create-event {
+    background-color: #9abf80; /* Light gray background */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    max-width: 600px; /* Limit width */
+    margin: auto; /* Center the component */
+    color: #584335;
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px;
+}
+
+.event-form {
+    display: flex;
+    flex-direction: column; /* Layout inputs vertically */
+}
+
+label {
+    margin-bottom: 15px; /* Space between labels */
+}
+
+input {
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ccc; /* Border around inputs */
+    border-radius: 4px; /* Rounded corners */
+    width: 95%; /* Full width inputs */
+}
+
+.error-message {
+    color: red; /* Error message color */
+    text-align: center; /* Center error message */
+    margin-bottom: 20px; /* Space below error message */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer; /* Pointer cursor on hover */
+    background-color: #584335; /* Button color */
+    color: white; /* Text color */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #e5e3d4; /* Darker button color on hover */
+    color: #584335;
+}
