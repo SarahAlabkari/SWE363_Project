@@ -45,6 +45,7 @@ import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import TestPopup from './pages/TestPopup';
+import { Navigate } from 'react-router-dom';
 
 function App() {
   const location = useLocation();
@@ -62,6 +63,7 @@ function App() {
     <div className="App">
       {shouldShowNavbar && <Navbar />}
       <Routes>
+        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/AdminComplaints" element={< AdminComplaints/>} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
