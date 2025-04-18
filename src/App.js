@@ -1,11 +1,17 @@
 // Path: src/App.js
+
+// Import global styles
 import './App.css';
+
+// Import component files
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
+
+// Import pages
 import WhereTo from './pages/WhereTo';
 import Payment from './pages/Payment';
 import React from "react";
-import { Routes, Route, Navigate , Link} from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom"; // React Router imports
 import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
@@ -16,7 +22,6 @@ import MyPlan from './pages/MyPlan';
 import About from './pages/About';
 import MyWishList from "./pages/MyWishList";
 import TourCenter from './pages/TourCenter';
-
 import CreateAccount from './pages/CreateAccount';
 import CreateActivityProviderAccount from './pages/CreateActivityProviderAccount';
 import CreateTourGuideAccount from './pages/CreateTourGuideAccount';
@@ -25,7 +30,6 @@ import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TestError from './pages/TestError';
-
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
@@ -33,6 +37,7 @@ import CreateEvent from './pages/CreateEvent';
 function App() {
   return (
     <div className="App">
+      {/* Define all application routes */}
       <Routes>
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
@@ -58,7 +63,6 @@ function App() {
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path='/TestError' element={<TestError />} />
       </Routes>
-      
     </div>
   );
 }
