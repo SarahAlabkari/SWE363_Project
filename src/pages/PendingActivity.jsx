@@ -1,7 +1,10 @@
+// Importing necessary components, libraries, pages 
+
 import React, { useState, useEffect, useRef } from "react";
 import AdminMenuBar from "../components/AdminMenuBar";
 import { Alert, Button } from "react-bootstrap";
 import { X } from "react-bootstrap-icons";
+//  data representing  activities
 
 const PendingActivity = () => {
   const [activities, setActivities] = useState([]);

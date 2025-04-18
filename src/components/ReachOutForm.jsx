@@ -1,3 +1,5 @@
+// Importing necessary components, libraries, pages 
+
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
@@ -36,6 +38,9 @@ const ReachOutForm = () => {
   };
 
   return (
+
+      // Styling for this section
+
     <div style={{
       backgroundColor: '#e5e3d4',
       borderRadius: '10px',
