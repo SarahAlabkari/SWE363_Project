@@ -1,0 +1,66 @@
+/* Navbar wrapper */
+.navbar-wrapper {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-bottom: 1px solid #ccc;
+  padding: 0;
+}
+
+/* Navbar container */
+.navbar-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 40px;
+}
+
+/* Flex layout */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+}
+
+/* Logo */
+.navbar-logo {
+  height: 125px;
+  object-fit: contain;
+}
+
+/* Camels */
+.navbar-camels {
+  height: 90px;
+  object-fit: contain;
+}
+
+/* Links in the center */
+.navbar-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 45px;
+  flex: 1;
+}
+
+/* Each nav link */
+.nav-link {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #e5e3d4;
+  color: #6a669d;
+}
+
+.nav-link.active {
+  background-color: #ddd;
+  color: #584335;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+}

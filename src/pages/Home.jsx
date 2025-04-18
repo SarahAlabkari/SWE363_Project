@@ -66,11 +66,11 @@ const Home = () => {
           Explore Saudi Like Never Before!
         </h2>
         <CardSlider>
-          <Activity />
-          <Activity />
-          <Activity />
-          <Activity />
-          <Activity />
+
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
+
         </CardSlider>
       </section>
     </div>

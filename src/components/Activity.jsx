@@ -15,7 +15,7 @@ function Activity(props) {
       date: 'April 10, 2025',
       time: '9:00 AM',
       location: 'Alula, Saudi Arabia',
-      description: 'Explore AlUla\'s scenic trails and rock formations on a guided desert hike.',
+      description: 'Join us for a day full of adventure. Explore AlUla’s scenic trails and rock formations on a guided desert hike.',
       imageUrl: "/alula2.jpg",
       state: 'Active',
     };
@@ -25,6 +25,14 @@ function Activity(props) {
   const toggleLike = () => {
     setLiked(!liked);
     // TODO: Add logic to add/remove from wishlist in DB/localStorage
+  };
+
+  const handleClick = () => {
+    if (props.customLink) {
+      navigate(props.customLink);
+    } else {
+      navigate(`/ActivityDetails/${activity.activityID}`);
+    }
   };
 
   if (!activity) return <div>Loading....</div>;
@@ -73,7 +81,7 @@ function Activity(props) {
             type="button"
             id="evnt-details-button"
             className="btn guide-button"
-            onClick={() => navigate(`/ActivityDetails/${activity.activityID}`)}
+            onClick={handleClick}
           >
             More details
           </button>

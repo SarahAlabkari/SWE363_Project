@@ -25,7 +25,6 @@ const sampleAcMytivities = [
 
 const MyPlan = () => {
 
-
   return (
     <div>
     <div>

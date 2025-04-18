@@ -3,7 +3,6 @@ import MenuBar from "../components/MenuBar";
 import TouristMenuBar from "../components/TouristMenuBar";
 
 
-
 const About = () => {
   return (
     <div>
