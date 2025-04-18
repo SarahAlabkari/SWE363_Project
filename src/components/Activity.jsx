@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Activity(props) {
   const [activity, setActivity] = useState(null);
+  const [liked, setLiked] = useState(false); // ❤️ Wishlist state
   const navigate = useNavigate();
 
-  // This will later be fetched from a database
   useEffect(() => {
     const mockActivity = {
       name: 'Hiking in AlUlas rock formations',
@@ -22,9 +22,10 @@ function Activity(props) {
     setActivity(mockActivity);
   }, []);
 
-  if (!activity) {
-    return <div>Loading....</div>;
-  }
+  const toggleLike = () => {
+    setLiked(!liked);
+    // TODO: Add logic to add/remove from wishlist in DB/localStorage
+  };
 
   const handleClick = () => {
     if (props.customLink) {
@@ -33,6 +34,8 @@ function Activity(props) {
       navigate(`/ActivityDetails/${activity.activityID}`);
     }
   };
+
+  if (!activity) return <div>Loading....</div>;
 
   return (
     <div
@@ -43,12 +46,31 @@ function Activity(props) {
         borderColor: 'var(--green-color)',
         borderWidth: '3px',
         padding: '5px',
+        position: 'relative',
       }}
     >
+      {/* ❤️ Wishlist Heart Icon */}
+      <button
+        onClick={toggleLike}
+        className="btn p-0"
+        style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+          background: 'none',
+          border: 'none',
+          fontSize: '1.5rem',
+          color: liked ? 'red' : 'gray',
+        }}
+        aria-label="Add to wishlist"
+      >
+        <i className={`bi ${liked ? 'bi-heart-fill' : 'bi-heart'}`}></i>
+      </button>
+
       <img
         src={activity.imageUrl}
         className="card-img-top"
-        alt="Event image"
+        alt="Event"
         style={{ height: '45%', marginBottom: '5px' }}
       />
       <div className="card-body" style={{ padding: '3px' }}>
