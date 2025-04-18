@@ -1,22 +1,31 @@
 // Path: src/App.js
+
+// Import global styles
 import './App.css';
+
+// Import component files
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
+import Navbar from './components/Navbar';
+
+// Import React and routing tools
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+
+// Import pages
+import Home from "./pages/Home";
 import WhereTo from './pages/WhereTo';
 import Payment from './pages/Payment';
-import React from "react";
-import { Routes, Route, Navigate , Link} from "react-router-dom";
-import Home from "./pages/Home";
-import TourGuides from "./pages/TourGuides";
+import AdminComplaints from './pages/AdminComplaints';
+import ExploreActivities from './pages/ExploreActivities';
+import ViewActivity from './pages/ViewActivity';
+import TourGuides from './pages/TourGuides';
 import GuideProfile from './pages/GuideProfile';
-import ActivityDetails from './pages/ActivityDatails';
-import TourDetails from './pages/TourDetails';
 import GuideDashboard from "./pages/GuideDashboard";
-import MyPlan from './pages/MyPlan';
 import About from './pages/About';
 import MyWishList from "./pages/MyWishList";
+import MyPlan from './pages/MyPlan';
 import TourCenter from './pages/TourCenter';
-
 import CreateAccount from './pages/CreateAccount';
 import CreateActivityProviderAccount from './pages/CreateActivityProviderAccount';
 import CreateTourGuideAccount from './pages/CreateTourGuideAccount';
@@ -25,17 +34,40 @@ import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import TestError from './pages/TestError';
-
+import Reservations from './pages/Reservations';
+import Profile from './pages/Profile';
+import EventsHistory from './pages/EventsHistory';
+import EventDetails from './pages/EventDetails';
+import PendingRegistrations from './pages/PendingRegistrations';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
+import ActivityDetails from './pages/ActivityDatails';
+import TourDetails from './pages/TourDetails';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
+  const location = useLocation();
+
+  const showNavbarRoutes = [
+    "/reservations",
+    "/profile",
+    "/eventshistory"
+  ];
+
+  const shouldShowNavbar = showNavbarRoutes.includes(location.pathname) || 
+    location.pathname.startsWith("/events-history/");
+
   return (
     <div className="App">
+      {shouldShowNavbar && <Navbar />}
       <Routes>
+        <Route path="/AdminComplaints" element={< AdminComplaints/>} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/ExploreActivities" element={<ExploreActivities/>}/>
+        <Route path="/ViewActivity" element={<ViewActivity/>}/>
+      
         <Route path="/Home" element={<Home />} />
         <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />
@@ -43,7 +75,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/Events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetail />} />
         <Route path="/create-event" element={<CreateEvent />} />
         <Route path='/ActivityDetails/:id' element={<ActivityDetails />} />
@@ -57,6 +89,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path='/TestError' element={<TestError />} />
+        <Route path="/reservations" element={<Reservations />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/eventshistory" element={<EventsHistory />} />
+        <Route path="/events-history/:eventId" element={<EventDetails />} />
+        <Route path="/pending-registrations" element={<PendingRegistrations />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );

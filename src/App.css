@@ -397,3 +397,10 @@ h1{
   .btn:hover{
     color: #6a669d;;
   }
+  .page-container {
+    padding: 50px 80px;
+    background-color: #e5e3d4;
+    min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+  }
+  

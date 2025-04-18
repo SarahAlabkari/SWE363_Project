@@ -1,12 +1,13 @@
 // Path: src/pages/CreateTourGuideAccount.jsx
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Added for navigation
-import './CreateAccountForm.css'; // Shared layout and style
+import React, { useState } from 'react'; // Import React and useState hook
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation after successful signup
+import './CreateAccountForm.css'; // Import shared layout and styles for account creation
 
 const CreateTourGuideAccount = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate(); // Hook to allow navigation
 
+  // State to store form fields
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -18,14 +19,14 @@ const CreateTourGuideAccount = () => {
     phoneNumber: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
 
-  // Update form data state
+  // Update form data dynamically
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Validate form inputs before submission
+  // Validate all form fields before submission
   const validateForm = () => {
     const {
       username,
@@ -38,6 +39,7 @@ const CreateTourGuideAccount = () => {
       phoneNumber,
     } = formData;
 
+    // Check if any required field is empty
     if (
       !username ||
       !email ||
@@ -51,54 +53,73 @@ const CreateTourGuideAccount = () => {
       return 'All fields are required';
     }
 
+    // Validate email format
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
       return 'Please enter a valid email address';
     }
 
+    // Check password minimum length
     if (password.length < 6) {
       return 'Password must be at least 6 characters';
     }
 
+    // Check if passwords match
     if (password !== confirmPassword) {
       return 'Passwords do not match';
     }
 
+    // Validate national ID: exactly 10 digits
     const idRegex = /^\d{10}$/;
     if (!idRegex.test(nationalId)) {
       return 'National ID must be exactly 10 digits';
     }
 
+    // Validate phone number: Saudi format (starts with 05 and 10 digits total)
     const phoneRegex = /^05\d{8}$/;
     if (!phoneRegex.test(phoneNumber)) {
       return 'Phone number must start with 05 and be 10 digits long';
     }
 
-    return '';
+    return ''; // No errors
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const error = validateForm();
+
     if (error) {
-      setErrorMessage(error);
+      setErrorMessage(error); // Display validation error
     } else {
       setErrorMessage('');
-      alert('Tour Guide account created successfully!');
+      alert('Tour Guide account created successfully!'); // Success feedback
+
+      // Redirect to login page after 2 seconds
       setTimeout(() => {
-        navigate('/Login'); // Redirect after 2 seconds
+        navigate('/Login');
       }, 2000);
     }
   };
 
   return (
     <div className="account-form">
+
+      {/* Logo at the top */}
+      <img 
+        src="../jadwill logo.png" 
+        alt="Jaddwill Logo" 
+        className="page-logo"
+      />
+      
+      {/* Title and Subtitle */}
       <h1 className="account-form-title">Create Account</h1>
       <p className="account-form-subtitle">As a Tour guide</p>
 
+      {/* Form to capture guide registration details */}
       <form onSubmit={handleSubmit} noValidate>
-        {/* Username */}
+
+        {/* Username Field */}
         <div className="input-pair">
           <label>Username</label>
           <input
@@ -111,7 +132,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Email */}
+        {/* Email Field */}
         <div className="input-pair">
           <label>Email</label>
           <input
@@ -124,7 +145,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Password */}
+        {/* Password Field */}
         <div className="input-pair">
           <label>Password</label>
           <input
@@ -137,7 +158,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Confirm Password */}
+        {/* Confirm Password Field */}
         <div className="input-pair">
           <label>Confirm Password</label>
           <input
@@ -150,7 +171,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* First Name */}
+        {/* First Name Field */}
         <div className="input-pair">
           <label>First Name</label>
           <input
@@ -163,7 +184,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Last Name */}
+        {/* Last Name Field */}
         <div className="input-pair">
           <label>Last Name</label>
           <input
@@ -176,7 +197,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* National ID */}
+        {/* National ID Field */}
         <div className="input-pair">
           <label>National ID</label>
           <input
@@ -190,7 +211,7 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Phone Number */}
+        {/* Phone Number Field */}
         <div className="input-pair">
           <label>Phone Number</label>
           <input
@@ -204,14 +225,14 @@ const CreateTourGuideAccount = () => {
           />
         </div>
 
-        {/* Show error if any */}
+        {/* Display Error Message if exists */}
         {errorMessage && (
           <p style={{ color: 'red', gridColumn: 'span 2', textAlign: 'center' }}>
             {errorMessage}
           </p>
         )}
 
-        {/* Submit */}
+        {/* Submit Button */}
         <button type="submit" className="create-btn">Create</button>
       </form>
     </div>

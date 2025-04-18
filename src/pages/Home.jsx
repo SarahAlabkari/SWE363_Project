@@ -72,9 +72,9 @@ const Home = () => {
       <section className="text-center py-5 bg-light">
         <h2 className="fw-bold">Explore Saudi Like Never Before</h2>
         <CardSlider>
-          <Activity />
-          <Activity />
-          <Activity />
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
         </CardSlider>
       </section>
     </div>

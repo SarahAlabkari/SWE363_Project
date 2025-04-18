@@ -14,7 +14,7 @@ const ForgetPassword = () => {
 
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
     if (email) {
       // Show success message temporarily
@@ -25,18 +25,28 @@ const ForgetPassword = () => {
         navigate('/ResetPassword');
       }, 1000); // Wait 1 second to show the message before navigating
     } else {
+      // If email is empty, show a validation message
       setMessage('Please enter your email address');
     }
   };
 
   return (
     <div className="forget-password-container">
+
+      {/* Logo displayed at the top left */}
+      <img 
+        src="../jadwill logo.png" 
+        alt="Jaddwill Logo" 
+        className="page-logo"
+      />
+
       {/* Page title displayed above the form box */}
       <h1 className="form-title">Forget your Password</h1>
 
       {/* Form container with white background */}
       <div className="form-container">
-        {/* Instruction text */}
+
+        {/* Instructional subtitle */}
         <p className="form-subtitle">Enter the email address of your account</p>
 
         {/* Email input form */}
@@ -45,19 +55,19 @@ const ForgetPassword = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)} // Update email on input change
             className="form-input"
           />
 
-          {/* Display message (success or validation) */}
+          {/* Conditional display of feedback message */}
           {message && <p className="form-message">{message}</p>}
 
-          {/* Submit button */}
+          {/* Submit button to send the reset request */}
           <button type="submit" className="form-button">Send Request</button>
         </form>
       </div>
 
-      {/* Link back to login page */}
+      {/* Link back to the login page */}
       <p className="back-to-login">
         <Link to="/Login">← Back to Login</Link>
       </p>

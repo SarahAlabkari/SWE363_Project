@@ -27,11 +27,11 @@ const MyPlan = () => {
     const navLinks = [
       { label: "Home", path: "/Home" },
       { label: "About", path: "/About" },
-      { label: "Where To?", path: "" },
+      { label: "Where To?", path: "WhereTo" },
       { label: "Find a Local", path: "/TourGuides" },
       { label: "My Plan", path: "/MyPlan" },
       { label: "Wishlist", path: "/MyWishlist" },
-      { label: "Login", path: "/" },
+      { label: "Login", path: "/Login" },
       ];
 
   return (

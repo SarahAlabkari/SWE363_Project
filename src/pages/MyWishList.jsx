@@ -5,11 +5,11 @@ import Activity from "../components/Activity";
 const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
-    { label: "Where To?", path: "" },
+    { label: "Where To?", path: "WhereTo" },
     { label: "Find a Local", path: "/TourGuides" },
     { label: "My Plan", path: "/MyPlan" },
     { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/" },
+    { label: "Login", path: "/Login" },
   ];
 
   const MyWishList = () => {
@@ -19,9 +19,9 @@ const navLinks = [
     <div className="container mt-5 text-center">
           <h2>My WishList</h2>
           <CardSlider>
-            <Activity />
-            <Activity />
-            <Activity />
+          <Activity customLink="/ViewActivity" />
+          <Activity customLink="/ViewActivity" />
+          <Activity customLink="/ViewActivity" />
           </CardSlider>
     </div>
     </div>
