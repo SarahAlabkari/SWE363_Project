@@ -1,6 +1,7 @@
 // Path: src/pages/GuideDashboard.jsx
 
 import React from "react";
+// Import custom components used in the dashboard
 import CalendarComponent from "../components/CalendarComponent";
 import GuideReviews from "../components/GuideReviews";
 import TourStatistics from "../components/TourStatistics";
@@ -13,7 +14,7 @@ import EarningPerMonth from "../components/EarningPerMonth"; // Earning / Month 
 import "./GuideDashboard.css"; // Optional: where you put your scrollbar styling
 
 const GuideDashboard = () => {
-
+  // Navigation bar links
   const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
@@ -24,7 +25,10 @@ const GuideDashboard = () => {
 
   return (
     <div>
+      {/* Top MenuBar with navigation links */}
       <MenuBar links={navLinks} />
+
+      {/* Main content container */}
       <div className="min-vh-100">
         <main
           className="d-flex flex-column"
@@ -33,7 +37,7 @@ const GuideDashboard = () => {
             gap: '5rem',
           }}
         >
-          {/* First row: calendar and activities */}
+          {/* First row: Calendar + Activities of the day and month */}
           <div
             className="d-flex flex-wrap"
             id="dashboardRow1"
@@ -44,12 +48,12 @@ const GuideDashboard = () => {
               width: '100%',
             }}
           >
-            {/* Calendar */}
+            {/* Calendar Section */}
             <div style={{ flex: '1', minWidth: '300px' }}>
               <CalendarComponent />
             </div>
 
-            {/* Sliders */}
+            {/* Activities Section with sliders */}
             <div style={{ flex: '2', minWidth: 0 }}>
               <p className="section-title">Happining on this day</p>
               <CardSlider>
@@ -67,7 +71,7 @@ const GuideDashboard = () => {
             </div>
           </div>
 
-          {/* Second row: statistics and reviews */}
+          {/* Second row: Statistics and Reviews */}
           <div
             className="d-flex flex-wrap"
             id="dashboardRow2"
@@ -76,18 +80,20 @@ const GuideDashboard = () => {
               gap: '3rem',
             }}
           >
+            {/* How Many Tours Section */}
             <div style={{ flex: '1', minWidth: '300px' }}>
               <p className="section-title">How many?</p>
               <TourStatistics />
             </div>
 
+            {/* Reviews Section */}
             <div style={{ flex: '1', minWidth: '300px' }}>
               <p className="section-title">Reviews</p>
               <GuideReviews />
             </div>
           </div>
 
-          {/* Third row: earning and top attended tours */}
+          {/* Third row: Earnings and Top Tours */}
           <div
             className="d-flex flex-wrap"
             id="dashboardRow3"
@@ -96,20 +102,23 @@ const GuideDashboard = () => {
               gap: '3rem',
             }}
           >
+            {/* Earnings Section */}
             <div style={{ flex: '1', minWidth: '300px' }}>
+              <p className="section-title">Earning / Month</p>
               <EarningPerMonth />
             </div>
 
+            {/* Top 3 Attended Tours Section */}
             <div style={{ flex: '1', minWidth: '300px' }}>
               <p className="section-title">Top 3 Attended Tours</p>
               <GuideTopTours />
             </div>
           </div>
+
         </main>
-          </div>
+      </div>
     </div>
   );
 };
 
 export default GuideDashboard;
-

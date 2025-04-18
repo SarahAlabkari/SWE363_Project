@@ -45,7 +45,7 @@ const EarningPerMonth = () => {
   return (
     <div className="earning-container">
       {/* Chart section title */}
-      <h2 className="section-title">Earning / Month</h2>
+      {/* <h2 className="section-title">Earning / Month</h2> */}
 
       {/* Year dropdown selector */}
       <div className="year-dropdown-centered">
@@ -99,8 +99,8 @@ const EarningPerMonth = () => {
   <Label
     value="SAR"
     position="bottom"
-    offset={-114} // keep your original vertical position
-    dx={-27}      // added: moves label left without affecting offset
+    offset={-114} 
+    dx={-27}      
     style={{
       fill: '#000',
       fontFamily: 'Ubuntu',
