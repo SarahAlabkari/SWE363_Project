@@ -74,6 +74,12 @@
   border-radius: 25px;
   border: 2px solid #6a669d; /* Purple border */
   font-size: 16px;
+  background-color: #fff;
+}
+
+/* Placeholder text inside input fields */
+.account-form .input-pair input::placeholder {
+  color: #9abf80; /* Green placeholder */
 }
 
 /* Submit/Create button styling */

@@ -74,6 +74,29 @@ SWE363_Project/
 - You must have **Node.js** installed.
 - Public images like **logos** and **icons** are stored in the `/public` folder.
 
+## Simulated Functionalities
+
+**Login Simulation:**
+- Since the system is not yet connected to a real database, we simulate login functionality by using predefined users stored directly in the frontend code.
+- Users can log in using either their **username** or **email**, along with the correct **password**.
+- The available credentials are:
+
+| Role                  | Username     | Email                  | Password       |
+|------------------------|--------------|------------------------|----------------|
+| Admin                  | admin        | admin@jadwill.com      | admin123        |
+| Activity Provider      | provider     | provider@jadwill.com   | provider123     |
+| Tour Guide             | guide        | guide@jadwill.com      | guide123        |
+| Tourist                | tourist      | tourist@jadwill.com    | tourist123      |
+
+✅ After logging in, users are redirected to their specific landing pages according to their role.
+
+---
+
+**Password Reset Simulation:**
+- Since the platform is not yet linked to a real email service,  
+clicking **"Send Request"** on the "Forget Password" page will **directly redirect** the user to the **Reset Password** page after a short success message.
+- In a fully connected system, this action would instead send an actual email containing a password reset link.
+
 ## Contributors
 
 Developed by **Team 21**:
