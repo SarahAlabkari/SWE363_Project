@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../pages/Events.css';
-import '../App.css'; 
 import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
 
 const links = [
-    { path: "../pages/Events", label: "Home" },
+    { path: "/Events", label: "Home" },
     { path: "/profile", label: "Profile" },
     { path: "/reservations", label: "Reservations" },
     { path: "/events-history", label: "Events History" },
-    { path: "/sign-out", label: "Sign Out" },
+    { path: "/Home", label: "Sign Out" },
 ];
 
 const eventsData = [
@@ -26,44 +24,94 @@ const eventsData = [
 
 const Events = () => {
     const navigate = useNavigate();
+    const [hoveredCard, setHoveredCard] = useState(null);
 
     const handleEventClick = (eventId) => {
         navigate(`/event/${eventId}`);
     };
 
-
     const handleCreateEventClick = () => {
         navigate('/create-event');
     };
 
- 
+    const headerStyle = {
+        padding: '30px 20px',
+        marginBottom: '30px',
+        //backgroundColor: 'white',
+        textAlign: 'left',
+       // backgroundColor:''
+    };
+
+    const containerStyle = {
+        margin: '50px 0',
+        padding: '20px',
+        textAlign: 'left',
+        color: 'black',
+        backgroundColor: 'white',
+    };
+
+    const gridStyle = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: '50px',
+        margin: '60px',
+    };
+
+    const baseCardStyle = {
+        backgroundColor: '#9abf80',
+        padding: '25px',
+        textAlign: 'center',
+        borderRadius: '40px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        cursor: 'pointer',
+        color: '#584335',
+        transition: 'transform 0.2s, box-shadow 0.2s',
+    };
+
+    const getCardStyle = (index) => ({
+        ...baseCardStyle,
+        ...(hoveredCard === index && {
+            transform: 'scale(1.05)',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        }),
+    });
+
+    const addEventStyle = {
+        ...baseCardStyle,
+        fontSize: '21px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold',
+    };
 
     return (
         <>
             <MenuBar links={links} />
 
-
-            <header className="header-background">
+            <header style={headerStyle}>
                 <h1>Joyful Journeys</h1>
                 <p>
-                    Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
-                </p>
+                Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!                </p>
             </header>
 
-            <main className="App container">
+            <main style={containerStyle}>
                 <h2>Upcoming Events</h2>
-                <div className="events-grid">
+                <div style={gridStyle}>
                     <div
-                        className="event-card add-event"
+                        style={addEventStyle}
                         onClick={handleCreateEventClick}
                     >
                         <h3>Create a New Event</h3>
                     </div>
-                    {eventsData.map((event) => (
+
+                    {eventsData.map((event, index) => (
                         <div
                             key={event.id}
-                            className="event-card"
+                            style={getCardStyle(index)}
                             onClick={() => handleEventClick(event.id)}
+                            onMouseEnter={() => setHoveredCard(index)}
+                            onMouseLeave={() => setHoveredCard(null)}
                         >
                             <h3>{event.name}</h3>
                             <p>Remaining seats: {event.remainingSeats}</p>
