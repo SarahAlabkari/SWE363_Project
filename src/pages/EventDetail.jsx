@@ -9,6 +9,7 @@ const links = [
   { path: "/Reservations", label: "Reservations" },
   { path: "/EventsHistory", label: "Events History" },
   { path: "/Home", label: "Logout" },
+  
 ];
 
 const EventDetail = () => {
