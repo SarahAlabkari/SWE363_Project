@@ -189,3 +189,10 @@ p {
 .summary-content p strong {
   color: var(--purpule-color);
 }
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+}

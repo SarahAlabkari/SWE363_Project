@@ -4,7 +4,7 @@ import MenuBar from "../components/MenuBar";
 const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
-    { label: "Where To?", path: "" },
+    { label: "Where To?", path: "/WhereTo" },
     { label: "Find a Local", path: "/TourGuides" },
     { label: "My Plan", path: "/MyPlan" },
     { label: "Wishlist", path: "/MyWishlist" },

@@ -23,20 +23,23 @@
   background-color: #eaeaea;
   padding: 16px;
   border-radius: 10px;
-  height: 100px;
+  min-height: 100px;
+  height: auto;
 }
 
 .contact-box-small {
   background-color: #eaeaea;
   padding: 16px;
   border-radius: 10px;
-  height: 100px;
-  width: 230px;
+  min-height: 100px;
+  width: 100%;
+  max-width: 230px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-self: center;
+  align-self: start;
   margin-top: -35px;
+ 
   
 }
 
@@ -63,27 +66,48 @@
   padding: 20px;
 }
 
-
 .activities-carousel-wrapper #activitiesCarousel {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  background-color: var(--brown-color); 
+  background-color: var(--brown-color);
   padding: 2rem;
   border-radius: 20px;
 }
-
 
 .bio-box-container label {
   color: var(--purpule-color);
 }
 
-
 .customize-box h4 {
   color: var(--purpule-color);
 }
 
+@media (min-width: 768px) {
+  .bio-box-container {
+    flex: 1.5;
+    min-width: 250px;
+  }
 
+  .contact-box-small {
+    margin-top: 0;
+    align-self: center;
+    
+  }
+}
 
+@media (max-width: 767px) {
+  .guide-profile-page .d-flex {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
 
-
+  .bio-box-container,
+  .contact-box-small {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+.guide-profile-page .contact-box-small {
+  margin-top: -35px;
+}

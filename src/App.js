@@ -16,6 +16,9 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import WhereTo from './pages/WhereTo';
 import Payment from './pages/Payment';
+import AdminComplaints from './pages/AdminComplaints';
+import ExploreActivities from './pages/ExploreActivities';
+import ViewActivity from './pages/ViewActivity';
 import TourGuides from './pages/TourGuides';
 import GuideProfile from './pages/GuideProfile';
 import GuideDashboard from "./pages/GuideDashboard";
@@ -59,8 +62,12 @@ function App() {
     <div className="App">
       {shouldShowNavbar && <Navbar />}
       <Routes>
+        <Route path="/AdminComplaints" element={< AdminComplaints/>} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/ExploreActivities" element={<ExploreActivities/>}/>
+        <Route path="/ViewActivity" element={<ViewActivity/>}/>
+      
         <Route path="/Home" element={<Home />} />
         <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />

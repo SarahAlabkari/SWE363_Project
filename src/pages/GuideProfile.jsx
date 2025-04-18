@@ -10,10 +10,14 @@ const GuideProfile = () => {
   const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
-    { label: "Profile", path: "/GuideProfile" },
-    { label: "Dashboard", path: "/GuideDashboard" },
-    { label: "Tour Center", path: "/TourCenter" },
+    { label: "Where To?", path: "/WhereTo" },
+    { label: "Find a Local", path: "/TourGuides" },
+    { label: "My Plan", path: "/MyPlan" },
+    { label: "Wishlist", path: "/MyWishlist" },
+    { label: "Login", path: "/Login" },
   ];
+
+  const [reviews, setReviews] = useState([]);
 
   const { guideName } = useParams();
 
@@ -23,7 +27,7 @@ const GuideProfile = () => {
     .join(' ');
 
   const [guideData, setGuideData] = useState(null);
-  const [destination, setDestination] = useState("Alula"); // placeholder for now
+  const [destination, setDestination] = useState("Alula");
 
   useEffect(() => {
     const mockGuideData = {
@@ -35,7 +39,18 @@ const GuideProfile = () => {
       ratingCount: 113,
       stars: '☆☆☆☆☆',
     };
+
+    const mockReviews = [
+      { title: "Great Experience", body: "The guide was knowledgeable and friendly.", name: "Sara Omar." },
+      { title: "Loved it!", body: "Everything was perfectly organized.", name: "Omar Khalid." },
+      { title: "Amazing!", body: "This tour exceeded my expectations.", name: "Layla Alghamdi." },
+      { title: "Highly Recommend", body: "The guide shared so many cultural insights.", name: "Mohammed Fahad." },
+      { title: "Wonderful Guide", body: "Warm and welcoming experience.", name: "Lama Abdullah." },
+      { title: "Fantastic Trip", body: "Enjoyed every minute of it.", name: "Fahad Alanazi." }
+    ];
+
     setGuideData(mockGuideData);
+    setReviews(mockReviews);
   }, [formattedName]);
 
   if (!guideData) {
@@ -92,25 +107,56 @@ const GuideProfile = () => {
           <p className="text-muted">Contact your tour guide to know more!</p>
         </div>
 
-        {/* Activity section */}
         <div className="my-5">
           <CardSlider>
-            <Activity />
-            <Activity />
-            <Activity />
+            <Activity customLink="/ViewActivity" />
+            <Activity customLink="/ViewActivity" />
+            <Activity customLink="/ViewActivity" />
           </CardSlider>
         </div>
 
-        {/* Traveler Thoughts Section */}
         <div className="review-section mt-5">
           <h3 className="text-center fw-bold mb-3" style={{ color: '#5c4033' }}>
             5.0 Traveler Thoughts
           </h3>
-          <p className="text-center">⭐⭐⭐⭐⭐ (13)</p>
+          <p className="text-center">⭐⭐⭐⭐⭐ ({reviews.length})</p>
 
           <div className="review-grid">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <ReviewComponent key={index} />
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                style={{
+                  border: '2px solid rgb(124, 121, 121)',
+                  padding: '8px',
+                  margin: '8px',
+                  borderRadius: '8px',
+                  width: '300px',
+                  backgroundColor: '#fdfcf9'
+                }}
+              >
+                <div style={{ fontSize: '20px', marginBottom: '8px' }}>⭐⭐⭐⭐⭐</div>
+                <div style={{
+                  width: '90%',
+                  marginBottom: '4px',
+                  padding: '6px',
+                  backgroundColor: '#f0f0e9',
+                  borderRadius: '4px'
+                }}>{review.title}</div>
+                <div style={{
+                  width: '90%',
+                  marginBottom: '4px',
+                  padding: '6px',
+                  backgroundColor: '#f0f0e9',
+                  borderRadius: '4px'
+                }}>{review.body}</div>
+                <div style={{
+                  width: '90%',
+                  marginBottom: '4px',
+                  padding: '6px',
+                  backgroundColor: '#f0f0e9',
+                  borderRadius: '4px'
+                }}>{review.name}</div>
+              </div>
             ))}
           </div>
         </div>
