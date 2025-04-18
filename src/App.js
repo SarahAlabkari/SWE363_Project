@@ -34,6 +34,7 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
 
+
 function App() {
   return (
     <div className="App">
