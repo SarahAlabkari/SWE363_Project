@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import ErrorMessage from '../components/ErrorMessage';
 
 const TestError = () => {
-    const [showDefaultError, setShowDefaultError] = useState(false);
-    const [showError, setShowError] = useState(false);
+      const handleConfirmDelete = () => {
+        console.log("Item deleted from database.");
+      };
+
+      const handleCancelAction = () => {
+        console.log("User chose not to proceed.");
+      };
 
   return (
     <div>
-      {showDefaultError ? (
-        <ErrorMessage />
-      ) : (
-        <button onClick={() => setShowDefaultError(true)}>Show Default Error</button>
-          )}
-          {showError ? (
-        <ErrorMessage message='The is a customized error body' title='The is the custom title'/>
-      ) : (
-        <button onClick={() => setShowError(true)}>Show Customized Error</button>
-          )}
+      <ErrorMessage
+        title="Delete item?"
+        message="Do you really want to remove this item permanently?"
+        showConfirm
+        showCancel
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelAction}
+      />
+      <ErrorMessage
+      title="This is a pop up with the default behavior" />
     </div>
   );
 };
