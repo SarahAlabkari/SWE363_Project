@@ -28,12 +28,12 @@ const Events = () => {
     const navigate = useNavigate();
 
     const handleEventClick = (eventId) => {
-        navigate(`/pages/event/${eventId}`);
+        navigate(`/event/${eventId}`);
     };
 
 
     const handleCreateEventClick = () => {
-        navigate('/pages/create-event');
+        navigate('/create-event');
     };
 
  
@@ -41,6 +41,7 @@ const Events = () => {
     return (
         <>
             <MenuBar links={links} />
+
 
             <header className="header-background">
                 <h1>Joyful Journeys</h1>

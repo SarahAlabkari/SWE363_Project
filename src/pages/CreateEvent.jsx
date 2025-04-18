@@ -6,7 +6,7 @@ import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
 const links = [
     
-    { path: "../pages/Events", label: "Home" },
+    { path: "../Events", label: "Home" },
     { path: "/profile", label: "Profile" },
     { path: "/reservations", label: "Reservations" },
     { path: "/events-history", label: "Events History" },
@@ -46,6 +46,7 @@ const CreateEvent = () => {
     };
 
     return (
+        /*create-event*/
         <>
             <MenuBar links={links} />
 
