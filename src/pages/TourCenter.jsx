@@ -12,7 +12,7 @@ const TourCenter = () => {
   const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
-    { label: "Profile", path: "" },
+    { label: "Profile", path: "GuideProfile" },
     { label: "Dashboard", path: "/GuideDashboard" },
     { label: "Tour Center", path: "/TourCenter" },
   ];

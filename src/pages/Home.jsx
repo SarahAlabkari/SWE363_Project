@@ -30,12 +30,12 @@ const services = [
 ];
 
 const navLinks = [
-  { label: "Home", path: "/pages/Home" },
-  { label: "About", path: "/pages/About" },
+  { label: "Home", path: "/Home" },
+  { label: "About", path: "/About" },
   { label: "Where To?", path: "/WhereTo" },
-  { label: "Find a Local", path: "/pages/TourGuides" },
-  { label: "My Plan", path: "/pages/MyPlan" },
-  { label: "Wishlist", path: "/pages/MyWishlist" },
+  { label: "Find a Local", path: "/TourGuides" },
+  { label: "My Plan", path: "/MyPlan" },
+  { label: "Wishlist", path: "/MyWishlist" },
   { label: "Login", path: "/Login" },
 ];
 
@@ -72,9 +72,9 @@ const Home = () => {
       <section className="text-center py-5 bg-light">
         <h2 className="fw-bold">Explore Saudi Like Never Before</h2>
         <CardSlider>
-          <Activity />
-          <Activity />
-          <Activity />
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
+        <Activity customLink="/ViewActivity" />
         </CardSlider>
       </section>
     </div>

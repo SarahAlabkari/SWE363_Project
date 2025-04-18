@@ -11,7 +11,7 @@ const ViewActivity = () => {
         { label: "Find a Local", path: "/TourGuides" },
         { label: "My Plan", path: "/MyPlan" },
         { label: "Wishlist", path: "/MyWishlist" },
-        { label: "Login", path: "/" },
+        { label: "Login", path: "/Login" },
     ];
 
     const { id } = useParams();

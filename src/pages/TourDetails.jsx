@@ -5,8 +5,8 @@ import MenuBar from '../components/MenuBar';
 const TourDetails = () => {
   const navLinks = [
     { label: "Home", path: "/" },
-    { label: "About", path: "/pages/About" },
-    { label: "Profile", path: "" },
+    { label: "About", path: "/About" },
+    { label: "Profile", path: "/GuideProfile" },
     { label: "Dashboard", path: "/GuideDashboard" },
     { label: "Tour Center", path: "/TourCenter" },
   ];
