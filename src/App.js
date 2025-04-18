@@ -33,7 +33,6 @@ import CreateTouristAccount from './pages/CreateTouristAccount';
 import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
-import TestError from './pages/TestError';
 import Reservations from './pages/Reservations';
 import Profile from './pages/Profile';
 import EventsHistory from './pages/EventsHistory';
@@ -45,6 +44,7 @@ import CreateEvent from './pages/CreateEvent';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
+import TestPopup from './pages/TestPopup';
 
 function App() {
   const location = useLocation();
@@ -88,7 +88,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path='/TestError' element={<TestError />} />
+        <Route path='/TestError' element={<TestPopup />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/eventshistory" element={<EventsHistory />} />
