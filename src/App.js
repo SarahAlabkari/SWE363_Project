@@ -41,6 +41,7 @@ import PendingRegistrations from './pages/PendingRegistrations';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
+import UserManagementPage from './pages/UserManagement';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
@@ -90,6 +91,9 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
+
+        <Route path='/TestError' element={<TestError />} />
+        <Route path="/UserManagement" element={<UserManagementPage/>} />
         <Route path='/TestError' element={<TestPopup />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
@@ -97,6 +101,7 @@ function App() {
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+
       </Routes>
     </div>
   );

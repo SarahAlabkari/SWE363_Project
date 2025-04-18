@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
 import MenuBar from "../components/MenuBar";
+
+import TouristMenuBar from '../components/TouristMenuBar';
+
 import { useNavigate } from 'react-router-dom';
 import TestPopup from './TestPopup';
+
 
 function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -18,16 +22,6 @@ function PaymentPage() {
   const [errors, setErrors] = useState({});
   const [popup, setPopup] = useState(null);
   const navigate = useNavigate();
-
-  const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/Login" },
-  ];
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -99,12 +93,12 @@ function PaymentPage() {
     return isNaN(price) || isNaN(quantity) ? '' : `${price * quantity} SAR`;
   };
 
+
   return (
     <div className="payment-page">
       <div className="menu-bar-wrapper">
-        <MenuBar links={navLinks} />
+      <TouristMenuBar/>
       </div>
-
       <h1 className="page-title" style={{ color: '#5c4033' }}>Pay & Confirm</h1>
 
       {popup && (
