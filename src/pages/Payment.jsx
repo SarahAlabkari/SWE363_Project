@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Payment.css';
 import MenuBar from "../components/MenuBar";
+import TouristMenuBar from '../components/TouristMenuBar';
 
 function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -30,20 +31,12 @@ function PaymentPage() {
     fetchSummary();
   }, []);
 
-  const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/" },
-  ];
+
 
   return (
     <div className="payment-page">
       <div className="menu-bar-wrapper">
-        <MenuBar links={navLinks} />
+      <TouristMenuBar/>
       </div>
 
      

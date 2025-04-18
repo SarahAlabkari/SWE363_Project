@@ -1,20 +1,13 @@
 import React from "react";
 import MenuBar from "../components/MenuBar";
+import TouristMenuBar from "../components/TouristMenuBar";
 
-const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/Login" },
-  ];
+
 
 const About = () => {
   return (
     <div>
-        <MenuBar links= {navLinks}/>
+        <TouristMenuBar/>
     <div className="about-page d-flex justify-content-center align-items-center text-center" style={{ minHeight: "100vh", padding: "2rem" }}>
       <div style={{ maxWidth: "800px" }}>
         <h2 className="mb-4">Who Are We?</h2>

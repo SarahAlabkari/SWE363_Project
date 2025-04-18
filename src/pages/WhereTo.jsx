@@ -3,24 +3,15 @@ import DropdownMenu from '../components/DropdownMenu';
 import CalendarComponent from '../components/CalendarComponent';
 import './WhereTo.css';
 import MenuBar from "../components/MenuBar";
+import TouristMenuBar from '../components/TouristMenuBar';
 
 
 function WhereTo() {
 
-  const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/" },
-  ];
-
   return (
     
     <div className="experience-page">
-      <MenuBar links={navLinks} />
+      <TouristMenuBar/>
       
       <div className="hero-section"
       style={{

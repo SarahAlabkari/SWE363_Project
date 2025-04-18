@@ -5,8 +5,8 @@ import FeatureCard from "../components/FeatureCard";
 import HowItWorks from "../components/HowItWorks";
 import Activity from "../components/Activity";
 import CardSlider from "../components/CardSlider";
-// ✅ If the image is in /public, use this path. Otherwise import it.
-const heroImagePath = "/hero9.png"; // Make sure this exists in your public folder
+import TouristMenuBar from "../components/TouristMenuBar"; // Adjust the path based on your project structure
+const heroImagePath = "hero9.png"; 
 
 const services = [
   {
@@ -29,21 +29,13 @@ const services = [
   },
 ];
 
-const navLinks = [
-  { label: "Home", path: "/Home" },
-  { label: "About", path: "/About" },
-  { label: "Where To?", path: "/WhereTo" },
-  { label: "Find a Local", path: "/TourGuides" },
-  { label: "My Plan", path: "/MyPlan" },
-  { label: "Wishlist", path: "/MyWishlist" },
-  { label: "Login", path: "/Login" },
-];
+
 
 const Home = () => {
   return (
     <div>
       {/* Navigation */}
-      <MenuBar links={navLinks} />
+      <TouristMenuBar />
 
       {/* Hero Image */}
       <section>
@@ -70,8 +62,12 @@ const Home = () => {
 
       {/* Final Tagline */}
       <section className="text-center py-5 bg-light">
-        <h2 className="fw-bold">Explore Saudi Like Never Before</h2>
+      <h2 className="mb-5">
+          Explore Saudi Like Never Before!
+        </h2>
         <CardSlider>
+          <Activity />
+          <Activity />
           <Activity />
           <Activity />
           <Activity />

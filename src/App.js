@@ -33,7 +33,7 @@ import TestError from './pages/TestError';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
-
+import UserManagementPage from './pages/UserManagement';
 function App() {
   return (
     <div className="App">
@@ -62,6 +62,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path='/TestError' element={<TestError />} />
+        <Route path="/UserManagement" element={<UserManagementPage/>} />
       </Routes>
     </div>
   );
