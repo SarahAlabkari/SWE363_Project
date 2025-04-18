@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
 import MenuBar from "../components/MenuBar";
-import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from 'react-router-dom';
+import TestPopup from './TestPopup';
 
 function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -109,7 +109,7 @@ function PaymentPage() {
 
       {popup && (
         <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, width: '100%', maxWidth: '600px' }}>
-          <ErrorMessage
+          <TestPopup
             title={popup.title}
             message={<>
               {popup.message}
