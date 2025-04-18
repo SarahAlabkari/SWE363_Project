@@ -6,8 +6,8 @@ import ContactInfo from '../components/ContactInfo';
 const links = [
     { path: "/Events", label: "Home" },
     { path: "/profile", label: "Profile" },
-    { path: "/reservations", label: "Reservations" },
-    { path: "/events-history", label: "Events History" },
+    { path: "/Reservations", label: "Reservations" },
+    { path: "/EventsHistory", label: "Events History" },
     { path: "/Home", label: "Sign Out" },
 ];
 
