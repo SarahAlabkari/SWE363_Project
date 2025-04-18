@@ -46,6 +46,8 @@ import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import TestPopup from './pages/TestPopup';
 import { Navigate } from 'react-router-dom';
+import PendingActivity from './pages/PendingActivity';
+
 
 function App() {
   return (
@@ -86,6 +88,7 @@ function App() {
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/PendingActivity" element={<PendingActivity />} />
 
       </Routes>
     </div>

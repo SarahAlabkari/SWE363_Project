@@ -9,7 +9,16 @@ const AdminMenuBar = () => {
     { label: "User Management", path: "/UserManagement" }, 
     { label: "Event Management", path: "/EventManagement" }, 
     { label: "Pending Registrations", path: "/pending-registrations" }, 
-    { label: "Complaints", path: "/Complaints" }
+    { label: "Complaints", path: "/Complaints" },
+    { label: "Pending Registrations", path: "/PendingRegistrations" }, 
+   
+
+
+    { label: "Pending Activities", path: "/PendingActivity" }, 
+
+    { label: "Complaints", path: "/AdminComplaints" }
+
+
   ];
 
   return (
