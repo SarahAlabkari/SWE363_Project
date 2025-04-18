@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/Popup';
 
-const TestError = () => {
+const TestPopup = () => {
       const handleConfirmDelete = () => {
         console.log("Item deleted from database.");
       };
@@ -13,6 +13,8 @@ const TestError = () => {
   return (
     <div>
       <ErrorMessage
+      title="This is a pop up with the default behavior" />
+      <ErrorMessage
         title="Delete item?"
         message="Do you really want to remove this item permanently?"
         showConfirm
@@ -20,10 +22,8 @@ const TestError = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelAction}
       />
-      <ErrorMessage
-      title="This is a pop up with the default behavior" />
     </div>
   );
 };
 
-export default TestError;
+export default TestPopup;

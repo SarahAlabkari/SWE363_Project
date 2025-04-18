@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const ErrorMessage = ({
+const Popup = ({
   message = "Something went wrong!",
   title = "Error",
   type = "danger",
@@ -67,4 +67,4 @@ const ErrorMessage = ({
   );
 };
 
-export default ErrorMessage;
+export default Popup;
