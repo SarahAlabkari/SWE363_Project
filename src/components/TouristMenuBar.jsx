@@ -9,7 +9,7 @@ const TouristMenuBar = ({ links }) => {
         { label: "Find a Local", path: "/TourGuides" },
         { label: "My Plan", path: "/MyPlan" },
         { label: "Wishlist", path: "/MyWishlist" },
-        { label: "Login", path: "/Login" },
+        { label: "Logout", path: "/Home" },
       ];
     
   return (
