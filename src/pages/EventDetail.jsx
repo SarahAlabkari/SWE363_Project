@@ -8,7 +8,7 @@ const links = [
   { path: "/profile", label: "Profile" },
   { path: "/Reservations", label: "Reservations" },
   { path: "/EventsHistory", label: "Events History" },
-  { path: "/Home", label: "Sign Out" },
+  { path: "/Home", label: "Logout" },
 ];
 
 const EventDetail = () => {
