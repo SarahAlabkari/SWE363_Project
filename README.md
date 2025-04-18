@@ -90,8 +90,6 @@ SWE363_Project/
 
 After logging in, users are redirected to their specific landing pages according to their role.
 
----
-
 **Password Reset Simulation:**
 - Since the platform is not yet linked to a real email service,  
 clicking **"Send Request"** on the "Forget Password" page will **directly redirect** the user to the **Reset Password** page after a short success message.
