@@ -88,9 +88,14 @@ const CalendarView = () => {
           </label>
 
           {/* Button to trigger delete action */}
-          <button className="calendar-delete-btn" onClick={handleDelete}>
-            Delete tour/s
+          <button
+            className="calendar-delete-btn"
+            onClick={handleDelete}
+            disabled={!startDate || !endDate} // Disable button if dates are not filled
+          >
+            Delete Tour/s
           </button>
+
         </div>
       </div>
     </div>
