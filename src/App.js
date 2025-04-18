@@ -102,7 +102,6 @@ function App() {
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
 
-
       </Routes>
     </div>
   );
