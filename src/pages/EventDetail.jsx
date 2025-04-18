@@ -1,7 +1,9 @@
+// Importing necessary components, libraries, pages 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
+// Navigation links for the menu bar
 
 const links = [
   { path: "/Events", label: "Home" },
@@ -9,44 +11,90 @@ const links = [
   { path: "/Reservations", label: "Reservations" },
   { path: "/EventsHistory", label: "Events History" },
   { path: "/Home", label: "Logout" },
-  
 ];
+// Static data representing event details
+
+
+const eventsData = {
+  Adventure: {
+    description: 'A Fun Adventure Event',
+    region: 'Khobar',
+    capacity: 50,
+    time: '10:00 AM',
+    date: '2023-05-01',
+    venue: 'Adventure Park',
+    price: 20,
+  },
+  ChaseTheFun: {
+    description: 'Chase the Fun',
+    region: 'Riyadh',
+    capacity: 30,
+    time: '12:00 PM',
+    date: '2023-06-01',
+    venue: 'Funland',
+    price: 25,
+  },
+  JoyRide: {
+    description: 'Joy Ride',
+    region: 'Dammam',
+    capacity: 20,
+    time: '2:00 PM',
+    date: '2023-07-01',
+    venue: 'Joy Park',
+    price: 15,
+  },
+  VentureVibe: {
+    description: 'Thrilling outdoor experience',
+    region: 'Jeddah',
+    capacity: 35,
+    time: '4:00 PM',
+    date: '2023-08-01',
+    venue: 'Mountain Base',
+    price: 30,
+  },
+  SparkFest: {
+    description: 'Festival of lights and music',
+    region: 'Abha',
+    capacity: 60,
+    time: '5:00 PM',
+    date: '2023-09-10',
+    venue: 'Spark Grounds',
+    price: 40,
+  },
+  JoyJump: {
+    description: 'Bungee jumping fun day',
+    region: 'Tabuk',
+    capacity: 15,
+    time: '2:00 PM',
+    date: '2023-10-15',
+    venue: 'Jump Arena',
+    price: 35,
+  },
+  OasisQuest: {
+    description: 'Desert exploration adventure',
+    region: 'Hail',
+    capacity: 25,
+    time: '8:00 PM',
+    date: '2023-11-20',
+    venue: 'Oasis Base',
+    price: 50,
+  },
+  DesertVibes: {
+    description: 'Music and camping in the desert',
+    region: 'AlUla',
+    capacity: 40,
+    time: '12:00 PM',
+    date: '2023-12-05',
+    venue: 'Desert Camp',
+    price: 45,
+  },
+};
 
 const EventDetail = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
-  const eventsData = {
-    1: {
-      description: 'A Fun Adventure Event',
-      region: 'Khobar',
-      capacity: 50,
-      time: '10:00 AM',
-      date: '2023-05-01',
-      venue: 'Adventure Park',
-      price: 20,
-    },
-    2: {
-      description: 'Chase the Fun',
-      region: 'Riyadh',
-      capacity: 30,
-      time: '12:00 PM',
-      date: '2023-06-01',
-      venue: 'Funland',
-      price: 25,
-    },
-    3: {
-      description: 'Joy Ride',
-      region: 'Dammam',
-      capacity: 20,
-      time: '2:00 PM',
-      date: '2023-07-01',
-      venue: 'Joy Park',
-      price: 15,
-    },
-  };
-
-  const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState(eventsData[eventId] || {});
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -75,20 +123,19 @@ const EventDetail = () => {
 
   return (
     <>
+
       <MenuBar links={links} />
 
       <header
         style={{
-         // backgroundColor: 'white',
           padding: '30px 20px',
           marginBottom: '30px',
-          //borderBottom: '2px solid #ccc',
           textAlign: 'left',
         }}
       >
         <h1>Joyful Journeys</h1>
         <p>
-        Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
+          Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
         </p>
       </header>
 
