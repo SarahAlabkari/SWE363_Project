@@ -88,7 +88,7 @@ SWE363_Project/
 | Tour Guide             | guide        | guide@jadwill.com      | guide123        |
 | Tourist                | tourist      | tourist@jadwill.com    | tourist123      |
 
-✅ After logging in, users are redirected to their specific landing pages according to their role.
+After logging in, users are redirected to their specific landing pages according to their role.
 
 ---
 
