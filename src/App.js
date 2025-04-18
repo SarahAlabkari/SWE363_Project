@@ -45,6 +45,12 @@ import CreateEvent from './pages/CreateEvent';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
+import Navbar from './components/Navbar';
+import Reservations from './pages/Reservations';
+import EventsHistory from './pages/EventsHistory';
+import EventDetails from './pages/EventDetails';
+import PendingRegistrations from './pages/PendingRegistrations';
+import { useLocation } from "react-router-dom";
 
 function App() {
   const location = useLocation();
@@ -60,7 +66,7 @@ function App() {
 
   return (
     <div className="App">
-      {shouldShowNavbar && <Navbar />}
+       {shouldShowNavbar && <Navbar />}
       <Routes>
         <Route path="/AdminComplaints" element={< AdminComplaints/>} />
         <Route path="/WhereTo" element={<WhereTo />} />
@@ -95,6 +101,10 @@ function App() {
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/eventshistory" element={<EventsHistory />} />
+        <Route path="/events-history/:eventId" element={<EventDetails />} />
+        <Route path="/pending-registrations" element={<PendingRegistrations />} />
+
       </Routes>
     </div>
   );
