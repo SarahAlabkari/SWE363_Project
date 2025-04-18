@@ -1,6 +1,7 @@
 import React from 'react';
 import MyPlanTable from '../components/MyPlanTable';
 import MenuBar from '../components/MenuBar';
+import TouristMenuBar from '../components/TouristMenuBar'; // Adjust the path based on your project structure
 
 
 const sampleAcMytivities = [
@@ -24,20 +25,10 @@ const sampleAcMytivities = [
 
 const MyPlan = () => {
 
-    const navLinks = [
-      { label: "Home", path: "/Home" },
-      { label: "About", path: "/About" },
-      { label: "Where To?", path: "" },
-      { label: "Find a Local", path: "/TourGuides" },
-      { label: "My Plan", path: "/MyPlan" },
-      { label: "Wishlist", path: "/MyWishlist" },
-      { label: "Login", path: "/" },
-      ];
-
   return (
     <div>
     <div>
-    <MenuBar links={navLinks} />
+    <TouristMenuBar />
     </div>
     <div className="container mt-5 text-center">
     <h2> My Plan!</h2>
