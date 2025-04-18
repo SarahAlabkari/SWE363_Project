@@ -45,12 +45,6 @@ import CreateEvent from './pages/CreateEvent';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
-import Navbar from './components/Navbar';
-import Reservations from './pages/Reservations';
-import EventsHistory from './pages/EventsHistory';
-import EventDetails from './pages/EventDetails';
-import PendingRegistrations from './pages/PendingRegistrations';
-import { useLocation } from "react-router-dom";
 
 function App() {
   const location = useLocation();
