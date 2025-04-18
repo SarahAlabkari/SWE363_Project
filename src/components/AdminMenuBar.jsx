@@ -7,9 +7,8 @@ const AdminMenuBar = () => {
   const adminLinks = [
     { label: "Dashboard", path: "/AdminDashboard" }, 
     { label: "User Management", path: "/UserManagement" }, 
-    { label: "Event Management", path: "/EventManagement" }, 
+    { label: "Event Management", path: "/PendingActivity" }, 
     { label: "Pending Registrations", path: "/pending-registrations" },   
-    { label: "Pending Activities", path: "/PendingActivity" }, 
     { label: "Complaints", path: "/AdminComplaints" }
 
 
