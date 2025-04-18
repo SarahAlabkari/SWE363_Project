@@ -268,49 +268,39 @@ h1{
   
   /*Menu Bar*/ 
   .menu-bar {
-    background-color: #ffffff !important;
-    position: sticky;
-    top: 0;
-    z-index: 1050;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 8px 16px;
-  }
-
-/* Logo */
-.logo-img {
-  height: 150px; 
-  width: auto;
-}
-
-/* Icon on the right */
-.icon-img {
-  height: 35px;
-  width: auto;
-  margin-left: 12px;
-}
-
-/* Menu text */
-.menu-text {
-  color: #584335;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  text-transform: capitalize;
-  font-size: 17px;
-}
-
-.menu-text:hover {
-  color: #9abf80;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-/* Make sure nav-links collapse properly on small screens */
-.navbar-collapse.show {
-  background-color: #e5e3d4 !important;
-  padding: 10px 0;
-  transition: background-color 0.3s ease;
-}
-
+      width: 100%;
+      background: #e5e3d4;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .logo-img {
+      height: 150px;         
+      margin-bottom: 1px;    
+    }
+  
+    .icon-img {
+      height: 70px;         
+      margin-bottom: 1px;    
+    }
+    
+    .menu-text {
+      color: #584335;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      text-transform: capitalize;
+      font-size: 18px;
+    }
+  
+    .menu-text:hover {
+      color: #9abf80; 
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+  
   
     /* Hero Section */
   
@@ -413,7 +403,7 @@ h1{
 .show-on-top {
   z-index: 9999 !important;
 }
-
+=======
   .page-container {
     padding: 50px 80px;
     background-color: #e5e3d4;

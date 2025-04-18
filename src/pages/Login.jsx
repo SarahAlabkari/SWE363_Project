@@ -13,7 +13,7 @@ const Login = () => {
 
   // Simulated users database (hardcoded users for this project)
   const users = [
-    { email: 'admin@jadwill.com', username: 'admin', password: 'admin123', redirectPath: '/AdminDashboard' },
+    { email: 'admin@jadwill.com', username: 'admin', password: 'admin123', redirectPath: '/admin-dashboard' },
     { email: 'provider@jadwill.com', username: 'provider', password: 'provider123', redirectPath: '/Events' },
     { email: 'guide@jadwill.com', username: 'guide', password: 'guide123', redirectPath: '/GuideDashboard' },
     { email: 'tourist@jadwill.com', username: 'tourist', password: 'tourist123', redirectPath: '/Home' },
