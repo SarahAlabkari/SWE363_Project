@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/Reservation.css';
+import '../App.css'; 
+import AdminMenuBar from "../components/AdminMenuBar";
 
 const PendingRegistrations = () => {
   const registrations = [
@@ -24,23 +25,23 @@ const PendingRegistrations = () => {
   };
 
   return (
-    <div className="registrations-page">
-      <h1 className="page-title">Pending Registrations</h1>
+    <>
+      <AdminMenuBar />
+      <div className="container mt-5">
+        <h2 className="mb-4">Pending Registrations</h2>
+        
+        <div className="d-flex justify-content-between mb-3">
+          <select className="form-select w-25">
+            <option>Filter By</option>
+            <option>Tourist</option>
+            <option>Activity Provider</option>
+            <option>Tour Guide</option>
+          </select>
+          <input type="text" className="form-control w-25" placeholder="Search By Username" />
+        </div>
 
-      <div className="top-controls">
-        <select className="filter-dropdown">
-          <option>Filter By</option>
-          <option>Tourist</option>
-          <option>Activity Provider</option>
-          <option>Tour Guide</option>
-        </select>
-
-        <input type="text" className="search-box" placeholder="Search By Username" />
-      </div>
-
-      <div className="registration-table">
-        <table>
-          <thead>
+        <table className="table table-bordered table-striped">
+          <thead className="table-primary text-center">
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -57,17 +58,19 @@ const PendingRegistrations = () => {
                 <td>{reg.email}</td>
                 <td>{reg.username}</td>
                 <td>{reg.level}</td>
-                <td className="actions">
-                  <button className="accept-btn" onClick={() => handleAccept(reg.name)}>Accept</button>
-                  <button className="reject-btn" onClick={() => handleReject(reg.name)}>Reject</button>
+                <td className="text-center">
+                  <button className="btn btn-success btn-sm me-2" onClick={() => handleAccept(reg.name)}>Accept</button>
+                  <button className="btn btn-danger btn-sm" onClick={() => handleReject(reg.name)}>Reject</button>
                 </td>
-                <td><button className="view-btn">View</button></td>
+                <td className="text-center">
+                  <button className="btn btn-primary btn-sm">View</button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,7 +6,6 @@ import './App.css';
 // Import component files
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
-import Navbar from './components/Navbar';
 
 // Import React and routing tools
 import React from "react";
@@ -49,20 +48,8 @@ import TestPopup from './pages/TestPopup';
 import { Navigate } from 'react-router-dom';
 
 function App() {
-  const location = useLocation();
-
-  const showNavbarRoutes = [
-    "/reservations",
-    "/profile",
-    "/eventshistory"
-  ];
-
-  const shouldShowNavbar = showNavbarRoutes.includes(location.pathname) || 
-    location.pathname.startsWith("/events-history/");
-
   return (
     <div className="App">
-       {shouldShowNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/AdminComplaints" element={< AdminComplaints/>} />
