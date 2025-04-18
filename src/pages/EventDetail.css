@@ -1,4 +1,4 @@
-.event-detail {
+/* .event-detail {
     background-color: #9abf80; 
     padding: 20px;
     
@@ -31,7 +31,7 @@ input {
     border: 0px  #e5e3d4; 
     border-radius: 4px; 
     width: 96%; 
-    background-color: #e5e3d4;
+    background-color: #ffffff;
 }
 
 .button-container {
@@ -43,7 +43,7 @@ input {
 button {
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 400px;
     cursor: pointer; 
     background-color: #584335; 
     color: white;
@@ -53,4 +53,4 @@ button {
 button:hover {
     background-color: #e5e3d4; 
     color:#584335;
-}
+} */
