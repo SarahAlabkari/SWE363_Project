@@ -3,43 +3,70 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
 function Activity(props) {
+  const [activity, setActivity] = useState(null);
+  const navigate = useNavigate();
 
-    const [activity, setActivity] = useState(null);
-    const navigate = useNavigate();
+  // This will later be fetched from a database
+  useEffect(() => {
+    const mockActivity = {
+      name: 'Hiking in AlUlas rock formations',
+      activityID: 1,
+      activityPrvider: 'Safer',
+      date: 'April 10, 2025',
+      time: '9:00 AM',
+      location: 'Alula, Saudi Arabia',
+      description: 'Join us for a day full of adventure. Explore AlUla’s scenic trails and rock formations on a guided desert hike.',
+      imageUrl: "/alula2.jpg",
+      state: 'Active',
+    };
+    setActivity(mockActivity);
+  }, []);
 
+  if (!activity) {
+    return <div>Loading....</div>;
+  }
 
-    //This will later be fetched from a database
-    useEffect(() => {
-        const mockActivity = {
-            name: 'Hiking in AlUlas rock formations',
-            activityID: 1,
-            activityPrvider: 'Safer',
-            date: 'April 10, 2025',
-            time: '9:00 AM',
-            location: 'Alula, Saudi Arabia',
-            description: 'Join us for a day full of advenExplore AlUlas scenic trails and rock formations on a guided desert hike.',
-            imageUrl: "/alula2.jpg",
-            state: 'Active',
-        };
-        setActivity(mockActivity);
-    }, []);
-
-    if(!activity) {
-        return(<div>Loading....</div>);
+  const handleClick = () => {
+    if (props.customLink) {
+      navigate(props.customLink);
+    } else {
+      navigate(`/ActivityDetails/${activity.activityID}`);
     }
+  };
 
-    return(<div className="card" style={{width: '12rem', margin: '10px', borderColor: 'var(--green-color)', borderWidth: '3px', padding: '5px'}}>
-        <img src={activity.imageUrl} className="card-img-top" alt="Event image" style={{ height: '45%', marginBottom: '5px'}}/>
-        <div className="card-body" style={{padding: '3px'}}>
-            <h5 className="card-title">{activity.name}</h5>
-            <p className="card-subtitle text-body-secondary">By: {activity.activityPrvider}</p>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn guide-button" onClick={() => navigate(`/ActivityDetails/${activity.activityID}`)}>More details</button>
-            </div>        
+  return (
+    <div
+      className="card"
+      style={{
+        width: '12rem',
+        margin: '10px',
+        borderColor: 'var(--green-color)',
+        borderWidth: '3px',
+        padding: '5px',
+      }}
+    >
+      <img
+        src={activity.imageUrl}
+        className="card-img-top"
+        alt="Event image"
+        style={{ height: '45%', marginBottom: '5px' }}
+      />
+      <div className="card-body" style={{ padding: '3px' }}>
+        <h5 className="card-title">{activity.name}</h5>
+        <p className="card-subtitle text-body-secondary">By: {activity.activityPrvider}</p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button
+            type="button"
+            id="evnt-details-button"
+            className="btn guide-button"
+            onClick={handleClick}
+          >
+            More details
+          </button>
         </div>
-    </div>);
-                    
+      </div>
+    </div>
+  );
 }
 
 export default Activity;
-

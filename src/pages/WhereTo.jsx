@@ -3,6 +3,8 @@ import DropdownMenu from '../components/DropdownMenu';
 import CalendarComponent from '../components/CalendarComponent';
 import './WhereTo.css';
 import MenuBar from "../components/MenuBar";
+import { Link } from 'react-router-dom';
+
 
 
 function WhereTo() {
@@ -42,14 +44,32 @@ function WhereTo() {
           <DropdownMenu />
         </div>
 
-        <div className="calendar-container">
-          <p className="calendar-label">Choose a day for your activity!</p>
-          <CalendarComponent />
-        </div>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', paddingRight: '60px' }}>
+  <div
+    style={{
+      backgroundColor: '#e5e3d4',
+      borderRadius: '20px',
+      padding: '16px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      transform: 'scale(0.9)',
+      transformOrigin: 'top right',
+      width: '400px',
+      marginTop: '-100px' 
+    }}
+  >
+    <p className="calendar-label" style={{ textAlign: 'center', marginBottom: '10px' }}>
+      Choose a day for your activity!
+    </p>
+    <CalendarComponent />
+  </div>
+</div>
+
       </div>
 
-      <div className="button-wrapper">
+      <div className="button-wrapper"style={{ marginTop: '-60px' }}>
+      <Link to="/ExploreActivities">
         <button className="explore-btn">Explore Activities</button>
+        </Link>
       </div>
     </div>
   );

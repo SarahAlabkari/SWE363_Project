@@ -1,18 +1,20 @@
 // Path: src/App.js
 
 import './App.css';
-import DropdownMenu from './components/DropdownMenu';
-import CalendarComponent from './components/CalendarComponent';
-import WhereTo from './pages/WhereTo';
-import Payment from './pages/Payment';
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+
+import ExploreActivities from './pages/ExploreActivities';
+import WhereTo from './pages/WhereTo';
+import Payment from './pages/Payment';
+import ViewActivity from './pages/ViewActivity'
 
 import Home from "./pages/Home";
 import TourGuides from "./pages/TourGuides";
 import GuideProfile from './pages/GuideProfile';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
+
 
 import GuideDashboard from "./pages/GuideDashboard";
 import MyPlan from './pages/MyPlan';
@@ -37,6 +39,9 @@ function App() {
         <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/ExploreActivities" element={<ExploreActivities/>}/>
+        <Route path="/ViewActivity" element={<ViewActivity/>}/>
+        
         <Route path="/pages/Home" element={<Home />} />
         <Route path="/pages/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />
