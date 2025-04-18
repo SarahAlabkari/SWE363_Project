@@ -41,6 +41,7 @@ import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   const location = useLocation();
@@ -86,6 +87,7 @@ function App() {
         <Route path="/eventshistory" element={<EventsHistory />} />
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
       </Routes>
     </div>
   );
