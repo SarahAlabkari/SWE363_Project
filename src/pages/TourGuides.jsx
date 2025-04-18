@@ -59,7 +59,7 @@ const TourGuides = () => {
 
       <div className="container-fluid p-0">
         <ImageBlock
-          image=""
+          image="saudippl.jpg"
           title="Meet Your Local Guide"
           subtitle="Discover the city through the eyes of a Saudi local!"
         />

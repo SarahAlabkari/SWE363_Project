@@ -5,18 +5,9 @@ import ReviewComponent from '../components/ReviewComponent';
 import MenuBar from "../components/MenuBar";
 import CardSlider from '../components/CardSlider';
 import Activity from '../components/Activity';
+import TouristMenuBar from '../components/TouristMenuBar';
 
 const GuideProfile = () => {
-  const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/Login" },
-  ];
-
   const [reviews, setReviews] = useState([]);
 
   const { guideName } = useParams();
@@ -59,7 +50,7 @@ const GuideProfile = () => {
 
   return (
     <>
-      <MenuBar links={navLinks} />
+       <TouristMenuBar/>
 
       <div className="guide-profile-page container">
         <h1 className="text-center mt-5" style={{ color: '#5c4033' }}>

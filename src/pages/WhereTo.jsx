@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DropdownMenu from '../components/DropdownMenu';
 import CalendarComponent from '../components/CalendarComponent';
 import './WhereTo.css';
-import MenuBar from "../components/MenuBar";
+import TouristMenuBar from '../components/TouristMenuBar';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 
@@ -10,16 +10,6 @@ function WhereTo() {
   const [selectedCity, setSelectedCity] = useState(null);
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
-
-  const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
-    { label: "Where To?", path: "/WhereTo" },
-    { label: "Find a Local", path: "/TourGuides" },
-    { label: "My Plan", path: "/MyPlan" },
-    { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/Login" },
-  ];
 
   const handleExploreClick = () => {
     const cityInput = document.querySelector(".dropdown-container input");
@@ -35,7 +25,7 @@ function WhereTo() {
 
   return (
     <div className="experience-page">
-      <MenuBar links={navLinks} />
+      <TouristMenuBar />
 
       <div
         className="hero-section"
@@ -46,7 +36,7 @@ function WhereTo() {
           height: '250px',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <h1 className="hero-heading">Plan Your Experience!</h1>
@@ -67,7 +57,7 @@ function WhereTo() {
               transform: 'scale(0.9)',
               transformOrigin: 'top right',
               width: '400px',
-              marginTop: '-100px'
+              marginTop: '-100px',
             }}
           >
             <p className="calendar-label" style={{ textAlign: 'center', marginBottom: '10px' }}>
@@ -94,7 +84,7 @@ function WhereTo() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 9999
+            zIndex: 9999,
           }}
         >
           <Alert

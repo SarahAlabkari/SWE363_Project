@@ -322,14 +322,14 @@ h1{
       font-size: 3rem;
       font-weight: 700;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      color:#584335;
+      color: white;
     }
     
     .image-subtitle {
       font-size: 2rem;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       font-weight: 400;
-      color: #584335;
+      color:white;
     }
     
   
@@ -397,10 +397,16 @@ h1{
   .btn:hover{
     color: #6a669d;;
   }
+
+
+  /* Boost z-index for dropdowns */
+.show-on-top {
+  z-index: 9999 !important;
+}
+=======
   .page-container {
     padding: 50px 80px;
     background-color: #e5e3d4;
     min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
   }
-  

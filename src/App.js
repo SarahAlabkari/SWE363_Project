@@ -33,7 +33,6 @@ import CreateTouristAccount from './pages/CreateTouristAccount';
 import ForgetPassword from './pages/ForgetPassword';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
-import TestError from './pages/TestError';
 import Reservations from './pages/Reservations';
 import Profile from './pages/Profile';
 import EventsHistory from './pages/EventsHistory';
@@ -42,9 +41,12 @@ import PendingRegistrations from './pages/PendingRegistrations';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import CreateEvent from './pages/CreateEvent';
+import UserManagementPage from './pages/UserManagement';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
+import TestPopup from './pages/TestPopup';
+import { Navigate } from 'react-router-dom';
 
 function App() {
   const location = useLocation();
@@ -62,6 +64,7 @@ function App() {
     <div className="App">
       {shouldShowNavbar && <Navbar />}
       <Routes>
+        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/AdminComplaints" element={< AdminComplaints/>} />
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
@@ -88,13 +91,17 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
+
         <Route path='/TestError' element={<TestError />} />
+        <Route path="/UserManagement" element={<UserManagementPage/>} />
+        <Route path='/TestError' element={<TestPopup />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/eventshistory" element={<EventsHistory />} />
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+
       </Routes>
     </div>
   );
