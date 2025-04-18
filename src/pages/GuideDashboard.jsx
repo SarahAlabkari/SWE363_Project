@@ -161,32 +161,32 @@ const GuideDashboard = () => {
           }}
         >
           {/* Row 1: Calendar + Sliders */}
-<div
-  className="flex flex-col lg:flex-row flex-wrap gap-12 w-full"
-  id="dashboardRow1"
->
-  {/* Calendar Section */}
-  <div className="w-full lg:w-1/3 min-w-[300px]">
-    <CalendarComponent />
-  </div>
+        <div
+          className="flex flex-col lg:flex-row flex-wrap gap-12 w-full"
+          id="dashboardRow1"
+        >
+          {/* Calendar Section */}
+          <div className="w-full lg:w-1/3 min-w-[300px]">
+            <CalendarComponent />
+          </div>
 
-  {/* Sliders Section */}
-  <div className="w-full lg:w-2/3 min-w-[300px]">
-    <p className="section-title">Happining on this day</p>
-    <CardSlider>
-      <Activity />
-      <Activity />
-      <Activity />
-    </CardSlider>
+          {/* Sliders Section */}
+          <div className="w-full lg:w-2/3 min-w-[300px]">
+            <p className="section-title">Happining on this day</p>
+            <CardSlider>
+              <Activity />
+              <Activity />
+              <Activity />
+            </CardSlider>
 
-    <p className="section-title mt-5">Happining on this month</p>
-    <CardSlider>
-      <Tour />
-      <Tour />
-      <Tour />
-    </CardSlider>
-  </div>
-</div>
+            <p className="section-title mt-5">Happining on this month</p>
+            <CardSlider>
+              <Tour />
+              <Tour />
+              <Tour />
+            </CardSlider>
+          </div>
+        </div>
 
 
           {/* Row 2: Stats + Reviews */}
