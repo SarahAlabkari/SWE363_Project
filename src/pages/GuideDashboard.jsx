@@ -14,7 +14,7 @@ const GuideDashboard = () => {
   const navLinks = [
     { label: "Home", path: "/TourGuideHome" },
     { label: "About", path: "/TourGuideAbout" },
-    { label: "Profile", path: "/GuideProfile" },
+    { label: "Profile", path: "/GuideAccount" },
     { label: "Dashboard", path: "/GuideDashboard" },
     { label: "Tour Center", path: "/TourCenter" },
     { label: "Logout", path: "/Home" },
