@@ -1,22 +1,21 @@
 // Path: src/pages/GuideProfile.jsx
 
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate for logout behavior
+import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import './GuideProfile.css';
+import TouristMenuBar from "../components/TouristMenuBar"; // Use TouristMenuBar like MyWishList
 import ReviewComponent from '../components/ReviewComponent';
-import MenuBar from "../components/MenuBar"; // We will use MenuBar (not TouristMenuBar)
 import CardSlider from '../components/CardSlider';
 import Activity from '../components/Activity';
 
 const GuideProfile = () => {
   const [reviews, setReviews] = useState([]);
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate();
 
   const { guideName } = useParams();
 
-  // Defensive check: If guideName is undefined, avoid crash by defaulting to 'Guide'
   const formattedName = guideName
     ? guideName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     : 'Guide';
@@ -24,31 +23,7 @@ const GuideProfile = () => {
   const [guideData, setGuideData] = useState(null);
   const [destination, setDestination] = useState("Alula");
 
-  // Define navigation links (same as TourCenter)
-  const navLinks = [
-    { label: "Home", path: "/TourGuideHome" },
-    { label: "About", path: "/TourGuideAbout" },
-    { label: "Profile", path: "/GuideProfile" },
-    { label: "Dashboard", path: "/GuideDashboard" },
-    { label: "Tour Center", path: "/TourCenter" },
-    { label: "Logout", path: "/Home" }, // Placeholder for logout handling
-  ];
-
-  // Handle clicks on menu links
-  const handleNavClick = (path) => {
-    if (path === "/Logout") {
-      const confirmed = window.confirm("Are you sure you want to logout?");
-      if (confirmed) {
-        navigate("/Home"); // Redirect to Home after logout
-      }
-      // If canceled, stay on the same page
-    } else {
-      navigate(path); // Navigate normally
-    }
-  };
-
   useEffect(() => {
-    // Mocked guide information
     const mockGuideData = {
       name: formattedName,
       email: 'example@email.com',
@@ -59,7 +34,6 @@ const GuideProfile = () => {
       stars: '☆☆☆☆☆',
     };
 
-    // Mocked reviews
     const mockReviews = [
       { title: "Great Experience", body: "The guide was knowledgeable and friendly.", name: "Sara Omar." },
       { title: "Loved it!", body: "Everything was perfectly organized.", name: "Omar Khalid." },
@@ -79,8 +53,8 @@ const GuideProfile = () => {
 
   return (
     <>
-      {/* Use MenuBar and pass links */}
-      <MenuBar links={navLinks} handleNavClick={handleNavClick} />
+      {/* ✅ Use TouristMenuBar instead of MenuBar */}
+      <TouristMenuBar />
 
       <div className="guide-profile-page container">
         <h1 className="text-center mt-5" style={{ color: '#5c4033' }}>
@@ -129,28 +103,13 @@ const GuideProfile = () => {
           <h4 className="fw-bold mb-2" style={{ color: 'var(--purpule-color)' }}>
             Customize Your Tour
           </h4>
-          {/* <p className="text-muted">Contact your tour guide to know more!</p> */}
-          {/* <p 
-            className="text-muted"
-            onClick={() => navigate('/ContactTourGuide')}
-            style={{ cursor: 'pointer', textDecoration: 'underline', color: '#5c4033' }}
+          <p 
+            className="text-muted" 
+            style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
+            onClick={() => navigate('/ContactTourGuide', { state: { guideName: formattedName } })}
           >
             Contact your tour guide to know more!
-          </p> */}
-       
-
-
-<p 
-  className="text-muted" 
-  style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
-  onClick={() => navigate('/ContactTourGuide', { state: { guideName: formattedName } })}
->
-  Contact your tour guide to know more!
-</p>
-
-
-
-          
+          </p>
         </div>
 
         {/* Activities Section */}
