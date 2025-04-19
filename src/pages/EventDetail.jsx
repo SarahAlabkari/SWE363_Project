@@ -1,9 +1,8 @@
-// Importing necessary components, libraries, pages 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
-// Navigation links for the menu bar
+import Popup from '../components/Popup';
 
 const links = [
   { path: "/Events", label: "Home" },
@@ -12,8 +11,6 @@ const links = [
   { path: "/EventsHistory", label: "Events History" },
   { path: "/Home", label: "Logout" },
 ];
-// Static data representing event details
-
 
 const eventsData = {
   Adventure: {
@@ -96,6 +93,9 @@ const EventDetail = () => {
 
   const [eventData, setEventData] = useState(eventsData[eventId] || {});
   const [isEditing, setIsEditing] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [showCancelPopup, setShowCancelPopup] = useState(false);
+  const [showSavePopup, setShowSavePopup] = useState(false);
 
   useEffect(() => {
     const eventDetails = eventsData[eventId];
@@ -106,36 +106,105 @@ const EventDetail = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEventData((prevData) => ({
-      ...prevData,
+
+    if ((name === "capacity" || name === "price") && value < 1) {
+      setValidationErrors(prev => ({ ...prev, [name]: "Must be a positive number" }));
+    } else if (value.trim() === "") {
+      setValidationErrors(prev => ({ ...prev, [name]: "Field cannot be empty" }));
+    } else {
+      setValidationErrors(prev => {
+        const updated = { ...prev };
+        delete updated[name];
+        return updated;
+      });
+    }
+
+    setEventData(prev => ({
+      ...prev,
       [name]: value,
     }));
   };
 
   const handleEditToggle = () => {
-    setIsEditing((prev) => !prev);
+    if (isEditing) {
+      const errors = {};
+      ["description", "region", "venue", "date", "time", "capacity", "price"].forEach(field => {
+        const value = eventData[field];
+        if (!value || value.toString().trim() === "") {
+          errors[field] = "Field cannot be empty";
+        } else if ((field === "capacity" || field === "price") && value < 1) {
+          errors[field] = "Must be a positive number";
+        }
+      });
+
+      if (Object.keys(errors).length > 0) {
+        setValidationErrors(errors);
+        return;
+      }
+
+      setShowSavePopup(true); 
+    } else {
+      setIsEditing(true);
+    }
   };
 
-  const handleCancel = () => {
-    alert('Event cancelled!');
+  const handleSaveConfirm = () => {
+    setIsEditing(false);
+    setShowSavePopup(false);
+    setValidationErrors({});
+  };
+
+  const handleCancelClick = () => {
+    setShowCancelPopup(true);
+  };
+
+  const handleConfirmCancel = () => {
+    setShowCancelPopup(false);
     navigate('/Events');
   };
 
   return (
     <>
-
       <MenuBar links={links} />
 
-      <header
-        style={{
-          padding: '30px 20px',
-          marginBottom: '30px',
-          textAlign: 'left',
-        }}
-      >
+      {showCancelPopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 1000,
+        }}>
+          <Popup
+            title="Cancel Event"
+            message="Are you sure you want to cancel this event?"
+            type="warning"
+            showConfirm
+            onConfirm={handleConfirmCancel}
+          />
+        </div>
+      )}
+
+      {showSavePopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 1000,
+        }}>
+          <Popup
+            title="Confirm Save"
+            message="Are you sure you want to save the changes?"
+            type="success"
+            showConfirm
+            onConfirm={handleSaveConfirm}
+          />
+        </div>
+      )}
+
+      <header style={{ padding: '30px 20px', marginBottom: '30px', textAlign: 'left' }}>
         <h1>Joyful Journeys</h1>
         <p>
-          Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
+        Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
         </p>
       </header>
 
@@ -155,13 +224,7 @@ const EventDetail = () => {
               Event {eventId}
             </h2>
 
-            <form
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '6px',
-              }}
-            >
+            <form style={{ display: 'flex', flexDirection: 'column', padding: '6px' }}>
               {[
                 'description',
                 'region',
@@ -184,20 +247,19 @@ const EventDetail = () => {
                       border: '1px solid #ccc',
                       borderRadius: '4px',
                       width: '96%',
-                      backgroundColor: '#ffffff',
+                      backgroundColor: isEditing ? '#ffffff' : '#f9f9f9',
                       marginTop: '5px',
                     }}
                   />
+                  {validationErrors[field] && (
+                    <span style={{ color: 'red', fontSize: '12px' }}>
+                      {validationErrors[field]}
+                    </span>
+                  )}
                 </label>
               ))}
 
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '20px',
-                }}
-              >
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                 <button
                   type="button"
                   onClick={handleEditToggle}
@@ -224,7 +286,7 @@ const EventDetail = () => {
 
                 <button
                   type="button"
-                  onClick={handleCancel}
+                  onClick={handleCancelClick}
                   style={{
                     padding: '10px 20px',
                     border: 'none',
@@ -259,3 +321,4 @@ const EventDetail = () => {
 };
 
 export default EventDetail;
+
