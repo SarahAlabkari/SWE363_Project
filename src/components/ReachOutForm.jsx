@@ -1,9 +1,13 @@
 // Importing necessary components, libraries, pages 
-
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom'; // For navigation and getting guide name
 
 const ReachOutForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const guideName = location.state?.guideName || 'Your Guide'; // fallback
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -12,6 +16,7 @@ const ReachOutForm = () => {
     groupSize: '',
     message: ''
   });
+
   const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
@@ -35,26 +40,21 @@ const ReachOutForm = () => {
       groupSize: '',
       message: ''
     });
+    navigate('/Home'); // Redirect after closing
   };
 
   return (
-
-      // Styling for this section
-
     <div style={{
       backgroundColor: '#e5e3d4',
       borderRadius: '10px',
       padding: '20px',
-      color:'black',
+      color: 'black',
       maxWidth: '600px',
       margin: '70px auto',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
     }}>
-      <h2 className="text-center">Reach Out to XX</h2>
-      <Form 
-      
-      
-      onSubmit={handleSubmit}>
+      <h2 className="text-center">Reach Out to {guideName}</h2>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
@@ -65,7 +65,7 @@ const ReachOutForm = () => {
             required
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formLastName">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
@@ -76,7 +76,7 @@ const ReachOutForm = () => {
             required
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -87,7 +87,7 @@ const ReachOutForm = () => {
             required
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formPreferredDate">
           <Form.Label>What is Your Preferred Date?</Form.Label>
           <Form.Control
@@ -97,7 +97,7 @@ const ReachOutForm = () => {
             onChange={handleChange}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formGroupSize">
           <Form.Label>What is Your Group Size?</Form.Label>
           <Form.Control
@@ -106,9 +106,10 @@ const ReachOutForm = () => {
             value={formData.groupSize}
             onChange={handleChange}
             required
+            min="1"
           />
         </Form.Group>
-        
+
         <Form.Group controlId="formMessage">
           <Form.Label>Message</Form.Label>
           <Form.Control
@@ -117,13 +118,13 @@ const ReachOutForm = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            style={{ marginBottom: '20px' }} // Added spacing
+            style={{ marginBottom: '20px' }}
           />
         </Form.Group>
-        
-        <Button 
-          style={{ backgroundColor: '#9abf80', borderColor: '#9abf80', color:'black' }} 
-          type="submit" 
+
+        <Button
+          style={{ backgroundColor: '#9abf80', borderColor: '#9abf80', color: 'black' }}
+          type="submit"
           className="w-100"
         >
           Send

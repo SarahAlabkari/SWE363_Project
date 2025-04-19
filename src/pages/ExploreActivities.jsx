@@ -23,6 +23,7 @@ const ExploreActivities = () => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);    
     const mockData = {
       destination: "Alula",
       description: "Explore ancient tombs, sandstone mountains, and the hidden beauty of Alula with guided experiences."

@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate for logout behavior
+import { Link } from 'react-router-dom';
+
 import './GuideProfile.css';
 import ReviewComponent from '../components/ReviewComponent';
 import MenuBar from "../components/MenuBar"; // We will use MenuBar (not TouristMenuBar)
@@ -127,7 +129,28 @@ const GuideProfile = () => {
           <h4 className="fw-bold mb-2" style={{ color: 'var(--purpule-color)' }}>
             Customize Your Tour
           </h4>
-          <p className="text-muted">Contact your tour guide to know more!</p>
+          {/* <p className="text-muted">Contact your tour guide to know more!</p> */}
+          {/* <p 
+            className="text-muted"
+            onClick={() => navigate('/ContactTourGuide')}
+            style={{ cursor: 'pointer', textDecoration: 'underline', color: '#5c4033' }}
+          >
+            Contact your tour guide to know more!
+          </p> */}
+       
+
+
+<p 
+  className="text-muted" 
+  style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
+  onClick={() => navigate('/ContactTourGuide', { state: { guideName: formattedName } })}
+>
+  Contact your tour guide to know more!
+</p>
+
+
+
+          
         </div>
 
         {/* Activities Section */}

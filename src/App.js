@@ -7,6 +7,7 @@ import './App.css';
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
 
+
 // Import React and routing tools
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -49,6 +50,8 @@ import { Navigate } from 'react-router-dom';
 import PendingActivity from './pages/PendingActivity';
 import TourGuideHome from './pages/TourGuideHome';
 import TourGuideAbout from './pages/TourGuideAbout';
+import ContactTourGuide from './pages/ContactTourGuide';
+
 
 
 
@@ -84,7 +87,6 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/UserManagement" element={<UserManagementPage/>} />
-        <Route path='/TestPopup' element={<TestPopup />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/eventshistory" element={<EventsHistory />} />
@@ -95,6 +97,11 @@ function App() {
         <Route path="/GuideProfile" element={<GuideProfile />} />
         <Route path="/TourGuideHome" element={<TourGuideHome />} />
         <Route path="/TourGuideAbout" element={<TourGuideAbout />} />
+        <Route path="/ContactTourGuide" element={< ContactTourGuide/>} />
+        
+
+
+        
       </Routes>
     </div>
   );
