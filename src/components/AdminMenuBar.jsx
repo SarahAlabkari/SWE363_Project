@@ -9,11 +9,10 @@ const AdminMenuBar = () => {
     { label: "User Management", path: "/UserManagement" }, 
     { label: "Event Management", path: "/PendingActivity" }, 
     { label: "Pending Registrations", path: "/pending-registrations" },   
-    { label: "Complaints", path: "/AdminComplaints" }
-
-
+    { label: "Complaints", path: "/AdminComplaints" }, // ← add comma here
+    { label: "Logout", path: "/Home" },
   ];
-
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light menu-bar py-1">
       <div className="container d-flex align-items-center justify-content-between">
