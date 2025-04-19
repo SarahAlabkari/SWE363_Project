@@ -112,11 +112,11 @@ const GuideAccount = () => {
           </h3>
           <div className="my-5">
             <CardSlider>
-              <Activity customLink="/ViewActivity" />
-              <Activity customLink="/ViewActivity" />
-              <Activity customLink="/ViewActivity" />
-              <Activity customLink="/ViewActivity" />
-              <Activity customLink="/ViewActivity" />
+              <Activity customLink="/TourGuideViewActivity" />
+              <Activity customLink="/TourGuideViewActivity" />
+              <Activity customLink="/TourGuideViewActivity" />
+              <Activity customLink="/TourGuideViewActivity" />
+              <Activity customLink="/TourGuideViewActivity" />
             </CardSlider>
           </div>
         </div>
