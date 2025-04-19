@@ -1,7 +1,10 @@
+// Importing necessary components, libraries, pages 
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuBar from '../components/MenuBar';
 import ContactInfo from '../components/ContactInfo';
+// Navigation links for the menu bar
 
 const links = [
   { path: "/Events", label: "Home" },
@@ -9,7 +12,7 @@ const links = [
   { path: "/Reservations", label: "Reservations" },
   { path: "/EventsHistory", label: "Events History" },
   { path: "/Home", label: "Logout" },
-  
+
 ];
 
 const CreateEvent = () => {
@@ -44,6 +47,8 @@ const CreateEvent = () => {
     console.log('Event created:', eventData);
     navigate('/Events');
   };
+
+// Styling for create event section
 
   const createEventStyle = {
     backgroundColor: '#9abf80',
@@ -108,7 +113,6 @@ const CreateEvent = () => {
     
         padding: '30px 20px',
         marginBottom: '30px',
-        //borderBottom: '2px solid #ccc',
         
       }}
       className="header-background">

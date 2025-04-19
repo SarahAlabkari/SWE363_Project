@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/EventDetails.css';
+import Navbar from '../components/Navbar';
 
-// بيانات الأحداث (مؤقتًا في نفس الملف)
 const events = [
   {
     id: 1,
@@ -67,31 +67,32 @@ const EventDetails = () => {
   }
 
   return (
-    <div className="event-details-page">
-      <div className="event-header">
-        <h1 className="event-title">{event.name}</h1>
-        <div className="event-rating">
-          ⭐ {event.rating}
+    <>
+      <Navbar />
+      <div className="event-details-page">
+        <div className="event-header">
+          <h1 className="event-title">{event.name}</h1>
+          <div className="event-rating">⭐ {event.rating}</div>
+        </div>
+
+        <div className="review-grid">
+          {event.reviews.length > 0 ? (
+            event.reviews.map((review) => (
+              <div key={review.id} className="review-card">
+                <div className="review-title">{review.title}</div>
+                <div className="review-body">{review.body}</div>
+                <div className="reviewer-info">
+                  <span className="reviewer-icon">👤</span>
+                  <span>{review.reviewer}</span> | <span>{review.date}</span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p style={{ fontStyle: 'italic', color: '#555' }}>No reviews yet.</p>
+          )}
         </div>
       </div>
-
-      <div className="review-grid">
-        {event.reviews.length > 0 ? (
-          event.reviews.map((review) => (
-            <div key={review.id} className="review-card">
-              <div className="review-title">{review.title}</div>
-              <div className="review-body">{review.body}</div>
-              <div className="reviewer-info">
-                <span className="reviewer-icon">👤</span>
-                <span>{review.reviewer}</span> | <span>{review.date}</span>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p style={{ fontStyle: 'italic', color: '#555' }}>No reviews yet.</p>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

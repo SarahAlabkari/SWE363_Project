@@ -1,66 +1,84 @@
 /* Navbar wrapper */
-.navbar-wrapper {
+.menu-bar {
+  background-color: #f9f9f9;
   width: 100%;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   padding: 0;
+  margin: 0;
 }
 
-/* Navbar container */
-.navbar-container {
-  max-width: 1400px;
-  margin: auto;
-  padding: 0 40px;
-}
-
-/* Flex layout */
-.navbar {
+/* Full-width container */
+.menu-bar .container-fluid {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 60px;
+  max-width: 100%;
+  width: 100%;
   height: 120px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* Logo */
-.navbar-logo {
-  height: 125px;
+.logo-img {
+  max-height: 55px;
   object-fit: contain;
 }
 
-/* Camels */
-.navbar-camels {
-  height: 90px;
+/* Camels icon */
+.icon-img {
+  max-height: 50px;
   object-fit: contain;
 }
 
-/* Links in the center */
-.navbar-links {
+/* Navigation links */
+.menu-bar .navbar-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 45px;
-  flex: 1;
+  gap: 25px;
+  flex-wrap: wrap;
 }
 
-/* Each nav link */
-.nav-link {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-  background-color: #e5e3d4;
-  color: #6a669d;
-}
-
-.nav-link.active {
-  background-color: #ddd;
+.menu-bar .navbar-nav .nav-link {
+  font-size: 18px;
+  font-weight: 500;
   color: #584335;
-  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.menu-bar .navbar-nav .nav-link:hover {
+  color: #6a669d;
+  background-color: #e5e3d4;
+}
+
+.menu-bar .navbar-nav .nav-link.active {
+  color: #6a669d;
+  background-color: #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .menu-bar .container-fluid {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 20px;
+  }
+
+  .menu-bar .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .logo-img,
+  .icon-img {
+    max-height: 40px;
+  }
 }

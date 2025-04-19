@@ -1,5 +1,7 @@
+// Path: src/pages/Reservations.jsx
 import React, { useState } from 'react';
-import '../styles/Reservation.css';
+import Navbar from '../components/Navbar';
+import '../styles/Reservation.css'; 
 
 const initialData = [
   { id: 1, event: 'Event 1', participant: 'Tourist #1', status: 'Paid' },
@@ -10,7 +12,6 @@ const initialData = [
 ];
 
 const Reservations = () => {
-  const [reservations, setReservations] = useState(initialData);
   const [confirmed, setConfirmed] = useState([]);
   const [reminded, setReminded] = useState([]);
 
@@ -29,45 +30,53 @@ const Reservations = () => {
   };
 
   return (
-    <div className="reservations-page">
-      <h1 className="page-title">Events Reservation Status</h1>
-      <div className="reservation-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Res #</th>
-              <th>Event</th>
-              <th>Participant username</th>
-              <th>Payment status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reservations.map((res) => (
-              <tr key={res.id}>
-                <td>#{res.id}</td>
-                <td>{res.event}</td>
-                <td>{res.participant}</td>
-                <td className="actions">
-                  <span className="status-text">{res.status}</span>
-                  <button
-                    className={`icon-btn ${reminded.includes(res.id) ? 'pressed' : ''}`}
-                    onClick={() => handleReminder(res.id)}
-                  >
-                    🔔
-                  </button>
-                  <button
-                    className={`icon-btn ${confirmed.includes(res.id) ? 'pressed' : ''}`}
-                    onClick={() => handleConfirm(res.id)}
-                  >
-                    ✅
-                  </button>
-                </td>
+    <>
+      <Navbar />
+      <div className="page-container">
+        <h1 className="page-title">Events Reservation Status</h1>
+        <div className="table-responsive">
+          <table className="table table-bordered table-hover text-center">
+            <thead>
+              <tr>
+                <th>Res #</th>
+                <th>Event</th>
+                <th>Participant</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {initialData.map((res) => (
+                <tr key={res.id}>
+                  <td>#{res.id}</td>
+                  <td>{res.event}</td>
+                  <td>{res.participant}</td>
+                  <td>
+                    <span className={`custom-badge ${res.status.toLowerCase() === 'paid' ? 'status-confirmed' : 'status-cancelled'}`}>
+                      {res.status.toLowerCase()}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className={`icon-btn ${reminded.includes(res.id) ? 'pressed' : ''}`}
+                      onClick={() => handleReminder(res.id)}
+                    >
+                      🔔
+                    </button>
+                    <button
+                      className={`icon-btn ${confirmed.includes(res.id) ? 'pressed' : ''}`}
+                      onClick={() => handleConfirm(res.id)}
+                    >
+                      ✅
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
