@@ -74,17 +74,20 @@ http://localhost:3000/Home
 
 ```
 SWE363_Project/
-├── public/          # Public assets (logos, icons, images)
+├── public/               # Public assets (images, logos, icons)
 ├── src/
-│   ├── components/  # Reusable components (e.g., Calendar, MenuBar)
-│   ├── pages/       # Different pages/screens (e.g., Login, GuideDashboard)
-│   ├── App.js       # Main app routing configuration
-│   ├── App.css      # Main global styling
-│   ├── index.js     # React entry point
-│   └── index.css    # Basic global CSS
-├── README.md
-├── package.json
-└── package-lock.json
+│   ├── components/       # Reusable UI components (e.g., CalendarView, MenuBar, ActivityCard)
+│   ├── pages/            # Pages/screens (e.g., Home, About, GuideProfile, TourCenter)
+│   ├── styles/           # Page-specific CSS files
+│   ├── App.js            # Main React component defining routes
+│   ├── App.css           # Global styling for the app
+│   ├── index.js          # React app entry point
+│   ├── index.css         # Basic reset and global CSS
+│   └── reportWebVitals.js# Performance measurement file (optional)
+├── .gitignore            # Git ignored files and folders
+├── README.md             # Project documentation
+├── package.json          # Project metadata and dependencies
+├── package-lock.json     # Exact dependency tree for reproducibility
 ```
 
 ## Special Notes
