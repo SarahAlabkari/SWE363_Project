@@ -1,26 +1,54 @@
+// Path: src/pages/GuideProfile.jsx
+
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate for logout behavior
+import { Link } from 'react-router-dom';
+
 import './GuideProfile.css';
 import ReviewComponent from '../components/ReviewComponent';
-import MenuBar from "../components/MenuBar";
+import MenuBar from "../components/MenuBar"; // We will use MenuBar (not TouristMenuBar)
 import CardSlider from '../components/CardSlider';
 import Activity from '../components/Activity';
-import TouristMenuBar from '../components/TouristMenuBar';
 
 const GuideProfile = () => {
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
   const { guideName } = useParams();
 
+  // Defensive check: If guideName is undefined, avoid crash by defaulting to 'Guide'
   const formattedName = guideName
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    ? guideName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    : 'Guide';
 
   const [guideData, setGuideData] = useState(null);
   const [destination, setDestination] = useState("Alula");
 
+  // Define navigation links (same as TourCenter)
+  const navLinks = [
+    { label: "Home", path: "/TourGuideHome" },
+    { label: "About", path: "/TourGuideAbout" },
+    { label: "Profile", path: "/GuideProfile" },
+    { label: "Dashboard", path: "/GuideDashboard" },
+    { label: "Tour Center", path: "/TourCenter" },
+    { label: "Logout", path: "/Home" }, // Placeholder for logout handling
+  ];
+
+  // Handle clicks on menu links
+  const handleNavClick = (path) => {
+    if (path === "/Logout") {
+      const confirmed = window.confirm("Are you sure you want to logout?");
+      if (confirmed) {
+        navigate("/Home"); // Redirect to Home after logout
+      }
+      // If canceled, stay on the same page
+    } else {
+      navigate(path); // Navigate normally
+    }
+  };
+
   useEffect(() => {
+    // Mocked guide information
     const mockGuideData = {
       name: formattedName,
       email: 'example@email.com',
@@ -31,6 +59,7 @@ const GuideProfile = () => {
       stars: '☆☆☆☆☆',
     };
 
+    // Mocked reviews
     const mockReviews = [
       { title: "Great Experience", body: "The guide was knowledgeable and friendly.", name: "Sara Omar." },
       { title: "Loved it!", body: "Everything was perfectly organized.", name: "Omar Khalid." },
@@ -50,7 +79,8 @@ const GuideProfile = () => {
 
   return (
     <>
-       <TouristMenuBar/>
+      {/* Use MenuBar and pass links */}
+      <MenuBar links={navLinks} handleNavClick={handleNavClick} />
 
       <div className="guide-profile-page container">
         <h1 className="text-center mt-5" style={{ color: '#5c4033' }}>
@@ -63,6 +93,7 @@ const GuideProfile = () => {
         </h2>
 
         <div className="d-flex align-items-start gap-4 mt-4 flex-wrap justify-content-center">
+          {/* Profile Image and Rating */}
           <div className="d-flex flex-column align-items-center">
             <img
               src="https://via.placeholder.com/130"
@@ -76,6 +107,7 @@ const GuideProfile = () => {
             </div>
           </div>
 
+          {/* Bio Section */}
           <div className="bio-box-container">
             <label className="fw-bold d-block mb-1" style={{ color: 'var(--purpule-color)' }}>
               {guideData.name}
@@ -83,6 +115,7 @@ const GuideProfile = () => {
             <div className="bio-box">{guideData.bio}</div>
           </div>
 
+          {/* Contact Info */}
           <div className="contact-box-small">
             <p className="mb-1">Email: {guideData.email}</p>
             <p>Phone: {guideData.phone}</p>
@@ -91,13 +124,36 @@ const GuideProfile = () => {
 
         <div style={{ height: '100px' }}></div>
 
+        {/* Customize Section */}
         <div className="customize-box text-center py-4">
           <h4 className="fw-bold mb-2" style={{ color: 'var(--purpule-color)' }}>
             Customize Your Tour
           </h4>
-          <p className="text-muted">Contact your tour guide to know more!</p>
+          {/* <p className="text-muted">Contact your tour guide to know more!</p> */}
+          {/* <p 
+            className="text-muted"
+            onClick={() => navigate('/ContactTourGuide')}
+            style={{ cursor: 'pointer', textDecoration: 'underline', color: '#5c4033' }}
+          >
+            Contact your tour guide to know more!
+          </p> */}
+       
+
+
+<p 
+  className="text-muted" 
+  style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
+  onClick={() => navigate('/ContactTourGuide', { state: { guideName: formattedName } })}
+>
+  Contact your tour guide to know more!
+</p>
+
+
+
+          
         </div>
 
+        {/* Activities Section */}
         <div className="my-5">
           <CardSlider>
             <Activity customLink="/ViewActivity" />
@@ -106,6 +162,7 @@ const GuideProfile = () => {
           </CardSlider>
         </div>
 
+        {/* Reviews Section */}
         <div className="review-section mt-5">
           <h3 className="text-center fw-bold mb-3" style={{ color: '#5c4033' }}>
             5.0 Traveler Thoughts

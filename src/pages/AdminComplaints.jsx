@@ -165,7 +165,7 @@ const AdminComplaints = () => {
       )}
 
       <div className="container mt-4">
-        <h2 className="fw-bold mb-3 text-center" style={{color:"#584335"}}>Complaints</h2>
+        <h2 className="fw-bold mb-3 text-center">Complaints</h2>
 
         <div className="d-flex flex-wrap justify-content-between mb-3 align-items-center gap-2">
           <div className="d-flex gap-2">

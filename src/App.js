@@ -6,7 +6,7 @@ import './App.css';
 // Import component files
 import DropdownMenu from './components/DropdownMenu';
 import CalendarComponent from './components/CalendarComponent';
-import Navbar from './components/Navbar';
+
 
 // Import React and routing tools
 import React from "react";
@@ -47,22 +47,17 @@ import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import TestPopup from './pages/TestPopup';
 import { Navigate } from 'react-router-dom';
+import PendingActivity from './pages/PendingActivity';
+import TourGuideHome from './pages/TourGuideHome';
+import TourGuideAbout from './pages/TourGuideAbout';
+import ContactTourGuide from './pages/ContactTourGuide';
+
+
+
 
 function App() {
-  const location = useLocation();
-
-  const showNavbarRoutes = [
-    "/reservations",
-    "/profile",
-    "/eventshistory"
-  ];
-
-  const shouldShowNavbar = showNavbarRoutes.includes(location.pathname) || 
-    location.pathname.startsWith("/events-history/");
-
   return (
     <div className="App">
-      {shouldShowNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/AdminComplaints" element={< AdminComplaints/>} />
@@ -91,8 +86,6 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
-
-        <Route path='/TestPopup' element={<TestPopup />} />
         <Route path="/UserManagement" element={<UserManagementPage/>} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
@@ -100,7 +93,15 @@ function App() {
         <Route path="/events-history/:eventId" element={<EventDetails />} />
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/PendingActivity" element={<PendingActivity />} />
+        <Route path="/GuideProfile" element={<GuideProfile />} />
+        <Route path="/TourGuideHome" element={<TourGuideHome />} />
+        <Route path="/TourGuideAbout" element={<TourGuideAbout />} />
+        <Route path="/ContactTourGuide" element={< ContactTourGuide/>} />
+        
 
+
+        
       </Routes>
     </div>
   );

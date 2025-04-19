@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
 import MenuBar from "../components/MenuBar";
+
 import TouristMenuBar from '../components/TouristMenuBar';
+
 import { useNavigate } from 'react-router-dom';
-import Popup from '../components/Popup';
+import TestPopup from './TestPopup';
+
 
 function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState('card');
@@ -17,33 +20,71 @@ function PaymentPage() {
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
   const [errors, setErrors] = useState({});
-  const [popupProps, setPopupProps] = useState(null);
-  const [nextPopup, setNextPopup] = useState(null);
+  const [popup, setPopup] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const mockData = {
-      title: 'AlUla Heritage Tour',
-      description: 'Explore the stunning landscapes and historical sites of AlUla with a local guide.',
-      pricePerSeat: '250 SAR',
-      numberOfTickets: '2'
+    const fetchSummary = async () => {
+      const mockData = {
+        title: 'AlUla Heritage Tour',
+        description: 'Explore the stunning landscapes and historical sites of AlUla with a local guide.',
+        pricePerSeat: '250 SAR',
+        numberOfTickets: '2'
+      };
+      setActivitySummary(mockData);
     };
-    setActivitySummary(mockData);
+    fetchSummary();
   }, []);
 
-  const validate = (field) => {
-    const newErrors = { ...errors };
-    if (!field || field === 'cardNumber') {
-      newErrors.cardNumber = /^[0-9]{16}$/.test(cardNumber.replace(/\s/g, '')) ? '' : 'Card number must be 16 digits';
+  const validate = () => {
+    const newErrors = {};
+    if (!/\d{16}/.test(cardNumber.replace(/\s/g, ''))) {
+      newErrors.cardNumber = 'Card number must be 16 digits';
     }
-    if (!field || field === 'expiry') {
-      newErrors.expiry = /^\d{2}\/\d{2}$/.test(expiry) ? '' : 'Expiry must be in MM/YY format';
+    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+      newErrors.expiry = 'Expiry must be in MM/YY format';
     }
-    if (!field || field === 'cvc') {
-      newErrors.cvc = /^\d{3}$/.test(cvc) ? '' : 'CVC must be 3 digits';
+    if (!/^\d{3}$/.test(cvc)) {
+      newErrors.cvc = 'CVC must be 3 digits';
     }
     setErrors(newErrors);
-    if (!field) return Object.values(newErrors).every(err => !err);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (paymentMethod === 'apple') {
+      setPopup({
+        type: 'warning',
+        title: 'Confirm Apple Pay',
+        message: `Do you want to confirm paying ${getTotalPrice()} for ${activitySummary.title}?`,
+
+        actions: [
+          { label: 'Cancel', action: () => { setPopup(null); navigate('/Payment'); } },
+          { label: 'Confirm', action: () => setPopup({
+            type: 'success',
+            title: 'Payment Successful',
+            message: 'Your payment has been successfully processed!',
+            actions: [{ label: 'See My Plan', action: () => navigate('/MyPlan') }]
+          }) }
+        ]
+      });
+    } else {
+      if (validate()) {
+        setPopup({
+          type: 'success',
+          title: 'Payment Successful',
+          message: 'Your payment has been successfully processed!',
+          actions: [{ label: 'See My Plan', action: () => navigate('/MyPlan') }]
+        });
+      } else {
+        setPopup({
+          type: 'danger',
+          title: 'Payment Declined',
+          message: 'Please enter valid card credentials.',
+          actions: [{ label: 'OK', action: () => setPopup(null) }]
+        });
+      }
+    }
   };
 
   const getTotalPrice = () => {
@@ -52,93 +93,58 @@ function PaymentPage() {
     return isNaN(price) || isNaN(quantity) ? '' : `${price * quantity} SAR`;
   };
 
-  const showSuccessPopup = () => {
-    setPopupProps({
-      title: 'Payment Successful',
-      message: 'Your payment has been successfully processed!',
-      type: 'success',
-      showConfirm: true,
-      onConfirm: () => setPopupProps(null) || navigate('/MyPlan')
-    });
-  };
-
-  const handleSubmit = () => {
-    if (paymentMethod === 'apple') {
-      setPopupProps({
-        title: 'Confirm Apple Pay',
-        message: `Do you want to confirm paying ${getTotalPrice()} for ${activitySummary.title}?`,
-        type: 'warning',
-        showConfirm: true,
-        showCancel: true,
-        onConfirm: () => {
-          setPopupProps(null);
-          setNextPopup(() => showSuccessPopup);
-        },
-        onCancel: () => setPopupProps(null) || navigate('/MyPlan')
-      });
-    } else {
-      if (validate()) {
-        showSuccessPopup();
-      } else {
-        setPopupProps({
-          title: 'Payment Declined',
-          message: 'Please enter valid card credentials.',
-          type: 'danger',
-          showConfirm: true,
-          onConfirm: () => setPopupProps(null)
-        });
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (nextPopup) {
-      nextPopup();
-      setNextPopup(null);
-    }
-  }, [nextPopup]);
 
   return (
-    <div className="payment-page" style={{ position: 'relative' }}>
+    <div className="payment-page">
       <div className="menu-bar-wrapper">
-        <TouristMenuBar />
+      <TouristMenuBar/>
       </div>
       <h1 className="page-title" style={{ color: '#5c4033' }}>Pay & Confirm</h1>
 
-      {popupProps && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 9999
-        }}>
-          <Popup {...popupProps} />
+      {popup && (
+        <div style={{ position: 'fixed', top: '20px', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, width: '100%', maxWidth: '600px' }}>
+          <TestPopup
+            title={popup.title}
+            message={<>
+              {popup.message}
+              <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                {popup.actions.map((btn, index) => (
+                  <button key={index} onClick={btn.action} className="btn btn-sm btn-dark">
+                    {btn.label}
+                  </button>
+                ))}
+              </div>
+            </>}
+            type={popup.type}
+          />
         </div>
       )}
 
       <div className="payment-layout">
         <div className="payment-form">
           <div className="payment-methods">
-            <label className="payment-option">
-              <div>
+            <label className="payment-option" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <input type="radio" name="method" value="apple" checked={paymentMethod === 'apple'} onChange={() => setPaymentMethod('apple')} />
-                <span>Apple Pay</span>
+                
+                <span className="payment-text" style={{ whiteSpace: 'nowrap', fontSize: '18px', minWidth: '160px' }}>
+                  Apple Pay
+                </span>
+
               </div>
               <img src="/apple-pay.png" alt="Apple Pay" className="payment-icon" />
             </label>
 
-            <label className="payment-option">
-              <div>
+            <label className="payment-option" style={{ backgroundColor: '#ffffff', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '15px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <input type="radio" name="method" value="card" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} />
-                <span>Debit / Credit Card</span>
+                
+                <span className="payment-text" style={{ whiteSpace: 'nowrap', fontSize: '18px', minWidth: '160px' }}>
+                Debit / Credit Card
+                </span>
+
               </div>
-              <div className="card-icons">
+              <div className="card-icons" style={{ display: 'flex', gap: '12px' }}>
                 <img src="/visa.png" alt="Visa" className="payment-icon" />
                 <img src="/Master2.png" alt="Mastercard" className="payment-icon" />
                 <img src="/Mada.png" alt="Mada" className="payment-icon" />
@@ -150,46 +156,28 @@ function PaymentPage() {
             <div className="card-info">
               <label>
                 Card Number
-                <input
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                  onBlur={() => validate('cardNumber')}
-                />
+                <input type="text" placeholder="1234 5678 9012 3456" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} onBlur={validate} style={{ backgroundColor: '#ffffff' }} />
                 {errors.cardNumber && <span className="error-text">{errors.cardNumber}</span>}
               </label>
               <div className="row">
                 <div className="form-group half-width">
                   <label>
                     Expiry
-                    <input
-                      type="text"
-                      placeholder="MM/YY"
-                      value={expiry}
-                      onChange={(e) => setExpiry(e.target.value)}
-                      onBlur={() => validate('expiry')}
-                    />
+                    <input type="text" placeholder="MM/YY" value={expiry} onChange={(e) => setExpiry(e.target.value)} onBlur={validate} style={{ backgroundColor: '#ffffff' }} />
                     {errors.expiry && <span className="error-text">{errors.expiry}</span>}
                   </label>
                 </div>
                 <div className="form-group half-width">
                   <label>
                     CVC
-                    <input
-                      type="text"
-                      placeholder="123"
-                      value={cvc}
-                      onChange={(e) => setCvc(e.target.value)}
-                      onBlur={() => validate('cvc')}
-                    />
+                    <input type="text" placeholder="123" value={cvc} onChange={(e) => setCvc(e.target.value)} onBlur={validate} style={{ backgroundColor: '#ffffff' }} />
                     {errors.cvc && <span className="error-text">{errors.cvc}</span>}
                   </label>
                 </div>
               </div>
               <label>
                 Total Price
-                <input type="text" value={getTotalPrice()} readOnly />
+                <input type="text" value={getTotalPrice()} readOnly style={{ backgroundColor: '#ffffff' }} />
               </label>
             </div>
           )}
