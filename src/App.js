@@ -45,7 +45,6 @@ import UserManagementPage from './pages/UserManagement';
 import ActivityDetails from './pages/ActivityDatails';
 import TourDetails from './pages/TourDetails';
 import AdminDashboard from './pages/AdminDashboard';
-import TestPopup from './pages/TestPopup';
 import { Navigate } from 'react-router-dom';
 import PendingActivity from './pages/PendingActivity';
 import TourGuideHome from './pages/TourGuideHome';
