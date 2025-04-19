@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import './GuideProfile.css';
-import TouristMenuBar from "../components/TouristMenuBar"; // ✅ Use TouristMenuBar like MyWishList
+import TouristMenuBar from "../components/TouristMenuBar"; // Use TouristMenuBar like MyWishList
 import ReviewComponent from '../components/ReviewComponent';
 import CardSlider from '../components/CardSlider';
 import Activity from '../components/Activity';
