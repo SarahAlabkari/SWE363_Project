@@ -139,11 +139,12 @@ import "./GuideDashboard.css"; // Optional custom styles (like scrollbar)
 
 const GuideDashboard = () => {
   const navLinks = [
-    { label: "Home", path: "/Home" },
-    { label: "About", path: "/About" },
+    { label: "Home", path: "/TourGuideHome" },
+    { label: "About", path: "/TourGuideAbout" },
     { label: "Profile", path: "/GuideProfile" },
     { label: "Dashboard", path: "/GuideDashboard" },
     { label: "Tour Center", path: "/TourCenter" },
+    { label: "Logout", path: "/Home" },
   ];
 
   return (

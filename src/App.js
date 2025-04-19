@@ -47,6 +47,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import TestPopup from './pages/TestPopup';
 import { Navigate } from 'react-router-dom';
 import PendingActivity from './pages/PendingActivity';
+import TourGuideHome from './pages/TourGuideHome';
+import TourGuideAbout from './pages/TourGuideAbout';
 
 
 
@@ -90,7 +92,9 @@ function App() {
         <Route path="/pending-registrations" element={<PendingRegistrations />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/PendingActivity" element={<PendingActivity />} />
-
+        <Route path="/GuideProfile" element={<GuideProfile />} />
+        <Route path="/TourGuideHome" element={<TourGuideHome />} />
+        <Route path="/TourGuideAbout" element={<TourGuideAbout />} />
       </Routes>
     </div>
   );

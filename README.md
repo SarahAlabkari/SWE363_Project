@@ -1,17 +1,17 @@
-# Jaddwill
+# Jadwill
 
 **SWE 363 - Phase 4 - Front-End Prototype**
 
 ## Project Description
 
-**Jaddwill** is a dynamic platform designed to transform the travel experience by connecting tourists with local guides who curate one-day itineraries filled with authentic activities and cultural experiences.
+**Jadwill** is a dynamic platform designed to transform the travel experience by connecting tourists with local guides who curate one-day itineraries filled with authentic activities and cultural experiences.
 
-Through Jaddwill:
+Through Jadwill:
 - **Locals** can design and post full-day schedules for a set fee.
 - **Businesses and organizations** can showcase upcoming events and experiences.
 - **Tourists** can explore the region through personalized and immersive cultural interactions.
 
-Jaddwill addresses the challenge of impersonal, generic tourism by enabling authentic cultural exchanges, supporting small businesses, and promoting economic growth in alignment with Saudi Vision 2030.
+Jadwill addresses the challenge of impersonal, generic tourism by enabling authentic cultural exchanges, supporting small businesses, and promoting economic growth in alignment with Saudi Vision 2030.
 
 ### Target Users
 - **Admin:** Manages user accounts, handles registrations, monitors statistics, and resolves complaints.
@@ -24,6 +24,9 @@ Jaddwill addresses the challenge of impersonal, generic tourism by enabling auth
 - **React Router**
 - **Node.js**
 - **Bootstrap**
+- **React Bootstrap Icons**
+- **React Calendar**
+- **React Datepicker**
 
 ## Installation Instructions
 
@@ -37,10 +40,21 @@ git clone https://github.com/SarahAlabkari/SWE363_Project.git
 cd SWE363_Project
 ```
 
-3. **Install dependencies:**
+3. **Install all required dependencies:**
 ```bash
 npm install
 ```
+
+4. **(Optional) Install specific libraries manually if needed:**
+```bash
+npm install react-router-dom
+npm install bootstrap
+npm install react-bootstrap-icons
+npm install react-calendar
+npm install react-datepicker
+```
+
+Usually `npm install` is enough to install everything.
 
 ## Running the Project
 
@@ -49,7 +63,11 @@ npm install
 npm start
 ```
 
-- The project will run at `http://localhost:3000/`
+- The project will run at:
+```
+http://localhost:3000/Home
+```
+
 - **No environment variables are required.**
 
 ## Folder Structure
@@ -63,7 +81,7 @@ SWE363_Project/
 │   ├── App.js       # Main app routing configuration
 │   ├── App.css      # Main global styling
 │   ├── index.js     # React entry point
-│   └── index.css   # Basic global CSS
+│   └── index.css    # Basic global CSS
 ├── README.md
 ├── package.json
 └── package-lock.json
