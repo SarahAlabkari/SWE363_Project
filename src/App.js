@@ -94,7 +94,6 @@ function App() {
 
         <Route path='/TestPopup' element={<TestPopup />} />
         <Route path="/UserManagement" element={<UserManagementPage/>} />
-        <Route path='/TestError' element={<TestPopup />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/eventshistory" element={<EventsHistory />} />
