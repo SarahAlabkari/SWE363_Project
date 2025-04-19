@@ -6,7 +6,7 @@ const MyPlanTable = ({ activities }) => {
   const navigate = useNavigate();
 
   const handleView = () => {
-    navigate('/EventDetail'); // Navigate to the event details page
+    navigate('/ViewActivity'); // Navigate to the event details page
   };
 
   const handleCancel = () => {

@@ -54,6 +54,15 @@ const UserManagementPage = () => {
      <AdminMenuBar />
       <div className="container mt-5">
         <h2 className="mb-4">User Management</h2>
+        <div className="d-flex justify-content-between mb-3">
+          <select className="form-select w-25">
+            <option>Filter By</option>
+            <option>Tourist</option>
+            <option>Activity Provider</option>
+            <option>Tour Guide</option>
+          </select>
+          <input type="text" className="form-control w-25" placeholder="Search By Username" />
+        </div>
         <UserManagementList
           users={users}
           onActivate={handleActivate}

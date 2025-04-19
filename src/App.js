@@ -65,7 +65,6 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/ExploreActivities" element={<ExploreActivities/>}/>
         <Route path="/ViewActivity" element={<ViewActivity/>}/>
-      
         <Route path="/Home" element={<Home />} />
         <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />

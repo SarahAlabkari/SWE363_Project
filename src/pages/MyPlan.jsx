@@ -6,16 +6,16 @@ import TouristMenuBar from '../components/TouristMenuBar'; // Adjust the path ba
 
 const sampleAcMytivities = [
   {
-    name: 'City Tour',
-    location: 'Riyadh',
+    name: 'Alula',
+    location: 'Alula',
     date: '2025-04-10',
     time: '10:00 AM',
     seats: 2,
     status: 'Confirmed'
   },
   {
-    name: 'Museum Visit',
-    location: 'Jeddah',
+    name: 'Alula Visit',
+    location: 'Alula',
     date: '2025-04-12',
     time: '2:00 PM',
     seats: 4,
