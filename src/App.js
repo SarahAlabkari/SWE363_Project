@@ -51,6 +51,7 @@ import TourGuideHome from './pages/TourGuideHome';
 import TourGuideAbout from './pages/TourGuideAbout';
 import ContactTourGuide from './pages/ContactTourGuide';
 import GuideAccount from './pages/GuidAccount';
+import TourGuideViewActivity from './pages/TourGuideViewActivity';
 
 
 
@@ -97,6 +98,7 @@ function App() {
         <Route path="/TourGuideAbout" element={<TourGuideAbout />} />
         <Route path="/ContactTourGuide" element={< ContactTourGuide/>} />
         <Route path="/GuideAccount" element={<GuideAccount />} />
+        <Route path="/TourGuideViewActivity" element={<TourGuideViewActivity />} />
       </Routes>
     </div>
   );
