@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import * as ReactRouterDom from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import MenuBar from "../components/MenuBar";
 import CardSlider from "../components/CardSlider";
 import Activity from "../components/Activity";
@@ -18,26 +19,46 @@ const ExploreActivities = () => {
     { label: "Login", path: "/" },
   ];
 
-  const [destination, setDestination] = useState("Alula");
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const selectedCity = params.get("city");
+
+  const [destination, setDestination] = useState("");
   const [description, setDescription] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
+  const [city, setCity] = useState(selectedCity || "");
 
   useEffect(() => {
-    window.scrollTo(0, 0);    
-    const mockData = {
-      destination: "Alula",
-      description: "Explore ancient tombs, sandstone mountains, and the hidden beauty of Alula with guided experiences."
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (!city) return;
+
+    const fetchCityData = async () => {
+      try {
+        // const res = await axios.get(`http://localhost:5000/api/cities/${city}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cities/${city}`);
+
+        setDestination(res.data.name);
+        setDescription(res.data.bio);
+      } catch (err) {
+        console.error("Error fetching city:", err);
+        setDestination(city); // fallback
+        setDescription("Discover unique experiences and activities in this city.");
+      }
     };
 
-    setDestination(mockData.destination);
-    setDescription(mockData.description);
-  }, []);
+    fetchCityData();
+  }, [city]);
 
   return (
     <div className="explore-activities-page">
       <MenuBar links={navLinks} />
 
-      <h2 className="text-center fw-bold mt-4" style={{ color: '#584335' }}>Explore Activities!</h2>
+      <h2 className="text-center fw-bold mt-4" style={{ color: '#584335' }}>
+        Explore Activities!
+      </h2>
 
       {/* Hero Banner */}
       <div
@@ -53,41 +74,46 @@ const ExploreActivities = () => {
         <p className="text-muted">{description}</p>
       </div>
 
-     {/* Filters Row */}
-<div className="d-flex justify-content-between px-4 mb-3 align-items-center flex-wrap gap-3">
-  <div style={{ width: "fit-content" }}>
-    <DropdownMenu />
-  </div>
+      {/* Filters Row */}
+      <div className="d-flex justify-content-between px-4 mb-3 align-items-center flex-wrap gap-3">
+        <div style={{ width: "fit-content" }}>
+          <DropdownMenu onSelectCity={(selected) => setCity(selected)} />
+        </div>
 
-  <div style={{ width: "fit-content" }}>
-    <label className="d-block mb-1" style={{ fontSize: '14px', color: '#5c4033', textAlign: 'left' }}>
-      Find your perfect day!
-    </label>
-    <div className="position-relative">
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        placeholderText="mm/dd/yyyy"
-        className="form-control pe-4"
-      />
-      <span
-        style={{
-          position: "absolute",
-          top: "50%",
-          right: "10px",
-          transform: "translateY(-50%)",
-          fontSize: "16px",
-          color: "#6c757d",
-          pointerEvents: "none"
-        }}
-      >
-        📅
-      </span>
-    </div>
-  </div>
-</div>
-
-
+        <div style={{ width: "fit-content" }}>
+          <label
+            className="d-block mb-1"
+            style={{
+              fontSize: '14px',
+              color: '#5c4033',
+              textAlign: 'left'
+            }}
+          >
+            Find your perfect day!
+          </label>
+          <div className="position-relative">
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              placeholderText="mm/dd/yyyy"
+              className="form-control pe-4"
+            />
+            <span
+              style={{
+                position: "absolute",
+                top: "50%",
+                right: "10px",
+                transform: "translateY(-50%)",
+                fontSize: "16px",
+                color: "#6c757d",
+                pointerEvents: "none"
+              }}
+            >
+              📅
+            </span>
+          </div>
+        </div>
+      </div>
 
       {/* Activity Cards */}
       <div className="px-4 pb-5">

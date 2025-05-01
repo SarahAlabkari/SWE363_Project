@@ -2,15 +2,24 @@ import React, { useState, useRef } from 'react';
 import './DropdownMenu.css';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 
-
+// Cities list
 const saudiCities = [
-  "Abha", "Alahssa", "Alqasim", "AlUla", "Bisha", "Buraidah", "Dammam",
-  "Dhahran", "Hail", "Jazan", "Jeddah", "Jubail", "Khafji", "Khobar",
-  "Mecca", "Medina", "Najran", "Qatif", "Rafha", "Riyadh", "Sakaka",
-  "Tabuk", "Taif", "Tarout", "Yanbu"
+  "Riyadh",
+  "Makkah",
+  "Madinah",
+  "Eastern Province",
+  "Qassim",
+  "Asir",
+  "Tabuk",
+  "Hail",
+  "Northern Borders",
+  "Jazan",
+  "Najran",
+  "Bahah",
+  "Jawf"
 ];
 
-function DropdownMenu() {
+function DropdownMenu({ onSelectCity }) {
   const [search, setSearch] = useState('');
   const [showList, setShowList] = useState(false);
   const inputRef = useRef(null);
@@ -23,13 +32,21 @@ function DropdownMenu() {
     setSearch(city);
     setShowList(false);
     inputRef.current.blur(); // closes dropdown immediately
+
+    // Notify parent component of selection
+    if (onSelectCity) {
+      onSelectCity(city);
+    }
   };
 
   return (
     <div className="dropdown-wrapper">
       <div className="search-container">
-        <FiMenu className="icon-left" style={{ fontSize: '20px', flexShrink: 0 }}
-        onClick={() => setShowList(prev => !prev)} />
+        <FiMenu
+          className="icon-left"
+          style={{ fontSize: '20px', flexShrink: 0 }}
+          onClick={() => setShowList(prev => !prev)}
+        />
         <input
           type="text"
           className="search-input"
@@ -37,19 +54,21 @@ function DropdownMenu() {
           value={search}
           ref={inputRef}
           onFocus={() => setShowList(true)}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setShowList(true);
+          }}
         />
-
-{search && (
-  <FiX
-    className="icon-clear"
-    onClick={() => {
-      setSearch('');
-      setShowList(false);
-    }}
-  />
-)}
-
+        {search && (
+          <FiX
+            className="icon-clear"
+            onClick={() => {
+              setSearch('');
+              setShowList(false);
+              if (onSelectCity) onSelectCity(null); // Clear selection
+            }}
+          />
+        )}
         <FiSearch className="icon-right" style={{ fontSize: '20px', flexShrink: 0 }} />
       </div>
 
@@ -59,7 +78,7 @@ function DropdownMenu() {
             <div
               key={index}
               className="dropdown-item-custom"
-              onMouseDown={() => handleSelect(city)} 
+              onMouseDown={() => handleSelect(city)}
             >
               {city}
             </div>
