@@ -1,9 +1,7 @@
-// Path: src/pages/GuideProfile.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './GuideProfile.css';
-import TouristMenuBar from "../components/TouristMenuBar"; // Tourists
+import TouristMenuBar from "../components/TouristMenuBar";
 import CardSlider from "../components/CardSlider";
 import Activity from "../components/Activity";
 
@@ -12,6 +10,11 @@ const GuideProfile = () => {
   const [guideData, setGuideData] = useState(null);
   const navigate = useNavigate();
   const { guideName } = useParams();
+
+ 
+  const formattedName = guideName
+    ? guideName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : '';
 
   useEffect(() => {
     const fetchGuideData = async () => {
@@ -23,7 +26,7 @@ const GuideProfile = () => {
         const starsNumber = data.stars || 0;
 
         setGuideData({
-          name: data.name,
+          name: formattedName, 
           email: data.contactEmail,
           phone: data.contactPhone,
           bio: data.bio,
@@ -83,19 +86,16 @@ const GuideProfile = () => {
             </div>
           </div>
 
-
-          <div className="bio-box-container" style={{ marginTop: '35px' }}>
+          <div className="bio-box-container" style={{ marginTop: '20px' }}>
             <label className="fw-bold d-block mb-1" style={{ color: 'var(--purpule-color)' }}>
-             {guideData.name}
+              {guideData.name}
             </label>
-          <div className="bio-box">{guideData.bio}</div>
+            <div className="bio-box">{guideData.bio}</div>
           </div>
 
-          
-     
+          {/* <div className="contact-box-small"> */}
+          <div className="contact-box-small" style={{ marginTop: '10px' }}>
 
-
-          <div className="contact-box-small">
             <p className="mb-1">Email: {guideData.email}</p>
             <p>Phone: {guideData.phone}</p>
           </div>
@@ -107,8 +107,8 @@ const GuideProfile = () => {
           <h4 className="fw-bold mb-2" style={{ color: 'var(--purpule-color)' }}>
             Customize Your Tour
           </h4>
-          <p 
-            className="text-muted" 
+          <p
+            className="text-muted"
             style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
             onClick={() => navigate('/ContactTourGuide', { state: { guideName: guideData.name } })}
           >
@@ -129,7 +129,6 @@ const GuideProfile = () => {
             Traveler Thoughts
           </h3>
           <p className="text-center">{guideData.stars} ({reviews.length})</p>
-
 
           <div className="review-grid">
             {reviews.map((review, index) => (
