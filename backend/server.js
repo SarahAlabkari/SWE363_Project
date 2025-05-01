@@ -16,12 +16,15 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/api/activities', require('./routes/activityRoutes'));
+
 
 // Route imports
 const touristRoutes = require('./routes/touristRoutes');
 const guideRoutes = require('./routes/guideRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const adminRoutes = require('./routes/adminRoutes'); // Admin route
+const activityRoutes = require('./routes/activityRoutes'); // Activity route
 
 // Use routes
 app.use('/api/tourists', touristRoutes);
@@ -29,6 +32,7 @@ app.use('/api/guides', guideRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);
+app.use('/api/activities', activityRoutes); // Use singular `/activities`
 
 // Health check route
 app.get('/', (req, res) => {
