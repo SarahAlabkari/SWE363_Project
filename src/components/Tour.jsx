@@ -1,51 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
-function Tour(props) {
+function Tour({ tour }) {
+  const navigate = useNavigate();
 
-    const [tour, setTour] = useState(null);
-    const navigate = useNavigate();
+  return (
+    <div
+      className="card"
+      style={{
+        width: '12rem',
+        margin: '10px',
+        borderColor: 'var(--green-color)',
+        borderWidth: '3px',
+        padding: '5px',
+      }}
+    >
+      <div className="card-body" style={{ padding: '3px' }}>
+        <h5 className="card-title">{tour.name}</h5>
+        <p className="card-subtitle text-body-secondary">
+          By: {tour.tourGuideUsername}
+        </p>
 
-    //This will later be fetched from a database
-    useEffect(() => {
-        const mockTour = {
-            name: 'Alula Tour',
-            TourID: 1,
-            tourGuid: 'Sarah Alabkari',
-            date: 'April 10, 2025',
-            time: '9:00 AM - 4:00 PM',
-            startLocation: 'Alula, Saudi Arabia',
-            description: 'Join us for a day full of adventure!',
-            activitiesNames: ['Hiking in AlUlas rock formations', 'Hot Air Baloon Ride', 'Sandboarding'],
-            activitiesIDs: [1, 2, 3],
-            state: 'Active',
-        };
-        setTour(mockTour);
-    }, []);
+        <p>Activities:</p>
+        <ul>
+          {tour.activityNames && tour.activityNames.length > 0 ? (
+            tour.activityNames.map((name, index) => (
+              <li key={index}>Event #{index + 1} – {name}</li>
+            ))
+          ) : (
+            <li>No activities listed</li>
+          )}
+        </ul>
 
-    if(!tour) {
-        return(<div>Loading....</div>);
-    }
-
-    return(<div className="card" style={{width: '12rem', margin: '10px', borderColor: 'var(--green-color)', borderWidth: '3px', padding: '5px'}}>
-        <div className="card-body" style={{padding: '3px'}}>
-            <h5 className="card-title">{tour.name}</h5>
-            <p className="card-subtitle text-body-secondary">By: {tour.tourGuid}</p>
-            <p>Activities:</p>
-            <ul>
-                {tour.activitiesNames.map((act, index) => (
-                    <li key={index}>{act}</li>
-                ))}
-            </ul>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button type="button" id="evnt-details-button" className="btn guide-button" onClick={() => navigate(`/TourDetails/${tour.tourI}`)}>More details</button>
-            </div>        
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button
+            type="button"
+            id="evnt-details-button"
+            className="btn guide-button"
+            onClick={() => navigate(`/TourDetails/${tour._id}`)}
+          >
+            More details
+          </button>
         </div>
-    </div>);
-                    
+      </div>
+    </div>
+  );
 }
 
 export default Tour;
-
