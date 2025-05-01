@@ -1,8 +1,10 @@
+// Path: backend/routes/adminRoutes.js
+
 const express = require('express');
 const router = express.Router();
-const { createAdmin, getAdmins } = require('../controllers/adminController');
+const { loginAdmin } = require('../controllers/adminController');
 
-router.post('/', createAdmin);
-router.get('/', getAdmins);
+// POST /api/admin/login
+router.post('/login', loginAdmin);
 
 module.exports = router;

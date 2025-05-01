@@ -1,13 +1,13 @@
 // Path: src/pages/CreateTourGuideAccount.jsx
 
-import React, { useState } from 'react'; // Import React and useState hook
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation after successful signup
-import './CreateAccountForm.css'; // Import shared layout and styles for account creation
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './CreateAccountForm.css';
 
 const CreateTourGuideAccount = () => {
-  const navigate = useNavigate(); // Hook to allow navigation
+  const navigate = useNavigate();
 
-  // State to store form fields
+  // State for form fields including confirmPassword (only for frontend validation)
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -19,220 +19,90 @@ const CreateTourGuideAccount = () => {
     phoneNumber: '',
   });
 
-  const [errorMessage, setErrorMessage] = useState(''); // State to store error messages
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Update form data dynamically
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Validate all form fields before submission
+  // Validate input before submitting
   const validateForm = () => {
-    const {
-      username,
-      email,
-      password,
-      confirmPassword,
-      firstName,
-      lastName,
-      nationalId,
-      phoneNumber,
-    } = formData;
+    const { username, email, password, confirmPassword, firstName, lastName, nationalId, phoneNumber } = formData;
 
-    // Check if any required field is empty
-    if (
-      !username ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !firstName ||
-      !lastName ||
-      !nationalId ||
-      !phoneNumber
-    ) {
+    if (!username || !email || !password || !confirmPassword || !firstName || !lastName || !nationalId || !phoneNumber) {
       return 'All fields are required';
     }
 
-    // Validate email format
     const emailRegex = /^\S+@\S+\.\S+$/;
-    if (!emailRegex.test(email)) {
-      return 'Please enter a valid email address';
-    }
+    if (!emailRegex.test(email)) return 'Please enter a valid email address';
+    if (password.length < 6) return 'Password must be at least 6 characters';
+    if (password !== confirmPassword) return 'Passwords do not match';
+    if (!/^\d{10}$/.test(nationalId)) return 'National ID must be exactly 10 digits';
+    if (!/^05\d{8}$/.test(phoneNumber)) return 'Phone number must start with 05 and be 10 digits long';
 
-    // Check password minimum length
-    if (password.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      return 'Passwords do not match';
-    }
-
-    // Validate national ID: exactly 10 digits
-    const idRegex = /^\d{10}$/;
-    if (!idRegex.test(nationalId)) {
-      return 'National ID must be exactly 10 digits';
-    }
-
-    // Validate phone number: Saudi format (starts with 05 and 10 digits total)
-    const phoneRegex = /^05\d{8}$/;
-    if (!phoneRegex.test(phoneNumber)) {
-      return 'Phone number must start with 05 and be 10 digits long';
-    }
-
-    return ''; // No errors
+    return '';
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  // Submit the form and send to backend (excluding confirmPassword)
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const error = validateForm();
-
     if (error) {
-      setErrorMessage(error); // Display validation error
-    } else {
-      setErrorMessage('');
-      alert('Tour Guide account created successfully!'); // Success feedback
+      setErrorMessage(error);
+      return;
+    }
 
-      // Redirect to login page after 2 seconds
-      setTimeout(() => {
-        navigate('/Login');
-      }, 2000);
+    setErrorMessage('');
+    const { confirmPassword, ...payload } = formData; // Exclude confirmPassword
+
+    try {
+      const response = await fetch('http://localhost:5000/api/guides', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error('Failed to create account');
+
+      alert('Tour Guide account created successfully!');
+      setTimeout(() => navigate('/Login'), 2000);
+    } catch (err) {
+      console.error('Error:', err);
+      setErrorMessage('Something went wrong while creating your account.');
     }
   };
 
   return (
     <div className="account-form">
-
-      {/* Logo at the top */}
-      <img 
-        src="../jadwill logo.png" 
-        alt="Jaddwill Logo" 
-        className="page-logo"
-      />
-      
-      {/* Title and Subtitle */}
+      <img src="../jadwill logo.png" alt="Jaddwill Logo" className="page-logo" />
       <h1 className="account-form-title">Create Account</h1>
       <p className="account-form-subtitle">As a Tour guide</p>
 
-      {/* Form to capture guide registration details */}
       <form onSubmit={handleSubmit} noValidate>
+        {[
+          { label: 'Username', name: 'username', type: 'text', placeholder: 'e.g., tour_guide_123' },
+          { label: 'Email', name: 'email', type: 'email', placeholder: 'e.g., guide@example.com' },
+          { label: 'Password', name: 'password', type: 'password', placeholder: 'Min 6 characters' },
+          { label: 'Confirm Password', name: 'confirmPassword', type: 'password', placeholder: 'Retype your password' },
+          { label: 'First Name', name: 'firstName', type: 'text', placeholder: 'e.g., Ahmed' },
+          { label: 'Last Name', name: 'lastName', type: 'text', placeholder: 'e.g., Al-Qahtani' },
+          { label: 'National ID', name: 'nationalId', type: 'text', placeholder: 'e.g., 1234567890', maxLength: 10 },
+          { label: 'Phone Number', name: 'phoneNumber', type: 'tel', placeholder: 'e.g., 05XXXXXXXX', maxLength: 10 }
+        ].map(({ label, name, ...rest }) => (
+          <div className="input-pair" key={name}>
+            <label>{label}</label>
+            <input name={name} value={formData[name]} onChange={handleChange} {...rest} />
+          </div>
+        ))}
 
-        {/* Username Field */}
-        <div className="input-pair">
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="e.g., tour_guide_123"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Email Field */}
-        <div className="input-pair">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="e.g., guide@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Password Field */}
-        <div className="input-pair">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Min 6 characters"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Confirm Password Field */}
-        <div className="input-pair">
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Retype your password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* First Name Field */}
-        <div className="input-pair">
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            placeholder="e.g., Ahmed"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Last Name Field */}
-        <div className="input-pair">
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            placeholder="e.g., Al-Qahtani"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* National ID Field */}
-        <div className="input-pair">
-          <label>National ID</label>
-          <input
-            type="text"
-            name="nationalId"
-            placeholder="e.g., 1234567890"
-            value={formData.nationalId}
-            onChange={handleChange}
-            maxLength="10"
-            required
-          />
-        </div>
-
-        {/* Phone Number Field */}
-        <div className="input-pair">
-          <label>Phone Number</label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            placeholder="e.g., 05XXXXXXXX"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            maxLength="10"
-            required
-          />
-        </div>
-
-        {/* Display Error Message if exists */}
         {errorMessage && (
           <p style={{ color: 'red', gridColumn: 'span 2', textAlign: 'center' }}>
             {errorMessage}
           </p>
         )}
 
-        {/* Submit Button */}
         <button type="submit" className="create-btn">Create</button>
       </form>
     </div>

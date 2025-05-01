@@ -16,7 +16,7 @@ const ExploreActivities = () => {
     { label: "Find a Local", path: "/TourGuides" },
     { label: "My Plan", path: "/MyPlan" },
     { label: "Wishlist", path: "/MyWishlist" },
-    { label: "Login", path: "/" },
+    { label: "Login", path: "/Login" },
   ];
 
   const location = useLocation();
@@ -37,17 +37,22 @@ const ExploreActivities = () => {
 
     const fetchCityData = async () => {
       try {
-        // const res = await axios.get(`http://localhost:5000/api/cities/${city}`);
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/cities/${city}`);
-
-        setDestination(res.data.name);
-        setDescription(res.data.bio);
+        const response = await fetch(`http://localhost:5000/api/cities/${city}`);
+        const data = await response.json();
+    
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch city");
+        }
+    
+        setDestination(data.name);
+        setDescription(data.bio);
       } catch (err) {
-        console.error("Error fetching city:", err);
-        setDestination(city); // fallback
+        console.error("Fetch error:", err);
+        setDestination(city);
         setDescription("Discover unique experiences and activities in this city.");
       }
     };
+  
 
     fetchCityData();
   }, [city]);

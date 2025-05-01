@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const citySchema = new mongoose.Schema({
-  name: String,
-  bio: String
+  name: { type: String, required: true },
+  bio: { type: String, required: true },
 });
 
 module.exports = mongoose.model('City', citySchema);
