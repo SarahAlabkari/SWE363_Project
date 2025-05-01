@@ -19,7 +19,9 @@ function WhereTo() {
       setShowError(true);
     } else {
       setShowError(false);
-      navigate("/ExploreActivities");
+      // navigate("/ExploreActivities");
+      navigate(`/ExploreActivities?city=${cityValue}`);
+
     }
   };
 

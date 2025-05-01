@@ -1,44 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import UserProfileCard from '../components/UserProfileCard';
 import MenuBar from '../components/MenuBar';
 import ImageBlock from '../components/ImageBlock';
 
-const slugify = (name) => name.toLowerCase().replace(/\s+/g, '-');
-
-const dummyUsers = [
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Sara Al-Fulan',
-    bio: 'Passionate guide in Riyadh.',
-  },
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Ahmed Al-Zahrani',
-    bio: 'Loves desert adventures.',
-  },
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Lina Al-Qahtani',
-    bio: 'Knows all the best local spots!',
-  },
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Lamees Alikhwan',
-    bio: 'Knows the best local coffeeshops!',
-  },
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Sarah Alabkari',
-    bio: 'Loves cats!',
-  },
-  {
-    image: 'https://via.placeholder.com/100',
-    name: 'Norah Alkuwaihes',
-    bio: 'Your funniest Tour Guide!',
-  },
-];
-
 const TourGuides = () => {
+  const navigate = useNavigate();
+  const [guides, setGuides] = useState([]);
+
   const navLinks = [
     { label: "Home", path: "/Home" },
     { label: "About", path: "/About" },
@@ -49,9 +19,22 @@ const TourGuides = () => {
     { label: "Login", path: "/" },
   ];
 
-  const handleCardClick = (name) => {
-    alert(`Clicked on ${name}'s profile`);
-  };
+  useEffect(() => {
+    const fetchGuides = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/guideProfile');
+        setGuides(res.data);
+      } catch (err) {
+        console.error('Failed to fetch guide profiles:', err);
+      }
+    };
+
+    fetchGuides();
+  }, []);
+
+  // Format username slug into display name
+  const formatName = (username) =>
+    username.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
   return (
     <div>
@@ -66,16 +49,15 @@ const TourGuides = () => {
       </div>
 
       <div className="container py-5">
-        {/* ✅ Center all user cards using justify-content-center */}
         <div className="row justify-content-center">
-          {dummyUsers.map((user, idx) => (
+          {guides.map((guide, idx) => (
             <div key={idx} className="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
               <UserProfileCard
-                image={user.image}
-                name={user.name}
-                bio={user.bio}
-                onClick={() => handleCardClick(user.name)}
-                matchPath={`/guide/${slugify(user.name)}`}
+                image={guide.image}
+                name={formatName(guide.username)}
+                bio={guide.shortDescription}
+                onClick={() => navigate(`/guide/${guide.username}`)}
+                matchPath={`/guide/${guide.username}`}
               />
             </div>
           ))}
