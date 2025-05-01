@@ -1,10 +1,26 @@
+// Path: backend/controllers/touristController.js
+
 const Tourist = require('../models/Tourist');
 
-// @desc    Create a new tourist
+// @desc    Create a new tourist with validation (no hashing)
 const createTourist = async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
-    const tourist = await Tourist.create({ name, email, phone });
+    const { username, email, password, fullName, phoneNumber } = req.body;
+
+    // Check that all fields are provided
+    if (!username || !email || !password || !fullName || !phoneNumber) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Save the tourist to the database without confirmPassword and without hashing the password
+    const tourist = await Tourist.create({
+      username,
+      email,
+      password, // password saved as plain text
+      fullName,
+      phoneNumber
+    });
+
     res.status(201).json(tourist);
   } catch (err) {
     res.status(400).json({ message: err.message });
