@@ -42,7 +42,7 @@ const login = async (req, res) => {
   const result = checks.find(r => r.match);
 
   if (result) {
-    // ✅ Generate a token with user ID and role
+    // Generate a token with user ID and role
     const token = jwt.sign(
       { id: result.user._id, role: result.role },
       process.env.JWT_SECRET || 'fallbacksecret',
