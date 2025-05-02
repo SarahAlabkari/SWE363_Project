@@ -5,7 +5,9 @@ const { addToPlan } = require('../controllers/touristController');
 const {
   createTourist,
   getTourists,
-  loginTourist
+  loginTourist, 
+  getTouristPlan, 
+  addToPlan
 } = require('../controllers/touristController');
 
 
@@ -17,6 +19,10 @@ router.post('/', createTourist);
 // GET /api/tourists
 router.get('/', getTourists);
 
+ // Add to plan
 router.post('/:id/add-plan', addToPlan);
+
+// View plan
+router.get('/:id/plan', getTouristPlan); 
 
 module.exports = router;

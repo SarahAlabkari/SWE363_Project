@@ -7,7 +7,7 @@ const touristSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   phoneNumber: { type: String, required: true },
 
-  // ➕ Add this new field here:
+  
   plans: [
     {
       activity: { type: mongoose.Schema.Types.ObjectId, ref: 'Activity' },
