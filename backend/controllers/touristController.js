@@ -4,22 +4,17 @@ const Tourist = require('../models/Tourist');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// @desc    Create a new tourist with validation 
+// @desc Create a new tourist with validation 
 const createTourist = async (req, res) => {
   try {
     const { username, email, password, fullName, phoneNumber } = req.body;
 
-    // Check that all fields are provided
     if (!username || !email || !password || !fullName || !phoneNumber) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // hashing password 
-
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Save the tourist to the database without confirmPassword and without hashing the password
     const tourist = await Tourist.create({
       username,
       email,
@@ -34,30 +29,25 @@ const createTourist = async (req, res) => {
   }
 };
 
-// @desc    Tourist login
+// @desc Tourist login
 const loginTourist = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check for required fields
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    // Find the tourist by email
     const tourist = await Tourist.findOne({ email });
     if (!tourist) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Compare password with hashed version
     const isMatch = await bcrypt.compare(password, tourist.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Success
-    // Generate JWT token
     const token = jwt.sign(
       { id: tourist._id },
       process.env.JWT_SECRET || 'fallbacksecret',
@@ -76,14 +66,12 @@ const loginTourist = async (req, res) => {
       }
     });
 
-
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-
-// @desc    Get all tourists
+// @desc Get all tourists
 const getTourists = async (req, res) => {
   try {
     const tourists = await Tourist.find();
@@ -93,6 +81,7 @@ const getTourists = async (req, res) => {
   }
 };
 
+// @desc Add an activity to tourist's plan
 const addToPlan = async (req, res) => {
   try {
     const { activityId, seats } = req.body;
@@ -114,6 +103,7 @@ const addToPlan = async (req, res) => {
   }
 };
 
+// @desc Get tourist's plan
 const getTouristPlan = async (req, res) => {
   try {
     const { id } = req.params;
@@ -129,17 +119,19 @@ const getTouristPlan = async (req, res) => {
   }
 };
 
+// @desc Remove activity from plan (by activity ID)
 const removeActivityFromPlan = async (req, res) => {
   try {
-    const { id, activityId } = req.params; // this time activityId means the Activity ID, not the plan ID
+    const { id, activityId } = req.params;
 
     const tourist = await Tourist.findById(id);
     if (!tourist) {
       return res.status(404).json({ message: 'Tourist not found' });
     }
 
-    // Filter plans by comparing the 'activity' ObjectId
-    tourist.plans = tourist.plans.filter(plan => plan.activity.toString() !== activityId);
+    tourist.plans = tourist.plans.filter(plan =>
+      plan.activity.toString() !== activityId
+    );
 
     await tourist.save();
     res.status(200).json({ message: 'Activity removed from plan' });
@@ -149,6 +141,7 @@ const removeActivityFromPlan = async (req, res) => {
   }
 };
 
+// @desc Add to wishlist
 const addToWishlist = async (req, res) => {
   try {
     const { activityId } = req.body;
@@ -157,12 +150,11 @@ const addToWishlist = async (req, res) => {
     const tourist = await Tourist.findById(touristId);
     if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
 
-    // Avoid duplicates
-    if (tourist.wishlist.includes(activityId)) {
+    if (tourist.wishlist.some(id => id.toString() === activityId)) {
       return res.status(400).json({ message: 'Activity already in wishlist' });
     }
 
-    tourist.wishlist.push(activityId); // ✅ Directly push the ObjectId
+    tourist.wishlist.push(activityId);
     await tourist.save();
 
     res.status(200).json({ message: 'Activity added to your wishlist' });
@@ -171,7 +163,7 @@ const addToWishlist = async (req, res) => {
   }
 };
 
-
+// @desc Remove from wishlist
 const removeFromWishlist = async (req, res) => {
   try {
     const { id, activityId } = req.params;
@@ -181,7 +173,6 @@ const removeFromWishlist = async (req, res) => {
       return res.status(404).json({ message: 'Tourist not found' });
     }
 
-    // Remove by matching activity ObjectId
     tourist.wishlist = tourist.wishlist.filter(
       (item) => item.toString() !== activityId
     );
@@ -194,6 +185,7 @@ const removeFromWishlist = async (req, res) => {
   }
 };
 
+// @desc Get wishlist
 const getWishlist = async (req, res) => {
   try {
     const { id } = req.params;
@@ -210,7 +202,14 @@ const getWishlist = async (req, res) => {
   }
 };
 
-
-
-
-module.exports = {getWishlist, addToWishlist,removeFromWishlist, removeActivityFromPlan, getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };
+module.exports = {
+  createTourist,
+  loginTourist,
+  getTourists,
+  addToPlan,
+  getTouristPlan,
+  removeActivityFromPlan,
+  addToWishlist,
+  removeFromWishlist,
+  getWishlist
+};

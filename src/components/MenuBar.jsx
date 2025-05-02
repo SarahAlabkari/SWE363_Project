@@ -10,7 +10,7 @@ const MenuBar = ({ links }) => {
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
             className="logo-img d-block"
-            src="/jadwill logo.png"
+            src="/logo.png"
             alt="Jaddwill Logo"
           />
         </Link>

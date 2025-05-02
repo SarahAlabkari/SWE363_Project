@@ -60,7 +60,7 @@ const ViewActivity = () => {
   if (!activity) {
     return (
       <div className="text-center mt-5 text-danger">
-        ⚠️ Could not load activity. Please try again or check the link.
+        Loading activity...
       </div>
     );
   }
