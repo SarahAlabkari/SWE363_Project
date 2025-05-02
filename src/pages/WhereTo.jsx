@@ -6,22 +6,42 @@ import TouristMenuBar from '../components/TouristMenuBar';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 
+const formatDateLocal = (dateObj) => {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+
 function WhereTo() {
   const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
 
   const handleExploreClick = () => {
     const cityInput = document.querySelector(".dropdown-container input");
     const cityValue = cityInput ? cityInput.value.trim() : "";
-
-    if (!cityValue) {
+  
+    if (!cityValue || !selectedDate) {
       setShowError(true);
-    } else {
-      setShowError(false);
-      navigate("/ExploreActivities");
+      return;
     }
+  
+    const formattedDate = selectedDate instanceof Date
+      ? selectedDate.toLocaleDateString('en-CA') // ✅ "YYYY-MM-DD" in local time
+      : selectedDate;
+  
+    navigate("/ExploreActivities", {
+      state: {
+        city: cityValue,
+        date: formattedDate
+      }
+    });
   };
+  
+  
 
   return (
     <div className="experience-page">
@@ -63,7 +83,7 @@ function WhereTo() {
             <p className="calendar-label" style={{ textAlign: 'center', marginBottom: '10px' }}>
               Choose a day for your activity!
             </p>
-            <CalendarComponent />
+            <CalendarComponent onDateChange={(date) => setSelectedDate(date)} />
           </div>
         </div>
       </div>

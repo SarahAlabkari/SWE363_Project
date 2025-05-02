@@ -4,7 +4,7 @@ import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 
 
 const saudiCities = [
-  "Abha", "Alahssa", "Alqasim", "AlUla", "Bisha", "Buraidah", "Dammam",
+  "Abha", "Alahssa", "Alqasim", "Alula", "Bisha", "Buraidah", "Dammam",
   "Dhahran", "Hail", "Jazan", "Jeddah", "Jubail", "Khafji", "Khobar",
   "Mecca", "Medina", "Najran", "Qatif", "Rafha", "Riyadh", "Sakaka",
   "Tabuk", "Taif", "Tarout", "Yanbu"
