@@ -1,40 +1,49 @@
-// Path: src/pages/GuideProfile.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
 import './GuideProfile.css';
-import TouristMenuBar from "../components/TouristMenuBar"; // Use TouristMenuBar like MyWishList
-import ReviewComponent from '../components/ReviewComponent';
-import CardSlider from '../components/CardSlider';
-import Activity from '../components/Activity';
+import TouristMenuBar from "../components/TouristMenuBar";
+import CardSlider from "../components/CardSlider";
+import Activity from "../components/Activity";
 
 const GuideProfile = () => {
   const [reviews, setReviews] = useState([]);
+  const [guideData, setGuideData] = useState(null);
   const navigate = useNavigate();
-
   const { guideName } = useParams();
 
+ 
   const formattedName = guideName
-    ? guideName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-    : 'Guide';
-
-  const [guideData, setGuideData] = useState(null);
-  const [destination, setDestination] = useState("Alula");
+    ? guideName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    : '';
 
   useEffect(() => {
-    const mockGuideData = {
-      name: formattedName,
-      email: 'example@email.com',
-      phone: '+966 500 000 000',
-      bio: 'I am a Saudi local who loves sharing stories, culture, and the beauty of everyday life in Saudi Arabia with travellers. With 3 years of experience leading tours across the country, I aim to make each journey memorable, informative, and fun for all visitors.',
-      rating: 5,
-      ratingCount: 113,
-      stars: '☆☆☆☆☆',
+    const fetchGuideData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/guideProfile/${guideName}`);
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.message || "Failed to fetch guide");
+        const starsNumber = data.stars || 0;
+
+        setGuideData({
+          name: formattedName, 
+          email: data.contactEmail,
+          phone: data.contactPhone,
+          bio: data.bio,
+          image: data.image,
+          city: data.city,
+          rating: starsNumber,
+          stars: '⭐'.repeat(starsNumber),
+          ratingCount: 6
+        });
+      } catch (err) {
+        console.error("Error fetching guide data:", err);
+      }
     };
 
-    const mockReviews = [
+    fetchGuideData();
+
+    const staticReviews = [
       { title: "Great Experience", body: "The guide was knowledgeable and friendly.", name: "Sara Omar." },
       { title: "Loved it!", body: "Everything was perfectly organized.", name: "Omar Khalid." },
       { title: "Amazing!", body: "This tour exceeded my expectations.", name: "Layla Alghamdi." },
@@ -42,10 +51,8 @@ const GuideProfile = () => {
       { title: "Wonderful Guide", body: "Warm and welcoming experience.", name: "Lama Abdullah." },
       { title: "Fantastic Trip", body: "Enjoyed every minute of it.", name: "Fahad Alanazi." }
     ];
-
-    setGuideData(mockGuideData);
-    setReviews(mockReviews);
-  }, [formattedName]);
+    setReviews(staticReviews);
+  }, [guideName]);
 
   if (!guideData) {
     return <div className="text-center mt-5">Loading...</div>;
@@ -53,7 +60,6 @@ const GuideProfile = () => {
 
   return (
     <>
-      {/* ✅ Use TouristMenuBar instead of MenuBar */}
       <TouristMenuBar />
 
       <div className="guide-profile-page container">
@@ -63,15 +69,14 @@ const GuideProfile = () => {
         <p className="text-center">This page can show full details about this tour guide.</p>
 
         <h2 className="text-center fw-bold mt-5" style={{ color: '#5c4033' }}>
-          Local Tour Guide in {destination}
+          Local Tour Guide in {guideData.city}
         </h2>
 
         <div className="d-flex align-items-start gap-4 mt-4 flex-wrap justify-content-center">
-          {/* Profile Image and Rating */}
           <div className="d-flex flex-column align-items-center">
             <img
-              src="https://via.placeholder.com/130"
-              alt="Guide"
+              src={guideData.image}
+              alt={guideData.name}
               className="profile-img mb-3"
             />
             <div className="rating-box d-inline-block px-3 py-1 rounded-pill mb-2">
@@ -81,16 +86,16 @@ const GuideProfile = () => {
             </div>
           </div>
 
-          {/* Bio Section */}
-          <div className="bio-box-container">
+          <div className="bio-box-container" style={{ marginTop: '20px' }}>
             <label className="fw-bold d-block mb-1" style={{ color: 'var(--purpule-color)' }}>
               {guideData.name}
             </label>
             <div className="bio-box">{guideData.bio}</div>
           </div>
 
-          {/* Contact Info */}
-          <div className="contact-box-small">
+          {/* <div className="contact-box-small"> */}
+          <div className="contact-box-small" style={{ marginTop: '10px' }}>
+
             <p className="mb-1">Email: {guideData.email}</p>
             <p>Phone: {guideData.phone}</p>
           </div>
@@ -98,21 +103,19 @@ const GuideProfile = () => {
 
         <div style={{ height: '100px' }}></div>
 
-        {/* Customize Section */}
         <div className="customize-box text-center py-4">
           <h4 className="fw-bold mb-2" style={{ color: 'var(--purpule-color)' }}>
             Customize Your Tour
           </h4>
-          <p 
-            className="text-muted" 
+          <p
+            className="text-muted"
             style={{ textDecoration: 'underline', cursor: 'pointer', color: '#5c4033' }}
-            onClick={() => navigate('/ContactTourGuide', { state: { guideName: formattedName } })}
+            onClick={() => navigate('/ContactTourGuide', { state: { guideName: guideData.name } })}
           >
             Contact your tour guide to know more!
           </p>
         </div>
 
-        {/* Activities Section */}
         <div className="my-5">
           <CardSlider>
             <Activity customLink="/ViewActivity" />
@@ -121,12 +124,11 @@ const GuideProfile = () => {
           </CardSlider>
         </div>
 
-        {/* Reviews Section */}
         <div className="review-section mt-5">
           <h3 className="text-center fw-bold mb-3" style={{ color: '#5c4033' }}>
-            5.0 Traveler Thoughts
+            Traveler Thoughts
           </h3>
-          <p className="text-center">⭐⭐⭐⭐⭐ ({reviews.length})</p>
+          <p className="text-center">{guideData.stars} ({reviews.length})</p>
 
           <div className="review-grid">
             {reviews.map((review, index) => (

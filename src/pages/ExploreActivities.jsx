@@ -47,7 +47,9 @@ const ExploreActivities = () => {
     <div className="explore-activities-page">
       <TouristMenuBar />
 
-      <h2 className="text-center fw-bold mt-4" style={{ color: '#584335' }}>Explore Activities!</h2>
+      <h2 className="text-center fw-bold mt-4" style={{ color: '#584335' }}>
+        Explore Activities!
+      </h2>
 
       {/* Hero Banner */}
       <div
