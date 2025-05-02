@@ -2,13 +2,23 @@ const Activity = require('../models/Activity');
 
 // @desc Get all activities with provider info
 const getActivities = async (req, res) => {
-  try {
-    const activities = await Activity.find().populate('provider');
-    res.status(200).json(activities);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+    try {
+      const { city, date } = req.query;
+  
+      const query = {};
+     
+      if (city) query.cityName = { $regex: `^${city.trim()}$`, $options: 'i' };
+      
+      if (date) query.date = date;
+  
+      const activities = await Activity.find(query).populate('provider');
+      res.status(200).json(activities);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+  
+  
 
 // @desc Create a new activity
 const createActivity = async (req, res) => {
@@ -53,4 +63,15 @@ const createActivity = async (req, res) => {
   }
 };
 
-module.exports = { getActivities, createActivity };
+const getActivityById = async (req, res) => {
+    try {
+      const activity = await Activity.findById(req.params.id).populate('provider');
+      if (!activity) return res.status(404).json({ message: 'Activity not found' });
+  
+      res.status(200).json(activity);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+module.exports = {  getActivityById , getActivities, createActivity };

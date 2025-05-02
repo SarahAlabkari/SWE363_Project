@@ -93,5 +93,37 @@ const getTourists = async (req, res) => {
   }
 };
 
+const addToPlan = async (req, res) => {
+  try {
+    const { activityId, seats } = req.body;
+    const touristId = req.params.id;
 
-module.exports = { loginTourist, createTourist, getTourists };
+    const tourist = await Tourist.findById(touristId);
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+
+    tourist.plans.push({
+      activity: activityId,
+      seats,
+      status: 'Pending'
+    });
+
+    await tourist.save();
+    res.status(200).json({ message: 'Activity added to your plan' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getTouristPlan = async (req, res) => {
+  try {
+    const tourist = await Tourist.findById(req.params.id).populate('plans.activity');
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+
+    res.status(200).json(tourist.plans);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+module.exports = { getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };

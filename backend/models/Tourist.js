@@ -1,5 +1,3 @@
-// Path: backend/models/Tourist.js
-
 const mongoose = require('mongoose');
 
 const touristSchema = new mongoose.Schema({
@@ -7,7 +5,18 @@ const touristSchema = new mongoose.Schema({
   email:    { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: { type: String, required: true },
-  phoneNumber: { type: String, required: true }
+  phoneNumber: { type: String, required: true },
+
+  
+  plans: [
+    {
+      activity: { type: mongoose.Schema.Types.ObjectId, ref: 'Activity' },
+      date: String,
+      time: String,
+      seats: Number,
+      status: { type: String, default: 'Pending' }
+    }
+  ]
 });
 
 const Tourist = mongoose.model('Tourist', touristSchema);

@@ -2,12 +2,12 @@
 
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs'); // ✅ Add this
 const Admin = require('../models/Admin');
 
-// ✅ Load environment variables with full path to .env
+// Load environment variables
 dotenv.config({ path: __dirname + '/../.env' });
 
-// ✅ Get MongoDB connection string
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
@@ -15,7 +15,6 @@ if (!MONGO_URI) {
   process.exit(1);
 }
 
-// ✅ Connect to MongoDB and seed admin
 mongoose.connect(MONGO_URI)
   .then(async () => {
     console.log('✅ MongoDB connected');
@@ -23,12 +22,15 @@ mongoose.connect(MONGO_URI)
     const exists = await Admin.findOne({ username: 'admin' });
 
     if (!exists) {
+      const hashedPassword = await bcrypt.hash('admin123', 10); // ✅ Hashing added here
+
       await Admin.create({
         username: 'admin',
         email: 'admin@example.com',
-        password: 'admin123' // 🔐 You can hash this in production
+        password: hashedPassword
       });
-      console.log('✅ Admin created.');
+
+      console.log('✅ Admin created with hashed password.');
     } else {
       console.log('⚠️ Admin already exists.');
     }

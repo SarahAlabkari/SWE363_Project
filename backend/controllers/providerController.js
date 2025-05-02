@@ -1,22 +1,26 @@
 // Path: backend/controllers/providerController.js
 
 const Provider = require('../models/Provider');
+const bcrypt = require('bcryptjs');
 
-// @desc    Create a new provider (no hashing, no saving confirmPassword)
+// @desc    Create a new provider with hashed password
 const createProvider = async (req, res) => {
   try {
     const { companyName, email, password, maaroofNumber, phoneNumber } = req.body;
 
-    // Basic field validation
-    if (!companyName || !email || !password  || !maaroofNumber || !phoneNumber) {
+    // Validate required fields
+    if (!companyName || !email || !password || !maaroofNumber || !phoneNumber) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Save without hashing or confirmPassword
+    // Hash the password before saving to database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create provider with hashed password
     const provider = await Provider.create({
       companyName,
       email,
-      password,
+      password: hashedPassword,
       maaroofNumber,
       phoneNumber
     });
