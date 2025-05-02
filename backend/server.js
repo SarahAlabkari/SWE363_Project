@@ -45,6 +45,9 @@ app.use('/api/providers', providerRoutes);
 app.use('/api/cities', cityRoutes);
 app.use('/api/guideProfile', guideProfileRoutes);
 
+const guideReviewsRoutes = require('./routes/guideReviewsRoutes');
+app.use('/api/guideReviews', guideReviewsRoutes);
+
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);

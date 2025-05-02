@@ -8,10 +8,10 @@ import Activity from "../components/Activity";
 const GuideProfile = () => {
   const [reviews, setReviews] = useState([]);
   const [guideData, setGuideData] = useState(null);
+  const [averageRating, setAverageRating] = useState(0);
   const navigate = useNavigate();
   const { guideName } = useParams();
 
- 
   const formattedName = guideName
     ? guideName.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
     : '';
@@ -23,35 +23,38 @@ const GuideProfile = () => {
         const data = await response.json();
 
         if (!response.ok) throw new Error(data.message || "Failed to fetch guide");
-        const starsNumber = data.stars || 0;
 
         setGuideData({
-          name: formattedName, 
+          name: formattedName,
           email: data.contactEmail,
           phone: data.contactPhone,
           bio: data.bio,
           image: data.image,
-          city: data.city,
-          rating: starsNumber,
-          stars: '⭐'.repeat(starsNumber),
-          ratingCount: 6
+          city: data.city
         });
       } catch (err) {
         console.error("Error fetching guide data:", err);
       }
     };
 
-    fetchGuideData();
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/guideReviews/${guideName}`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "Failed to fetch reviews");
 
-    const staticReviews = [
-      { title: "Great Experience", body: "The guide was knowledgeable and friendly.", name: "Sara Omar." },
-      { title: "Loved it!", body: "Everything was perfectly organized.", name: "Omar Khalid." },
-      { title: "Amazing!", body: "This tour exceeded my expectations.", name: "Layla Alghamdi." },
-      { title: "Highly Recommend", body: "The guide shared so many cultural insights.", name: "Mohammed Fahad." },
-      { title: "Wonderful Guide", body: "Warm and welcoming experience.", name: "Lama Abdullah." },
-      { title: "Fantastic Trip", body: "Enjoyed every minute of it.", name: "Fahad Alanazi." }
-    ];
-    setReviews(staticReviews);
+        setReviews(data);
+
+        const total = data.reduce((sum, r) => sum + r.rating, 0);
+        const avg = data.length ? Math.round(total / data.length) : 0;
+        setAverageRating(avg);
+      } catch (err) {
+        console.error("Error fetching guide reviews:", err);
+      }
+    };
+
+    fetchGuideData();
+    fetchReviews();
   }, [guideName]);
 
   if (!guideData) {
@@ -80,9 +83,9 @@ const GuideProfile = () => {
               className="profile-img mb-3"
             />
             <div className="rating-box d-inline-block px-3 py-1 rounded-pill mb-2">
-              <span>{guideData.rating}</span>
-              <span className="ms-2">{guideData.stars}</span>
-              <span className="ms-2 text-muted">({guideData.ratingCount})</span>
+              <span>{averageRating}</span>
+              <span className="ms-2">{'⭐'.repeat(averageRating)}</span>
+              <span className="ms-2 text-muted">({reviews.length})</span>
             </div>
           </div>
 
@@ -93,9 +96,7 @@ const GuideProfile = () => {
             <div className="bio-box">{guideData.bio}</div>
           </div>
 
-          {/* <div className="contact-box-small"> */}
           <div className="contact-box-small" style={{ marginTop: '10px' }}>
-
             <p className="mb-1">Email: {guideData.email}</p>
             <p>Phone: {guideData.phone}</p>
           </div>
@@ -128,7 +129,7 @@ const GuideProfile = () => {
           <h3 className="text-center fw-bold mb-3" style={{ color: '#5c4033' }}>
             Traveler Thoughts
           </h3>
-          <p className="text-center">{guideData.stars} ({reviews.length})</p>
+          <p className="text-center">{'⭐'.repeat(averageRating)} ({reviews.length})</p>
 
           <div className="review-grid">
             {reviews.map((review, index) => (
@@ -143,7 +144,7 @@ const GuideProfile = () => {
                   backgroundColor: '#fdfcf9'
                 }}
               >
-                <div style={{ fontSize: '20px', marginBottom: '8px' }}>⭐⭐⭐⭐⭐</div>
+                <div style={{ fontSize: '20px', marginBottom: '8px' }}>{'⭐'.repeat(review.rating)}</div>
                 <div style={{
                   width: '90%',
                   marginBottom: '4px',
@@ -159,12 +160,16 @@ const GuideProfile = () => {
                   borderRadius: '4px'
                 }}>{review.body}</div>
                 <div style={{
-                  width: '90%',
-                  marginBottom: '4px',
-                  padding: '6px',
-                  backgroundColor: '#f0f0e9',
-                  borderRadius: '4px'
-                }}>{review.name}</div>
+  width: '90%',
+  marginBottom: '4px',
+  padding: '6px',
+  backgroundColor: '#f0f0e9',
+  borderRadius: '4px',
+  fontWeight: '500',
+  fontSize: '14px',
+  textAlign: 'left'
+}}>{review.touristUsername}</div>
+
               </div>
             ))}
           </div>
