@@ -1,8 +1,9 @@
 // Path: backend/controllers/adminController.js
 
 const Admin = require('../models/Admin');
+const bcrypt = require('bcryptjs');
 
-// @desc    Authenticate admin using username/email with plain-text password match
+// @desc    Authenticate admin using username/email with hashed password match
 const loginAdmin = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -11,7 +12,12 @@ const loginAdmin = async (req, res) => {
     const admin = await Admin.findOne({ username, email });
 
     // If not found or password doesn't match, reject login
-    if (!admin || admin.password !== password) {
+    if (!admin) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
