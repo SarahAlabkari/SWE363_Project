@@ -14,6 +14,8 @@ router.get('/', getActivities);
 // POST /api/activities
 router.post('/', createActivity);
 
+// view activity by ID
+
 router.get('/:id', getActivityById);
 
 

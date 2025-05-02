@@ -40,9 +40,11 @@ const Login = () => {
         case 'admin':
           navigate('/AdminDashboard');
           break;
-        case 'tourist':
-          navigate('/Home');
-          break;
+          case 'tourist':
+            console.log(data)
+            localStorage.setItem('touristId', data.tourist.id);
+            navigate('/Home');
+            break;          
         case 'guide':
           // Store guide ID locally for use in charts/statistics
           localStorage.setItem('guideId', data._id);

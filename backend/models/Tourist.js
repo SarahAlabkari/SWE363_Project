@@ -11,8 +11,6 @@ const touristSchema = new mongoose.Schema({
   plans: [
     {
       activity: { type: mongoose.Schema.Types.ObjectId, ref: 'Activity' },
-      date: String,
-      time: String,
       seats: Number,
       status: { type: String, default: 'Pending' }
     }

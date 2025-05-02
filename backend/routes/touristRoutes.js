@@ -6,7 +6,8 @@ const {
   getTourists,
   loginTourist, 
   getTouristPlan, 
-  addToPlan
+  addToPlan, 
+  removeActivityFromPlan
 } = require('../controllers/touristController');
 
 
@@ -22,6 +23,11 @@ router.get('/', getTourists);
 router.post('/:id/add-plan', addToPlan);
 
 // View plan
-router.get('/:id/plan', getTouristPlan); 
+router.get('/:id/myplan', getTouristPlan); 
+
+// Remove activity from plan
+
+router.delete('/:id/myplan/:activityId', removeActivityFromPlan);
+
 
 module.exports = router;

@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from '../api/axiosInstance';
 import MyPlanTable from '../components/MyPlanTable';
 import TouristMenuBar from '../components/TouristMenuBar';
+import axios from '../api/axiosInstance';
 
 const MyPlan = () => {
-  const { id } = useParams(); // Get tourist ID from URL
   const [activities, setActivities] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const touristId = localStorage.getItem('touristId'); // ✅ make sure it's stored at login
 
   useEffect(() => {
     const fetchPlan = async () => {
       try {
-        const res = await axios.get(`/tourists/${id}/plan`);
+        const res = await axios.get(`/tourists/${touristId}/myplan`);
         setActivities(res.data);
       } catch (err) {
-        console.error('Failed to fetch plan:', err);
-        setError('Something went wrong while fetching your plan.');
-      } finally {
-        setLoading(false);
+        console.error("Failed to fetch plan:", err);
       }
     };
 
-    fetchPlan();
-  }, [id]);
+    if (touristId) {
+      fetchPlan();
+    }
+  }, [touristId]);
 
   return (
     <div>
       <TouristMenuBar />
       <div className="container mt-5 text-center">
         <h2>My Plan</h2>
-        {loading && <p>Loading...</p>}
-        {error && <p className="text-danger">{error}</p>}
-        {!loading && !error && <MyPlanTable activities={activities} />}
+        <MyPlanTable activities={activities} setActivities={setActivities} />
       </div>
     </div>
   );
