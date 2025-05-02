@@ -10,7 +10,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  // 🔐 Handle login submission
+  // Handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,7 +35,7 @@ const Login = () => {
         return;
       }
 
-      // 🔁 Redirect user based on their role
+      // Redirect user based on their role
       switch (data.role) {
         case 'admin':
           navigate('/AdminDashboard');
@@ -44,6 +44,8 @@ const Login = () => {
           navigate('/Home');
           break;
         case 'guide':
+          // Store guide ID locally for use in charts/statistics
+          localStorage.setItem('guideId', data._id);
           navigate('/GuideDashboard');
           break;
         case 'provider':
