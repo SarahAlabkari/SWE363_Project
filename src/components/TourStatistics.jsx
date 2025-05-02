@@ -1,16 +1,38 @@
 // Path: src/components/TourStatistics.jsx
 
-import React, { useState } from "react";
-import "./TourStatistics.css"; 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./TourStatistics.css";
+
+
+const guideId = localStorage.getItem('guideId');
 
 const TourStatistics = () => {
-  const [fromDate, setFromDate] = useState("");  // Store the selected "From" date
-  const [toDate, setToDate] = useState("");      // Store the selected "To" date
+  // Selected date range
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
+  // Statistics returned from the backend
+  const [stats, setStats] = useState({
+    completed: 0,
+    canceled: 0,
+    scheduled: 0,
+    attendees: 0
+  });
+
+  // Fetch stats from the backend when the date range changes
+  useEffect(() => {
+    if (fromDate && toDate) {
+      axios
+        .get(`http://localhost:5000/api/guides/tour-stats/${guideId}?from=${fromDate}&to=${toDate}`)
+        .then((res) => setStats(res.data))
+        .catch((err) => console.error("Error fetching statistics:", err));
+    }
+  }, [fromDate, toDate]);
 
   return (
     <div className="tour-statistics">
-      {/* Date range selection */}
+      {/* Date range input fields */}
       <div className="date-range">
         <div className="date-field">
           <label htmlFor="fromDate">From</label>
@@ -18,39 +40,40 @@ const TourStatistics = () => {
             id="fromDate"
             type="date"
             value={fromDate}
-            onChange={(e) => setFromDate(e.target.value)} // Simple setter
-            max={toDate || undefined} // Limit fromDate to not be after toDate
+            onChange={(e) => setFromDate(e.target.value)}
+            max={toDate || undefined} // Prevent invalid ranges
           />
         </div>
+
         <div className="date-field">
           <label htmlFor="toDate">To</label>
           <input
             id="toDate"
             type="date"
             value={toDate}
-            onChange={(e) => setToDate(e.target.value)}   // Simple setter
-            min={fromDate || undefined} // Limit toDate to not be before fromDate
+            onChange={(e) => setToDate(e.target.value)}
+            min={fromDate || undefined}
           />
         </div>
       </div>
 
-      {/* Statistics display */}
+      {/* Dynamic statistics display */}
       <div className="stats-box">
         <div className="stat-row">
           <span>Total tours completed</span>
-          <span className="stat-number">12</span>
+          <span className="stat-number">{stats.completed}</span>
         </div>
         <div className="stat-row">
           <span>Tours canceled</span>
-          <span className="stat-number">3</span>
+          <span className="stat-number">{stats.canceled}</span>
         </div>
         <div className="stat-row">
           <span>Tours scheduled</span>
-          <span className="stat-number">5</span>
+          <span className="stat-number">{stats.scheduled}</span>
         </div>
         <div className="stat-row">
           <span>Total attendees</span>
-          <span className="stat-number">48</span>
+          <span className="stat-number">{stats.attendees}</span>
         </div>
       </div>
     </div>
@@ -58,3 +81,4 @@ const TourStatistics = () => {
 };
 
 export default TourStatistics;
+

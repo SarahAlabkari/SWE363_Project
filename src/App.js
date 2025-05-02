@@ -64,7 +64,7 @@ function App() {
         <Route path="/WhereTo" element={<WhereTo />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/ExploreActivities" element={<ExploreActivities/>}/>
-        <Route path="/ViewActivity" element={<ViewActivity/>}/>
+        <Route path="/ViewActivity/:id" element={<ViewActivity />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/TourGuides" element={<TourGuides />} />
         <Route path="/guide/:guideName" element={<GuideProfile />} />
@@ -72,6 +72,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/MyWishList" element={<MyWishList />} />
         <Route path="/MyPlan" element={<MyPlan />} />
+        <Route path="/MyPlan/:id" element={<MyPlan />} />
         <Route path="/Events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetail />} />
         <Route path="/create-event" element={<CreateEvent />} />

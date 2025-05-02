@@ -1,39 +1,51 @@
+// Path: src/components/GuideTopTours.jsx
+
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const GuideTopTours = () => {
+  const [topTours, setTopTours] = useState([]);
 
+  useEffect(() => {
+    const fetchTopTours = async () => {
+      try {
+        const guideId = localStorage.getItem('guideId');
+        if (!guideId) return;
 
-    const [topTours, setTopTours] = useState(null);
+        // Fetch top 3 tours sorted by attendee count for this guide
+        const response = await axios.get(`http://localhost:5000/api/guides/top-tours/${guideId}`);
+        setTopTours(response.data);
+      } catch (error) {
+        console.error('Failed to fetch top attended tours:', error);
+      }
+    };
 
-    //This will later be fetched from a database
-    useEffect(() => {
-        const mockTopTours = {
-            tourName: 'Tour xyz',
-            attendees: '20',
-        };
-        setTopTours(mockTopTours);
-    }, []);
+    fetchTopTours();
+  }, []);
 
-    if(!topTours) {
-        return(<div>Loading....</div>);
-    }
-
+  if (!topTours.length) {
     return (
-        <div className='d-flex flex-column gap-3'>
-            <div className='rounded d-flex justify-content-around' style={{ backgroundColor: 'white', width: '25rem', paddingTop: '1.5rem'}}>
-                <p>{topTours.tourName}</p>
-                <p>with { topTours.attendees } attendees</p>
-            </div>
-            <div className='rounded d-flex justify-content-around' style={{ backgroundColor: 'white', width: '25rem', paddingTop: '1.5rem'}}>
-                <p>{topTours.tourName}</p>
-                <p>with { topTours.attendees } attendees</p>
-            </div>
-            <div className='rounded d-flex justify-content-around' style={{ backgroundColor: 'white', width: '25rem', paddingTop: '1.5rem'}}>
-                <p>{topTours.tourName}</p>
-                <p>with { topTours.attendees } attendees</p>
-            </div>
+        <div className="d-flex flex-column gap-3">
+          <p>No tours found for this guide.</p>
         </div>
-    );
-}
+      );
+  }
+
+  return (
+    <div className="d-flex flex-column gap-3">
+      {/* Loop through top 3 tours and render them dynamically */}
+      {topTours.map((tour, index) => (
+        <div
+          key={index}
+          className="rounded d-flex justify-content-around"
+          style={{ backgroundColor: 'white', width: '25rem', paddingTop: '1.5rem' }}
+        >
+          <p>{tour.title}</p>
+          <p>with {tour.attendees} attendees</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default GuideTopTours;
