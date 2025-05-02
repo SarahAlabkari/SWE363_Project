@@ -39,16 +39,12 @@ const guideProfileRoutes = require('./routes/guideProfileRoutes');
 app.use('/api/tourists', touristRoutes);
 app.use('/api/guides', guideRoutes);
 app.use('/api/providers', providerRoutes);
-<<<<<<< HEAD
-app.use('/api/admin', adminRoutes);
-=======
 
 app.use('/api/cities', cityRoutes);
 app.use('/api/guideProfile', guideProfileRoutes);
 
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
->>>>>>> a6c4c7fa5238975a688531ca8502acf0eb50a6c4
 app.use('/api/auth', authRoutes);
 app.use('/api/tours', tourRoutes); // ✅ ADD THIS
 

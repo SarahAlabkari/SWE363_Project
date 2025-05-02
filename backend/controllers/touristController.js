@@ -149,5 +149,68 @@ const removeActivityFromPlan = async (req, res) => {
   }
 };
 
+const addToWishlist = async (req, res) => {
+  try {
+    const { activityId } = req.body;
+    const touristId = req.params.id;
 
-module.exports = {removeActivityFromPlan, getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };
+    const tourist = await Tourist.findById(touristId);
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+
+    // Avoid duplicates
+    if (tourist.wishlist.includes(activityId)) {
+      return res.status(400).json({ message: 'Activity already in wishlist' });
+    }
+
+    tourist.wishlist.push(activityId); // ✅ Directly push the ObjectId
+    await tourist.save();
+
+    res.status(200).json({ message: 'Activity added to your wishlist' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+const removeFromWishlist = async (req, res) => {
+  try {
+    const { id, activityId } = req.params;
+
+    const tourist = await Tourist.findById(id);
+    if (!tourist) {
+      return res.status(404).json({ message: 'Tourist not found' });
+    }
+
+    // Remove by matching activity ObjectId
+    tourist.wishlist = tourist.wishlist.filter(
+      (item) => item.toString() !== activityId
+    );
+
+    await tourist.save();
+    res.status(200).json({ message: 'Activity removed from wishlist' });
+  } catch (err) {
+    console.error("❌ Error removing activity from wishlist:", err);
+    res.status(500).json({ message: 'Server error while removing activity' });
+  }
+};
+
+const getWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const tourist = await Tourist.findById(id).populate('wishlist');
+    if (!tourist) {
+      return res.status(404).json({ message: 'Tourist not found' });
+    }
+
+    res.status(200).json(tourist.wishlist);
+  } catch (err) {
+    console.error("❌ Error fetching wishlist:", err);
+    res.status(500).json({ message: 'Server error while fetching wishlist' });
+  }
+};
+
+
+
+
+module.exports = {getWishlist, addToWishlist,removeFromWishlist, removeActivityFromPlan, getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };

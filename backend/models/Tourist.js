@@ -14,7 +14,11 @@ const touristSchema = new mongoose.Schema({
       seats: Number,
       status: { type: String, default: 'Pending' }
     }
-  ]
+  ],
+
+  wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }]
+
+
 });
 
 const Tourist = mongoose.model('Tourist', touristSchema);

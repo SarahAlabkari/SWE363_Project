@@ -7,7 +7,10 @@ const {
   loginTourist, 
   getTouristPlan, 
   addToPlan, 
-  removeActivityFromPlan
+  removeActivityFromPlan, 
+  addToWishlist,
+  removeFromWishlist,
+  getWishlist
 } = require('../controllers/touristController');
 
 
@@ -29,5 +32,10 @@ router.get('/:id/myplan', getTouristPlan);
 
 router.delete('/:id/myplan/:activityId', removeActivityFromPlan);
 
+
+// Wishlist routes
+router.get('/:id/wishlist', getWishlist);
+router.post('/:id/wishlist', addToWishlist);
+router.delete('/:id/wishlist/:activityId', removeFromWishlist);
 
 module.exports = router;
