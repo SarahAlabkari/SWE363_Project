@@ -1,6 +1,7 @@
 // Path: backend/controllers/authController.js
 
-const bcrypt = require('bcryptjs'); // Needed to compare hashed passwords
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const Admin = require('../models/Admin');
 const Tourist = require('../models/Tourist');
@@ -12,43 +13,47 @@ const Provider = require('../models/Provider');
 // @route   POST /api/auth/login
 // ---------------------------------------------
 const login = async (req, res) => {
-  const { identifier, password } = req.body; // identifier can be either username or email
+  const { identifier, password } = req.body; // identifier = username or email
 
   if (!identifier || !password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  // Helper function to check if the identifier matches a user and compare passwords securely
+  // Try matching a user and validating password for each role
   const tryMatch = async (Model, fields, role) => {
     const query = fields.map(field => ({ [field]: identifier }));
     const user = await Model.findOne({ $or: query });
 
     if (!user) return { match: false };
 
-    // Compare the hashed password with the raw input using bcrypt
     const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      return { match: true, role };
-    }
+    if (!isMatch) return { match: false };
 
-    return { match: false };
+    return { match: true, role, user };
   };
 
-  // Attempt to match each user type
   const checks = [
     await tryMatch(Admin, ['username', 'email'], 'admin'),
     await tryMatch(Tourist, ['username', 'email'], 'tourist'),
     await tryMatch(Guide, ['username', 'email'], 'guide'),
-    await tryMatch(Provider, ['email'], 'provider') // Provider uses only email for login
+    await tryMatch(Provider, ['email'], 'provider')
   ];
 
-  // Find the first successful match
   const result = checks.find(r => r.match);
 
   if (result) {
+    // ✅ Generate a token with user ID and role
+    const token = jwt.sign(
+      { id: result.user._id, role: result.role },
+      process.env.JWT_SECRET || 'fallbacksecret',
+      { expiresIn: process.env.JWT_EXPIRES_IN || '3d' }
+    );
+
     return res.status(200).json({
       message: 'Login successful',
-      role: result.role
+      role: result.role,
+      token,
+      userId: result.user._id
     });
   }
 
