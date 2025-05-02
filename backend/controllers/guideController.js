@@ -2,9 +2,10 @@
 
 const Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
+const GuideDashboardReviews = require('../models/GuideDashboardReviews');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // For password hashing
-const jwt = require('jsonwebtoken'); // For generating token
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // ---------------------------------------------
 // @desc    Create a new guide with hashed password and return JWT
@@ -18,7 +19,6 @@ const createGuide = async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const guide = await Guide.create({
@@ -31,14 +31,12 @@ const createGuide = async (req, res) => {
       phoneNumber
     });
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: guide._id },
       process.env.JWT_SECRET || 'fallbacksecret',
       { expiresIn: process.env.JWT_EXPIRES_IN || '3d' }
     );
 
-    // Send back the created guide + token
     res.status(201).json({
       message: 'Guide account created successfully',
       token,
@@ -52,6 +50,21 @@ const createGuide = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+};
+
+// ---------------------------------------------
+// @desc    Get reviews for a specific guide
+// @route   GET /api/guides/reviews/:guideId
+// ---------------------------------------------
+const getGuideDashboardReviews = async (req, res) => {
+  const { guideId } = req.params;
+
+  try {
+    const reviews = await GuideDashboardReviews.find({ guideId }).select('reviewerName stars comment createdAt');
+    res.status(200).json(reviews);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch guide reviews' });
   }
 };
 
@@ -171,6 +184,6 @@ module.exports = {
   getEarningYears,
   getMonthlyEarnings,
   getTourStatistics,
-  getTopAttendedTours
+  getTopAttendedTours,
+  getGuideDashboardReviews // Exported for use in routes
 };
-
