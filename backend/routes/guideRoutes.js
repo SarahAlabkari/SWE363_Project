@@ -9,7 +9,8 @@ const {
   getGuides,
   getEarningYears,
   getMonthlyEarnings,
-  getTourStatistics // ✅ Make sure this is added
+  getTourStatistics,
+  getTopAttendedTours // Added to support top 3 attended tours component
 } = require('../controllers/guideController');
 
 // Create a new guide
@@ -30,6 +31,10 @@ router.get('/earnings-per-month/:guideId/:year', getMonthlyEarnings);
 
 // Get tour statistics for a guide within a date range
 // GET /api/guides/statistics/:guideId?from=YYYY-MM-DD&to=YYYY-MM-DD
-router.get('/statistics/:guideId', getTourStatistics); // ✅ This was missing or undefined
+router.get('/statistics/:guideId', getTourStatistics);
+
+// Get top 3 attended tours for a guide
+// GET /api/guides/top-tours/:guideId
+router.get('/top-tours/:guideId', getTopAttendedTours);
 
 module.exports = router;
