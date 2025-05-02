@@ -9,6 +9,7 @@ const GuideProfile = () => {
   const [reviews, setReviews] = useState([]);
   const [guideData, setGuideData] = useState(null);
   const [averageRating, setAverageRating] = useState(0);
+  const [activities, setActivities] = useState([]);
   const navigate = useNavigate();
   const { guideName } = useParams();
 
@@ -53,8 +54,19 @@ const GuideProfile = () => {
       }
     };
 
+    const fetchActivities = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/activities`);
+        const data = await res.json();
+        setActivities(data);
+      } catch (err) {
+        console.error("Error fetching activities:", err);
+      }
+    };
+
     fetchGuideData();
     fetchReviews();
+    fetchActivities();
   }, [guideName]);
 
   if (!guideData) {
@@ -119,9 +131,9 @@ const GuideProfile = () => {
 
         <div className="my-5">
           <CardSlider>
-            <Activity customLink="/ViewActivity" />
-            <Activity customLink="/ViewActivity" />
-            <Activity customLink="/ViewActivity" />
+            {activities.map((activity) => (
+              <Activity key={activity._id} activity={activity} customLink={`/ViewActivity/${activity._id}`} />
+            ))}
           </CardSlider>
         </div>
 
@@ -160,16 +172,15 @@ const GuideProfile = () => {
                   borderRadius: '4px'
                 }}>{review.body}</div>
                 <div style={{
-  width: '90%',
-  marginBottom: '4px',
-  padding: '6px',
-  backgroundColor: '#f0f0e9',
-  borderRadius: '4px',
-  fontWeight: '500',
-  fontSize: '14px',
-  textAlign: 'left'
-}}>{review.touristUsername}</div>
-
+                  width: '90%',
+                  marginBottom: '4px',
+                  padding: '6px',
+                  backgroundColor: '#f0f0e9',
+                  borderRadius: '4px',
+                  fontWeight: '500',
+                  fontSize: '14px',
+                  textAlign: 'left'
+                }}>{review.touristUsername}</div>
               </div>
             ))}
           </div>
