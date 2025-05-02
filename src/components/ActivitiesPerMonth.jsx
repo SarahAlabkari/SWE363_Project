@@ -1,6 +1,7 @@
 // Path: src/components/ActivitiesPerMonth.jsx
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   BarChart,
   Bar,
@@ -11,25 +12,31 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
-import './EarningPerMonth.css'; // Reuse styles for consistency
-
-const mockActivityData = {
-  2022: [22, 27, 31, 30, 28, 26, 24, 20, 25, 23, 21, 19],
-  2023: [15, 18, 21, 25, 27, 22, 19, 24, 29, 20, 18, 16],
-  2024: [10, 12, 14, 18, 22, 30, 28, 27, 26, 25, 23, 20],
-  2025: [17, 19, 22, 20, 0, 0, 0, 0, 0, 0, 0, 0],
-};
+import './EarningPerMonth.css';
 
 const months = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
 
-const ActivitiesPerMonth = () => {
-  const availableYears = Object.keys(mockActivityData);
+const ActivitiesPerMonth = ({ guideId }) => {
+  const [availableYears, setAvailableYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState('');
+  const [activities, setActivities] = useState(Array(12).fill(0));
 
-  const activities = mockActivityData[selectedYear] || new Array(12).fill(0);
+  useEffect(() => {
+    axios.get(`/api/guide/available-years/${guideId}`)
+      .then((res) => setAvailableYears(res.data))
+      .catch(() => setAvailableYears([]));
+  }, [guideId]);
+
+  useEffect(() => {
+    if (!selectedYear) return;
+
+    axios.get(`/api/guide/activities-per-month/${guideId}/${selectedYear}`)
+      .then((res) => setActivities(res.data))
+      .catch(() => setActivities(Array(12).fill(0)));
+  }, [selectedYear, guideId]);
 
   const chartData = months.map((month, index) => ({
     month,
