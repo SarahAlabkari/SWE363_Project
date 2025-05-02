@@ -14,10 +14,38 @@ const ExploreActivities = () => {
   const { city, date } = location.state || {};
   const [selectedDate, setSelectedDate] = useState(date || null);
   const [activities, setActivities] = useState([]);
+  const [destination, setDestination] = useState(city || "");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
 
+  useEffect(() => {
+    if (!city) return;
+
+    const fetchCityData = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/cities/${city}`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch city");
+        }
+
+        setDestination(data.name);
+        setDescription(data.bio);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setDestination(city);
+        setDescription("Discover unique experiences and activities in this city.");
+      }
+    };
+
+    fetchCityData();
+  }, [city]);
+
+  useEffect(() => {
     if (!city || !selectedDate) {
       console.log("❌ Missing city or selectedDate", { city, selectedDate });
       return;
@@ -61,13 +89,14 @@ const ExploreActivities = () => {
           textAlign: "center",
         }}
       >
-        <h1 className="fw-bold" style={{ color: '#584335' }}>{city}</h1>
+        <h1 className="fw-bold" style={{ color: '#584335' }}>{destination}</h1>
+        <p className="text-muted">{description}</p>
       </div>
 
       {/* Filters Row */}
       <div className="d-flex justify-content-between px-4 mb-3 align-items-center flex-wrap gap-3">
         <div style={{ width: "fit-content" }}>
-          <DropdownMenu />
+          <DropdownMenu onSelectCity={(selected) => navigate("/ExploreActivities", { state: { city: selected, date: selectedDate } })} />
         </div>
 
         <div style={{ width: "fit-content" }}>
@@ -77,9 +106,7 @@ const ExploreActivities = () => {
           <div className="position-relative">
             <DatePicker
               selected={selectedDate ? new Date(selectedDate) : null}
-              onChange={(date) =>
-                setSelectedDate(date.toLocaleDateString('en-CA')) // ✅ ensures YYYY-MM-DD in local time
-              }
+              onChange={(date) => setSelectedDate(date.toLocaleDateString('en-CA'))}
               placeholderText="mm/dd/yyyy"
               className="form-control pe-4"
             />

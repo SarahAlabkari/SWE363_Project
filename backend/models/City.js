@@ -5,4 +5,4 @@ const citySchema = new mongoose.Schema({
   bio: { type: String, required: true },
 });
 
-module.exports = mongoose.model('City', citySchema);
+module.exports = mongoose.model('City', citySchema, 'cities');
