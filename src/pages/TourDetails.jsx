@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import MenuBar from '../components/MenuBar';
 
 const TourDetails = () => {
@@ -15,26 +16,19 @@ const TourDetails = () => {
   const [tour, setTour] = useState(null);
 
   useEffect(() => {
-    const mockTour = {
-      name: 'Alula Tour',
-      TourID: 1,
-      tourGuid: 'Sarah Alabkari',
-      date: 'April 10, 2025',
-      time: '9:00 AM - 4:00 PM',
-      startLocation: 'Alula, Saudi Arabia',
-      description: 'Join us for a day full of adventure!',
-      activitiesNames: [
-        'Hiking in AlUla’s rock formations',
-        'Hot Air Balloon Ride',
-        'Sandboarding'
-      ],
-      activitiesIDs: [1, 2, 3],
-      state: 'Active',
+    const fetchTour = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/tours/${id}`);
+        setTour(response.data);
+      } catch (error) {
+        console.error('❌ Error fetching tour:', error);
+      }
     };
-    setTour(mockTour);
-  }, []);
 
-  if (!tour) return <div className="text-center mt-5">Loading...</div>;
+    fetchTour();
+  }, [id]);
+
+  if (!tour) return <div className="text-center mt-5">Loading tour details...</div>;
 
   return (
     <div className="min-vh-100 bg-light">
@@ -55,22 +49,22 @@ const TourDetails = () => {
 
             <div className="mb-4">
               <h5 className="fw-bold"><span role="img" aria-label="guide">🧭</span> Tour Guide</h5>
-              <p>{tour.tourGuid}</p>
+              <p>{tour.tourGuideUsername}</p>
             </div>
 
             <div className="mb-4">
               <h5 className="fw-bold"><span role="img" aria-label="calendar">📅</span> Date & Time</h5>
-              <p>{tour.date} | {tour.time}</p>
+              <p>{new Date(tour.date).toLocaleDateString()} | {tour.time}</p>
             </div>
 
             <div className="mb-4">
               <h5 className="fw-bold"><span role="img" aria-label="location">📍</span> Start Location</h5>
-              <p>{tour.startLocation}</p>
+              <p>{tour.location}</p>
             </div>
 
             <div className="mb-4">
               <h5 className="fw-bold"><span role="img" aria-label="status">📘</span> Status</h5>
-              <span className="badge bg-success">{tour.state}</span>
+              <span className="badge bg-success">{tour.status || 'Scheduled'}</span>
             </div>
 
             <div className="mb-4">
@@ -81,11 +75,15 @@ const TourDetails = () => {
             <div className="mb-4">
               <h5 className="fw-bold"><span role="img" aria-label="activities">🎯</span> Included Activities</h5>
               <ul className="list-group list-group-flush">
-                {tour.activitiesNames.map((activity, index) => (
-                  <li className="list-group-item" key={index}>
-                    #{tour.activitiesIDs[index]} – {activity}
-                  </li>
-                ))}
+                {tour.activityNames && tour.activityNames.length > 0 ? (
+                  tour.activityNames.map((activity, index) => (
+                    <li className="list-group-item" key={index}>
+                      Activity #{index + 1} – {activity}
+                    </li>
+                  ))
+                ) : (
+                  <li className="list-group-item text-muted">No activities listed</li>
+                )}
               </ul>
             </div>
 
