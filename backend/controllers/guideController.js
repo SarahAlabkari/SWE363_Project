@@ -3,10 +3,11 @@
 const Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
+const bcrypt = require('bcryptjs'); // For password hashing
+const jwt = require('jsonwebtoken'); // For generating token
 
 // ---------------------------------------------
-// @desc    Create a new guide with hashed password
+// @desc    Create a new guide with hashed password and return JWT
 // @route   POST /api/guides
 // ---------------------------------------------
 const createGuide = async (req, res) => {
@@ -30,7 +31,25 @@ const createGuide = async (req, res) => {
       phoneNumber
     });
 
-    res.status(201).json(guide);
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: guide._id },
+      process.env.JWT_SECRET || 'fallbacksecret',
+      { expiresIn: process.env.JWT_EXPIRES_IN || '3d' }
+    );
+
+    // Send back the created guide + token
+    res.status(201).json({
+      message: 'Guide account created successfully',
+      token,
+      guide: {
+        id: guide._id,
+        username: guide.username,
+        email: guide.email,
+        fullName: `${guide.firstName} ${guide.lastName}`,
+        phoneNumber: guide.phoneNumber
+      }
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
