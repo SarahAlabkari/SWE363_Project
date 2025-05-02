@@ -1,9 +1,12 @@
+// Path: backend/controllers/guideController.js
+
 const Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
 
 // ---------------------------------------------
-// @desc    Create a new guide
+// @desc    Create a new guide with hashed password
 // @route   POST /api/guides
 // ---------------------------------------------
 const createGuide = async (req, res) => {
@@ -14,10 +17,13 @@ const createGuide = async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const guide = await Guide.create({
       username,
       email,
-      password,
+      password: hashedPassword,
       firstName,
       lastName,
       nationalId,
@@ -64,7 +70,7 @@ const getTopAttendedTours = async (req, res) => {
 };
 
 // ---------------------------------------------
-// Placeholder implementations if not already defined
+// @desc    Get all registered guides
 // ---------------------------------------------
 const getGuides = async (req, res) => {
   try {
@@ -75,6 +81,10 @@ const getGuides = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Get all years where guide has tours
+// @route   GET /api/guides/earnings-years/:guideId
+// ---------------------------------------------
 const getEarningYears = async (req, res) => {
   const { guideId } = req.params;
 
@@ -91,6 +101,10 @@ const getEarningYears = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Get monthly earnings for a guide in a year
+// @route   GET /api/guides/earnings-per-month/:guideId/:year
+// ---------------------------------------------
 const getMonthlyEarnings = async (req, res) => {
   const { guideId, year } = req.params;
 
@@ -124,8 +138,11 @@ const getMonthlyEarnings = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Placeholder for future tour statistics
+// @route   GET /api/guides/statistics/:guideId
+// ---------------------------------------------
 const getTourStatistics = async (req, res) => {
-  // This is expected to already exist.
   res.status(501).json({ message: "getTourStatistics not yet implemented" });
 };
 
@@ -137,3 +154,4 @@ module.exports = {
   getTourStatistics,
   getTopAttendedTours
 };
+
