@@ -14,29 +14,32 @@ const MyWishList = () => {
         const res = await axios.get(`/tourists/${touristId}/wishlist`);
         setWishlist(res.data);
       } catch (err) {
-        console.error("❌ Error fetching wishlist:", err);
+        console.error("Failed to fetch wishlist:", err);
       }
     };
 
-    if (touristId) {
-      fetchWishlist();
-    }
+    if (touristId) fetchWishlist();
   }, [touristId]);
+
+  const handleUnlike = (activityId) => {
+    setWishlist(prev => prev.filter(item => item._id !== activityId));
+  };
 
   return (
     <div>
       <TouristMenuBar />
       <div className="container mt-5 text-center">
-        <h2>My WishList</h2>
+        <h2>My Wishlist</h2>
         {wishlist.length === 0 ? (
-          <p>No activities in your wishlist.</p>
+          <p>No activities added to your wishlist yet.</p>
         ) : (
           <CardSlider>
-            {wishlist.map((entry) => (
+            {wishlist.map(item => (
               <Activity
-                key={entry._id}
-                activity={entry.activity}
-                customLink={`/ViewActivity/${entry.activity._id}`}
+                key={item._id}
+                activity={item}
+                customLink={`/ViewActivity/${item._id}`}
+                onUnlike={handleUnlike}
               />
             ))}
           </CardSlider>
