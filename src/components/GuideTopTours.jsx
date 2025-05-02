@@ -24,7 +24,11 @@ const GuideTopTours = () => {
   }, []);
 
   if (!topTours.length) {
-    return <div>Loading...</div>;
+    return (
+        <div className="d-flex flex-column gap-3">
+          <p>No tours found for this guide.</p>
+        </div>
+      );
   }
 
   return (
