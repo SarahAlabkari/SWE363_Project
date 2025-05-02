@@ -14,7 +14,10 @@
     "nodemon": "^3.1.10"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
     "axios": "^1.9.0",
+>>>>>>> a6c4c7fa5238975a688531ca8502acf0eb50a6c4
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.2",

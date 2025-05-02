@@ -104,7 +104,7 @@ const addToPlan = async (req, res) => {
     tourist.plans.push({
       activity: activityId,
       seats,
-      status: 'Pending'
+      status: 'Confirmed'
     });
 
     await tourist.save();

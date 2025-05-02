@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const { addToPlan } = require('../controllers/touristController');
 
 const {
   createTourist,

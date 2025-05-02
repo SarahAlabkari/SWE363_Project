@@ -1,39 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from '../api/axiosInstance';
 import MyPlanTable from '../components/MyPlanTable';
-import MenuBar from '../components/MenuBar';
-import TouristMenuBar from '../components/TouristMenuBar'; // Adjust the path based on your project structure
-
-
-const sampleAcMytivities = [
-  {
-    name: 'Alula',
-    location: 'Alula',
-    date: '2025-04-10',
-    time: '10:00 AM',
-    seats: 2,
-    status: 'Confirmed'
-  },
-  {
-    name: 'Alula Visit',
-    location: 'Alula',
-    date: '2025-04-12',
-    time: '2:00 PM',
-    seats: 4,
-    status: 'Pending'
-  }
-];
+import TouristMenuBar from '../components/TouristMenuBar';
 
 const MyPlan = () => {
+  const { id } = useParams(); // Get tourist ID from URL
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchPlan = async () => {
+      try {
+        const res = await axios.get(`/tourists/${id}/plan`);
+        setActivities(res.data);
+      } catch (err) {
+        console.error('Failed to fetch plan:', err);
+        setError('Something went wrong while fetching your plan.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlan();
+  }, [id]);
 
   return (
     <div>
-    <div>
-    <TouristMenuBar />
-    </div>
-    <div className="container mt-5 text-center">
-    <h2> My Plan!</h2>
-    <MyPlanTable activities={sampleAcMytivities} />
-    </div>
+      <TouristMenuBar />
+      <div className="container mt-5 text-center">
+        <h2>My Plan</h2>
+        {loading && <p>Loading...</p>}
+        {error && <p className="text-danger">{error}</p>}
+        {!loading && !error && <MyPlanTable activities={activities} />}
+      </div>
     </div>
   );
 };

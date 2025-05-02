@@ -24,15 +24,13 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/api/activities', require('./routes/activityRoutes'));
-
 
 // Route imports
 const touristRoutes = require('./routes/touristRoutes');
 const guideRoutes = require('./routes/guideRoutes');
 const providerRoutes = require('./routes/providerRoutes');
-const adminRoutes = require('./routes/adminRoutes'); // Admin route
-const activityRoutes = require('./routes/activityRoutes'); // Activity route
+const adminRoutes = require('./routes/adminRoutes');
+const tourRoutes = require('./routes/tourRoutes'); // ✅ ADD THIS
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
@@ -41,6 +39,9 @@ const guideProfileRoutes = require('./routes/guideProfileRoutes');
 app.use('/api/tourists', touristRoutes);
 app.use('/api/guides', guideRoutes);
 app.use('/api/providers', providerRoutes);
+<<<<<<< HEAD
+app.use('/api/admin', adminRoutes);
+=======
 
 app.use('/api/cities', cityRoutes);
 app.use('/api/guideProfile', guideProfileRoutes);
@@ -50,8 +51,9 @@ app.use('/api/guideReviews', guideReviewsRoutes);
 
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
+>>>>>>> a6c4c7fa5238975a688531ca8502acf0eb50a6c4
 app.use('/api/auth', authRoutes);
-app.use('/api/activities', activityRoutes); // Use singular `/activities`
+app.use('/api/tours', tourRoutes); // ✅ ADD THIS
 
 // Health check route
 app.get('/', (req, res) => {
@@ -61,4 +63,3 @@ app.get('/', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🟢 Server running on port ${PORT}`));
-
