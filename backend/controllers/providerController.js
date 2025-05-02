@@ -2,8 +2,9 @@
 
 const Provider = require('../models/Provider');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken'); // Added for token generation
 
-// @desc    Create a new provider with hashed password
+// @desc    Create a new provider with hashed password and return JWT
 const createProvider = async (req, res) => {
   try {
     const { companyName, email, password, maaroofNumber, phoneNumber } = req.body;
@@ -13,10 +14,10 @@ const createProvider = async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Hash the password before saving to database
+    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create provider with hashed password
+    // Create provider document in DB
     const provider = await Provider.create({
       companyName,
       email,
@@ -25,7 +26,24 @@ const createProvider = async (req, res) => {
       phoneNumber
     });
 
-    res.status(201).json(provider);
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: provider._id },
+      process.env.JWT_SECRET || 'fallbacksecret',
+      { expiresIn: process.env.JWT_EXPIRES_IN || '3d' }
+    );
+
+    // Respond with provider info and token
+    res.status(201).json({
+      message: 'Provider account created successfully',
+      token,
+      provider: {
+        id: provider._id,
+        companyName: provider.companyName,
+        email: provider.email,
+        phoneNumber: provider.phoneNumber
+      }
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
