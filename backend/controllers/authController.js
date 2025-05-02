@@ -1,7 +1,6 @@
 // Path: backend/controllers/authController.js
 
 const bcrypt = require('bcryptjs'); // Needed to compare hashed passwords
-
 const Admin = require('../models/Admin');
 const Tourist = require('../models/Tourist');
 const Guide = require('../models/Guide');
@@ -28,7 +27,7 @@ const login = async (req, res) => {
     // Compare the hashed password with the raw input using bcrypt
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
-      return { match: true, role };
+      return { match: true, role, user };
     }
 
     return { match: false };
