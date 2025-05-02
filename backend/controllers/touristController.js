@@ -116,8 +116,12 @@ const addToPlan = async (req, res) => {
 
 const getTouristPlan = async (req, res) => {
   try {
-    const tourist = await Tourist.findById(req.params.id).populate('plans.activity');
-    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+    const { id } = req.params;
+
+    const tourist = await Tourist.findById(id).populate('plans.activity');
+    if (!tourist) {
+      return res.status(404).json({ message: 'Tourist not found' });
+    }
 
     res.status(200).json(tourist.plans);
   } catch (err) {
@@ -125,5 +129,25 @@ const getTouristPlan = async (req, res) => {
   }
 };
 
+const removeActivityFromPlan = async (req, res) => {
+  try {
+    const { id, activityId } = req.params; // this time activityId means the Activity ID, not the plan ID
 
-module.exports = { getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };
+    const tourist = await Tourist.findById(id);
+    if (!tourist) {
+      return res.status(404).json({ message: 'Tourist not found' });
+    }
+
+    // Filter plans by comparing the 'activity' ObjectId
+    tourist.plans = tourist.plans.filter(plan => plan.activity.toString() !== activityId);
+
+    await tourist.save();
+    res.status(200).json({ message: 'Activity removed from plan' });
+  } catch (err) {
+    console.error("❌ Error removing activity from plan:", err);
+    res.status(500).json({ message: 'Server error while removing activity' });
+  }
+};
+
+
+module.exports = {removeActivityFromPlan, getTouristPlan, addToPlan, loginTourist, createTourist, getTourists };

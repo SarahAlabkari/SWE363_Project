@@ -1,17 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import axios from '../api/axiosInstance';
 
-const MyPlanTable = ({ activities }) => {
+const MyPlanTable = ({ activities, setActivities }) => {
   const navigate = useNavigate();
+  const touristId = localStorage.getItem('touristId');
 
-  const handleView = () => {
-    navigate('/ViewActivity'); // Navigate to the event details page
+  const handleView = (activityId) => {
+    navigate(`/ViewActivity/${activityId}`);
   };
 
-  const handleCancel = () => {
+  const handleCancel = async (activityId) => {
+    const confirm = window.confirm("Are you sure you want to cancel this activity?");
+    if (!confirm) return;
+  
+    try {
+      console.log("🧼 Deleting by activityId:", activityId);
+      await axios.delete(`/tourists/${touristId}/myplan/${activityId}`);
+      setActivities(prev => prev.filter(plan => plan.activity._id !== activityId));
+      alert("✅ Activity removed from your plan.");
+    } catch (err) {
+      console.error('❌ Failed to cancel activity:', err);
+      alert('❌ Failed to cancel. Please try again.');
+    }
   };
-
+  
   const handlePay = () => {
     navigate('/Payment');
   };
@@ -36,16 +50,16 @@ const MyPlanTable = ({ activities }) => {
               <td colSpan="7" className="text-center">No activities added yet.</td>
             </tr>
           ) : (
-            activities.map((activity, index) => (
-              <tr key={index}>
-                <td>{activity.name}</td>
-                <td>{activity.location}</td>
-                <td>{activity.date}</td>
-                <td>{activity.time}</td>
-                <td>{activity.seats}</td>
+            activities.map((entry, index) => (
+              <tr key={entry._id || index}>
+                <td>{entry.activity?.eventName || 'Unnamed Activity'}</td>
+                <td>{entry.activity?.location || 'N/A'}</td>
+                <td>{entry.activity?.date || 'N/A'}</td>
+                <td>{entry.activity?.time || 'N/A'}</td>
+                <td>{entry.seats}</td>
                 <td>
-                  <span className={`custom-badge ${getStatusClass(activity.status)}`}>
-                    {activity.status}
+                  <span className={`custom-badge ${getStatusClass(entry.status)}`}>
+                    {entry.status}
                   </span>
                 </td>
                 <td style={{ position: 'relative' }}>
@@ -60,12 +74,12 @@ const MyPlanTable = ({ activities }) => {
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end" style={{ zIndex: 1050 }}>
                       <li>
-                        <button className="dropdown-item" onClick={handleView}>
+                        <button className="dropdown-item" onClick={() => handleView(entry.activity._id)}>
                           <i className="bi bi-eye me-2"></i>View
                         </button>
                       </li>
                       <li>
-                        <button className="dropdown-item" onClick={handleCancel}>
+                      <button className="dropdown-item" onClick={() => handleCancel(entry.activity._id)}>
                           <i className="bi bi-x-circle me-2"></i>Cancel
                         </button>
                       </li>

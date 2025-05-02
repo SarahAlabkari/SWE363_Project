@@ -53,7 +53,11 @@ const login = async (req, res) => {
       message: 'Login successful',
       role: result.role,
       token,
-      userId: result.user._id
+      [result.role]: {
+        id: result.user._id,
+        username: result.user.username || result.user.companyName || '',
+        email: result.user.email
+      }
     });
   }
 
