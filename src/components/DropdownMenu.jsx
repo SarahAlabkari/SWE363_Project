@@ -4,10 +4,10 @@ import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 
 // Cities list
 const saudiCities = [
-  "Abha", "Alahssa", "Alqasim", "Alula", "Bisha", "Buraidah", "Dammam",
-  "Dhahran", "Hail", "Jazan", "Jeddah", "Jubail", "Khafji", "Khobar",
-  "Mecca", "Medina", "Najran", "Qatif", "Rafha", "Riyadh", "Sakaka",
-  "Tabuk", "Taif", "Tarout", "Yanbu"
+  "Abha", "Alahssa", "Alqasim", "Alula", "Dammam",
+  "Dhahran", "Hail", "Jazan", "Jeddah", "Jubail", "Khobar",
+  "Makkah", "Medina", "Najran", "Qatif", "Riyadh",
+  "Tabuk", "Taif"
 ];
 
 function DropdownMenu({ onSelectCity }) {

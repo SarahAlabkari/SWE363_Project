@@ -31,6 +31,8 @@ const guideRoutes = require('./routes/guideRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const tourRoutes = require('./routes/tourRoutes'); // ✅ ADD THIS
+const activityRoutes = require('./routes/activityRoutes');
+
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
@@ -43,10 +45,15 @@ app.use('/api/providers', providerRoutes);
 app.use('/api/cities', cityRoutes);
 app.use('/api/guideProfile', guideProfileRoutes);
 
+const guideReviewsRoutes = require('./routes/guideReviewsRoutes');
+app.use('/api/guideReviews', guideReviewsRoutes);
+
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);
 app.use('/api/tours', tourRoutes); // ✅ ADD THIS
+app.use('/api/activities', activityRoutes);
+
 
 // Health check route
 app.get('/', (req, res) => {
