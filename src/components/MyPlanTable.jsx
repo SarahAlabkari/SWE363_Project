@@ -26,9 +26,17 @@ const MyPlanTable = ({ activities, setActivities }) => {
     }
   };
   
-  const handlePay = () => {
-    navigate('/Payment');
+  
+  const handlePay = (entry) => {
+    navigate('/Payment', {
+      state: {
+        activityName: entry.activity?.eventName,
+        numberOfTickets: entry.seats
+      }
+    });
   };
+  
+  
 
   return (
     <div className="container mt-4 position-static">
@@ -84,7 +92,8 @@ const MyPlanTable = ({ activities, setActivities }) => {
                         </button>
                       </li>
                       <li>
-                        <button className="dropdown-item" onClick={handlePay}>
+                      <button className="dropdown-item" onClick={() => handlePay(entry)}>
+
                           <i className="bi bi-currency-dollar me-2"></i>Pay
                         </button>
                       </li>
