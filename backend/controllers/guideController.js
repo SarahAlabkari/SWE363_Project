@@ -1,9 +1,13 @@
+// Path: backend/controllers/guideController.js
+
 const Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs'); // For password hashing
+const jwt = require('jsonwebtoken'); // For generating token
 
 // ---------------------------------------------
-// @desc    Create a new guide
+// @desc    Create a new guide with hashed password and return JWT
 // @route   POST /api/guides
 // ---------------------------------------------
 const createGuide = async (req, res) => {
@@ -14,17 +18,38 @@ const createGuide = async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const guide = await Guide.create({
       username,
       email,
-      password,
+      password: hashedPassword,
       firstName,
       lastName,
       nationalId,
       phoneNumber
     });
 
-    res.status(201).json(guide);
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: guide._id },
+      process.env.JWT_SECRET || 'fallbacksecret',
+      { expiresIn: process.env.JWT_EXPIRES_IN || '3d' }
+    );
+
+    // Send back the created guide + token
+    res.status(201).json({
+      message: 'Guide account created successfully',
+      token,
+      guide: {
+        id: guide._id,
+        username: guide.username,
+        email: guide.email,
+        fullName: `${guide.firstName} ${guide.lastName}`,
+        phoneNumber: guide.phoneNumber
+      }
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -64,7 +89,7 @@ const getTopAttendedTours = async (req, res) => {
 };
 
 // ---------------------------------------------
-// Placeholder implementations if not already defined
+// @desc    Get all registered guides
 // ---------------------------------------------
 const getGuides = async (req, res) => {
   try {
@@ -75,6 +100,10 @@ const getGuides = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Get all years where guide has tours
+// @route   GET /api/guides/earnings-years/:guideId
+// ---------------------------------------------
 const getEarningYears = async (req, res) => {
   const { guideId } = req.params;
 
@@ -91,6 +120,10 @@ const getEarningYears = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Get monthly earnings for a guide in a year
+// @route   GET /api/guides/earnings-per-month/:guideId/:year
+// ---------------------------------------------
 const getMonthlyEarnings = async (req, res) => {
   const { guideId, year } = req.params;
 
@@ -124,8 +157,11 @@ const getMonthlyEarnings = async (req, res) => {
   }
 };
 
+// ---------------------------------------------
+// @desc    Placeholder for future tour statistics
+// @route   GET /api/guides/statistics/:guideId
+// ---------------------------------------------
 const getTourStatistics = async (req, res) => {
-  // This is expected to already exist.
   res.status(501).json({ message: "getTourStatistics not yet implemented" });
 };
 
@@ -137,3 +173,4 @@ module.exports = {
   getTourStatistics,
   getTopAttendedTours
 };
+
