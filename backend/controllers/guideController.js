@@ -1,11 +1,10 @@
-// Path: backend/controllers/guideController.js
-
 const Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
 const mongoose = require('mongoose');
 
 // ---------------------------------------------
 // @desc    Create a new guide
+// @route   POST /api/guides
 // ---------------------------------------------
 const createGuide = async (req, res) => {
   try {
@@ -32,7 +31,40 @@ const createGuide = async (req, res) => {
 };
 
 // ---------------------------------------------
-// @desc    Get all registered guides
+// @desc    Get top 3 attended tours for a guide
+// @route   GET /api/guides/top-tours/:guideId
+// ---------------------------------------------
+const getTopAttendedTours = async (req, res) => {
+  const { guideId } = req.params;
+
+  try {
+    const topTours = await Tour.aggregate([
+      { $match: { guideId: new mongoose.Types.ObjectId(guideId) } },
+      {
+        $group: {
+          _id: "$title",
+          attendees: { $sum: "$attendees" }
+        }
+      },
+      { $sort: { attendees: -1 } },
+      { $limit: 3 },
+      {
+        $project: {
+          _id: 0,
+          title: "$_id",
+          attendees: 1
+        }
+      }
+    ]);
+
+    res.json(topTours);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch top attended tours' });
+  }
+};
+
+// ---------------------------------------------
+// Placeholder implementations if not already defined
 // ---------------------------------------------
 const getGuides = async (req, res) => {
   try {
@@ -43,10 +75,6 @@ const getGuides = async (req, res) => {
   }
 };
 
-// ---------------------------------------------
-// @desc    Get all years where guide has tours
-// @route   GET /api/guides/earnings-years/:guideId
-// ---------------------------------------------
 const getEarningYears = async (req, res) => {
   const { guideId } = req.params;
 
@@ -63,10 +91,6 @@ const getEarningYears = async (req, res) => {
   }
 };
 
-// ---------------------------------------------
-// @desc    Get monthly earnings for a guide in a year
-// @route   GET /api/guides/earnings-per-month/:guideId/:year
-// ---------------------------------------------
 const getMonthlyEarnings = async (req, res) => {
   const { guideId, year } = req.params;
 
@@ -100,51 +124,9 @@ const getMonthlyEarnings = async (req, res) => {
   }
 };
 
-// ---------------------------------------------
-// @desc    Get guide statistics (completed, cancelled, scheduled, attendees)
-// @route   GET /api/guides/statistics/:guideId?from=...&to=...
-// ---------------------------------------------
 const getTourStatistics = async (req, res) => {
-  const { guideId } = req.params;
-  const { from, to } = req.query;
-
-  try {
-    const startDate = new Date(from);
-    const endDate = new Date(to);
-
-    const stats = await Tour.aggregate([
-      {
-        $match: {
-          guideId: new mongoose.Types.ObjectId(guideId),
-          date: { $gte: startDate, $lte: endDate }
-        }
-      },
-      {
-        $group: {
-          _id: null,
-          completed: {
-            $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] }
-          },
-          cancelled: {
-            $sum: { $cond: [{ $eq: ["$status", "cancelled"] }, 1, 0] }
-          },
-          scheduled: {
-            $sum: { $cond: [{ $eq: ["$status", "scheduled"] }, 1, 0] }
-          },
-          attendees: { $sum: "$attendees" }
-        }
-      }
-    ]);
-
-    res.status(200).json(stats[0] || {
-      completed: 0,
-      cancelled: 0,
-      scheduled: 0,
-      attendees: 0
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Failed to fetch statistics" });
-  }
+  // This is expected to already exist.
+  res.status(501).json({ message: "getTourStatistics not yet implemented" });
 };
 
 module.exports = {
@@ -152,5 +134,6 @@ module.exports = {
   getGuides,
   getEarningYears,
   getMonthlyEarnings,
-  getTourStatistics // new export added for TourStatistics.jsx
+  getTourStatistics,
+  getTopAttendedTours
 };
