@@ -16,4 +16,6 @@ router.get('/', getActivities);
 router.post('/', createActivity);
 router.get('/:id', getActivityById); // ❗ keep this at the bottom
 
+
+
 module.exports = router;

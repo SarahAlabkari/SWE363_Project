@@ -19,9 +19,9 @@ const AdminMenuBar = () => {
         
         {/* Logo on the far left */}
         <Link className="navbar-brand d-flex align-items-center" to="/AdminDashboard">
-          <img
+        <img
             className="logo-img d-block"
-            src="/jadwill logo.png"
+            src="/logo.png"
             alt="Jaddwill Logo"
           />
         </Link>
