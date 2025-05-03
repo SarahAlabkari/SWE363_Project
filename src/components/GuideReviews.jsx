@@ -1,23 +1,28 @@
 // Path: src/components/GuideReviews.jsx
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Added for API request
+import axios from 'axios';
 import StarRating from './StarRating';
 
 const GuideReviews = () => {
-  const [reviews, setReviews] = useState([]); // Now handles an array of reviews
-  const [loading, setLoading] = useState(true); // For loading state
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchReviews = async () => {
-      try {
-        const guideId = localStorage.getItem('guideId'); // Get guideId from local storage
-        if (!guideId) return;
+      const guideId = localStorage.getItem('guideId');
 
-        const response = await axios.get(`http://localhost:5000/api/reviews/guide/${guideId}`); // Backend API call
+      if (!guideId) {
+        console.warn('No guideId found in localStorage. Skipping review fetch.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://localhost:5000/api/reviews/guide/${guideId}`);
         setReviews(response.data);
       } catch (error) {
-        console.error('Failed to fetch guide reviews:', error);
+        console.error('❌ Failed to fetch guide reviews:', error.message);
       } finally {
         setLoading(false);
       }
@@ -26,13 +31,9 @@ const GuideReviews = () => {
     fetchReviews();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // Friendly loading message
-  }
+  if (loading) return <div>Loading...</div>;
 
-  if (!reviews.length) {
-    return <div>No reviews found for this guide.</div>; // Fallback for no data
-  }
+  if (!reviews.length) return <div>No reviews found for this guide.</div>;
 
   return (
     <div
