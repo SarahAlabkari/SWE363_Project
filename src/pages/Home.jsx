@@ -1,43 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MenuBar from "../components/MenuBar";
 import ImageBlock from "../components/ImageBlock";
 import FeatureCard from "../components/FeatureCard";
 import HowItWorks from "../components/HowItWorks";
 import Activity from "../components/Activity";
 import CardSlider from "../components/CardSlider";
-import TouristMenuBar from "../components/TouristMenuBar"; // Adjust the path based on your project structure
-const heroImagePath = "hero9.png"; 
+import TouristMenuBar from "../components/TouristMenuBar";
+import axios from "../api/axiosInstance";
+
+const heroImagePath = "hero9.png";
 
 const services = [
   {
     icon: "bi-geo-alt",
     title: "Local Expertise",
     description:
-      "Discover hidden gems and authentic experiences guided by locals who truly know their city. With Jaddwill, you're not just visiting — you're exploring through the eyes of someone who lives there.",
+      "Discover hidden gems and authentic experiences guided by locals who truly know their city.",
   },
   {
     icon: "bi-sliders",
     title: "Personalized Trips",
     description:
-      "Every traveler is unique — your journey should be too. Jaddwill matches you with personalized experiences based on your interests, pace, and travel style. No cookie-cutter tours, just your kind of adventure.",
+      "Jaddwill matches you with personalized experiences based on your interests.",
   },
   {
     icon: "bi-people",
     title: "Supporting Local Communities",
     description:
-      "Your travel choices make a difference. By booking through Jaddwill, you directly support local guides, artisans, and small businesses — helping communities thrive while you explore with purpose.",
+      "By booking through Jaddwill, you directly support local guides and small businesses.",
   },
 ];
 
-
-
 const Home = () => {
+  const [randomActivities, setRandomActivities] = useState([]);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const res = await axios.get("/activities");
+        const shuffled = res.data.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 5); // get 5 random activities
+        setRandomActivities(selected);
+      } catch (err) {
+        console.error("Error fetching activities:", err);
+      }
+    };
+
+    fetchActivities();
+  }, []);
+
   return (
     <div>
-      {/* Navigation */}
       <TouristMenuBar />
 
-      {/* Hero Image */}
+      {/* Hero */}
       <section>
         <ImageBlock
           image={heroImagePath}
@@ -46,31 +62,27 @@ const Home = () => {
         />
       </section>
 
-      {/* Features Section */}
+      {/* Features */}
       <section className="py-5 bg-light">
-       
-          <FeatureCard title="What Makes Us Different" services={services} />
-    
+        <FeatureCard title="What Makes Us Different" services={services} />
       </section>
 
-      {/* How It Works Section */}
+      {/* How It Works */}
       <section className="py-5">
-       
-          <HowItWorks />
-     
+        <HowItWorks />
       </section>
 
-      {/* Final Tagline */}
+      {/* Random Activities */}
       <section className="text-center py-5 bg-light">
-      <h2 className="mb-5">
-          Explore Saudi Like Never Before!
-        </h2>
+        <h2 className="mb-5">Explore Saudi Like Never Before!</h2>
         <CardSlider>
-
-        <Activity customLink="/ViewActivity" />
-        <Activity customLink="/ViewActivity" />
-        <Activity customLink="/ViewActivity" />
-
+          {randomActivities.map((activity) => (
+            <Activity
+              key={activity._id}
+              activity={activity}
+              customLink={`/ViewActivity/${activity._id}`}
+            />
+          ))}
         </CardSlider>
       </section>
     </div>
