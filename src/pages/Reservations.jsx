@@ -1,31 +1,36 @@
 // Path: src/pages/Reservations.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import '../styles/Reservation.css'; 
-
-const initialData = [
-  { id: 1, event: 'Event 1', participant: 'Tourist #1', status: 'Paid' },
-  { id: 2, event: 'Event 1', participant: 'Tourist #14', status: 'Unpaid' },
-  { id: 3, event: 'Event 1', participant: 'Tourist #8', status: 'Unpaid' },
-  { id: 4, event: 'Event 2', participant: 'Tourist #5', status: 'Paid' },
-  { id: 5, event: 'Event 3', participant: 'Tourist #22', status: 'Paid' },
-];
+import '../styles/Reservation.css';
+import axios from 'axios';
 
 const Reservations = () => {
+  const [reservations, setReservations] = useState([]);
   const [confirmed, setConfirmed] = useState([]);
   const [reminded, setReminded] = useState([]);
 
-  const handleConfirm = (id) => {
-    if (!confirmed.includes(id)) {
-      setConfirmed([...confirmed, id]);
-      alert(`Reservation #${id} has been confirmed`);
+  // ✅ Fetch reservations from MongoDB
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/reservations')
+      .then((res) => {
+        setReservations(res.data);
+      })
+      .catch((err) => {
+        console.error('Failed to fetch reservations:', err);
+      });
+  }, []);
+
+  const handleConfirm = (index) => {
+    if (!confirmed.includes(index)) {
+      setConfirmed([...confirmed, index]);
+      alert(`Reservation #${index + 1} has been confirmed`);
     }
   };
 
-  const handleReminder = (id) => {
-    if (!reminded.includes(id)) {
-      setReminded([...reminded, id]);
-      alert(`Reminder sent for reservation #${id}`);
+  const handleReminder = (index) => {
+    if (!reminded.includes(index)) {
+      setReminded([...reminded, index]);
+      alert(`Reminder sent for reservation #${index + 1}`);
     }
   };
 
@@ -46,9 +51,9 @@ const Reservations = () => {
               </tr>
             </thead>
             <tbody>
-              {initialData.map((res) => (
-                <tr key={res.id}>
-                  <td>#{res.id}</td>
+              {reservations.map((res, index) => (
+                <tr key={index}>
+                  <td>#{index + 1}</td>
                   <td>{res.event}</td>
                   <td>{res.participant}</td>
                   <td>
@@ -58,14 +63,14 @@ const Reservations = () => {
                   </td>
                   <td>
                     <button
-                      className={`icon-btn ${reminded.includes(res.id) ? 'pressed' : ''}`}
-                      onClick={() => handleReminder(res.id)}
+                      className={`icon-btn ${reminded.includes(index) ? 'pressed' : ''}`}
+                      onClick={() => handleReminder(index)}
                     >
                       🔔
                     </button>
                     <button
-                      className={`icon-btn ${confirmed.includes(res.id) ? 'pressed' : ''}`}
-                      onClick={() => handleConfirm(res.id)}
+                      className={`icon-btn ${confirmed.includes(index) ? 'pressed' : ''}`}
+                      onClick={() => handleConfirm(index)}
                     >
                       ✅
                     </button>
