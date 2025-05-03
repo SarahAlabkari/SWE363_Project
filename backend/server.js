@@ -28,6 +28,7 @@ const activityRoutes = require('./routes/activityRoutes');
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
 const complaintRoutes = require('./routes/complaintRoutes');
+const pendingActivitiesRoutes = require('./routes/pendingActivities');
 
 // Use routes
 app.use('/api/tourists', touristRoutes);
@@ -51,7 +52,7 @@ app.use('/api/complaints', complaintRoutes);
 app.use('/api/activities', activityRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/tours', tourRoutes); // ADD THIS
-
+app.use('/api/pendingActivities', pendingActivitiesRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

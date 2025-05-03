@@ -1,10 +1,8 @@
-// Importing necessary components, libraries, pages 
-
+// ✅ Updated PendingActivity.jsx with correct field names from Mongo
 import React, { useState, useEffect, useRef } from "react";
 import AdminMenuBar from "../components/AdminMenuBar";
 import { Alert, Button } from "react-bootstrap";
 import { X } from "react-bootstrap-icons";
-//  data representing  activities
 
 const PendingActivity = () => {
   const [activities, setActivities] = useState([]);
@@ -12,66 +10,61 @@ const PendingActivity = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [showError, setShowError] = useState(false);
-  const dropdownRefs = useRef([]);
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState("");
 
   useEffect(() => {
-    const data = [
-      {
-        name: 'Event Masters',
-        username: "Event-Masters@12",
-        activityDescription: "Reported behavior",
-        place: "Not Determined",
-        time: "2025-04-17 14:22",
-        attachments: "/maroof.jpg",
-        action: "Approve Activity",
-      },
-      {
-        name: 'Explore & Engage',
-        username: "Explore&Engage@Khobar",
-        activityDescription: "Late submission of report",
-        place: "Park",
-        time: "2025-04-16 10:12",
-        attachments: "/maroof.jpg",
-        action: "Reject Activity",
-      },
-      {
-        name: 'Dynamic Experiences',
-        username: "DynExperiences",
-        activityDescription: "For dynamic experience",
-        place: "Khobar",
-        time: "2025-04-15 09:30",
-        attachments: "/maroof.jpg",
-        action: "",
+    const fetchActivities = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/pendingActivities");
+        const data = await res.json();
+        setActivities(data);
+        setFilteredActivities(data);
+      } catch (err) {
+        console.error("Failed to fetch pending activities:", err);
       }
-    ];
-    setActivities(data);
-    setFilteredActivities(data);
+    };
+    fetchActivities();
   }, []);
 
-  const handleActionSelect = (index, action) => {
-    const updated = [...filteredActivities];
-    updated[index].action = action;
-    setFilteredActivities(updated);
-    setShowError(false);
+  const handleActionSelect = async (id, action) => {
+    try {
+      await fetch(`http://localhost:5000/api/pendingActivities/${id}/action`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+
+      const updated = activities.map((a) =>
+        a._id === id ? { ...a, action } : a
+      );
+      setActivities(updated);
+      setFilteredActivities(updated);
+    } catch (err) {
+      console.error("Failed to update activity:", err);
+    }
   };
 
-  const handleSearchAndFilter = (term, status) => {
-    const filtered = activities.filter((activity) => {
-      const matchesSearch =
-        activity.username.toLowerCase().includes(term) ||
-        activity.activityDescription.toLowerCase().includes(term);
-      const matchesStatus =
-        status === "All" ||
-        (status === "Approved" && activity.action === "Approve Activity") ||
-        (status === "Rejected" && activity.action === "Reject Activity") ||
-        (status === "Pending" && !activity.action);
-      return matchesSearch && matchesStatus;
+  const handleSearchAndFilter = () => {
+    const term = searchTerm.trim().toLowerCase();
+    const filtered = activities.filter((a) => {
+      const matchSearch =
+        a.username?.toLowerCase().includes(term) ||
+        a.description?.toLowerCase().includes(term);
+      const matchStatus =
+        filterStatus === "All" ||
+        (filterStatus === "Approved" && a.action === "Approve Activity") ||
+        (filterStatus === "Rejected" && a.action === "Reject Activity") ||
+        (filterStatus === "Pending" && !a.action);
+      return matchSearch && matchStatus;
     });
     setFilteredActivities(filtered);
     setShowError(filtered.length === 0);
   };
+
+  useEffect(() => {
+    handleSearchAndFilter();
+  }, [searchTerm, filterStatus, activities]);
 
   const clearSearch = () => {
     setSearchTerm("");
@@ -80,80 +73,63 @@ const PendingActivity = () => {
     setShowError(false);
   };
 
-  useEffect(() => {
-    handleSearchAndFilter(searchTerm.trim().toLowerCase(), filterStatus);
-  }, [searchTerm, filterStatus, activities]);
-
   return (
     <div style={{ position: "relative" }}>
       <AdminMenuBar />
 
       {showError && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            height: "100vh",
-            width: "100vw",
-            backgroundColor: "rgba(0, 0, 0, 0.3)",
-            zIndex: 9999,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Alert
-            variant="danger"
-            className="text-center"
-            style={{ width: "400px", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}
-          >
-            <div className="fw-bold mb-3">No matching results found.</div>
-            <Button variant="outline-danger" onClick={clearSearch}>
-              OK
-            </Button>
-          </Alert>
-        </div>
+        <Alert variant="danger" className="text-center position-fixed top-0 w-100 z-3">
+          No matching results found.
+          <Button variant="outline-danger" onClick={clearSearch}>OK</Button>
+        </Alert>
       )}
 
       <div className="container mt-4">
         <h2 className="fw-bold mb-3 text-center">Pending Activities</h2>
 
-        {/* Filter Left + Search Right */}
         <div className="d-flex justify-content-between flex-wrap align-items-center mb-3 gap-2">
-          <div style={{ width: "250px" }}>
-            <select
-              className="form-select"
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-              <option value="Pending">Pending</option>
-            </select>
-          </div>
+          <select
+            className="form-select"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            style={{ width: "250px" }}
+          >
+            <option value="All">All</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Pending">Pending</option>
+          </select>
 
-          <div className="position-relative" style={{ width: "250px" }}>
+          <div className="d-flex gap-2 align-items-center position-relative">
             <input
               type="text"
               className="form-control pe-5"
               placeholder="Search By Username"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              style={{ paddingRight: "2.5rem" }}
             />
             {searchTerm && (
               <X
+                size={18}
                 style={{
                   position: "absolute",
-                  right: "15px",
+                  right: "100px",
                   top: "50%",
                   transform: "translateY(-50%)",
                   cursor: "pointer",
+                  color: "#888"
                 }}
                 onClick={clearSearch}
               />
             )}
+            <button
+              className="btn"
+              style={{ backgroundColor: "#9abf80", color: "white" }}
+              onClick={handleSearchAndFilter}
+            >
+              Search
+            </button>
           </div>
         </div>
 
@@ -161,9 +137,8 @@ const PendingActivity = () => {
           <table className="table table-striped table-bordered text-center">
             <thead style={{ backgroundColor: "#6c63ac", color: "white" }}>
               <tr>
-                <th>Name</th>
                 <th>Username</th>
-                <th>Activity Description</th>
+                <th>Description</th>
                 <th>Place</th>
                 <th>Time</th>
                 <th>Attachments</th>
@@ -171,18 +146,17 @@ const PendingActivity = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredActivities.map((activity, i) => (
-                <tr key={i}>
-                  <td>{activity.name}</td>
-                  <td>{activity.username}</td>
-                  <td>{activity.activityDescription}</td>
-                  <td>{activity.place}</td>
-                  <td>{activity.time}</td>
+              {filteredActivities.map((a) => (
+                <tr key={a._id}>
+                  <td>{a.username}</td>
+                  <td>{a.description}</td>
+                  <td>{a.place}</td>
+                  <td>{new Date(a.timestamp).toLocaleString()}</td>
                   <td>
                     <button
                       className="btn btn-link"
                       onClick={() => {
-                        setModalImage(activity.attachments);
+                        setModalImage(a.attachmentUrl);
                         setShowModal(true);
                       }}
                     >
@@ -190,24 +164,25 @@ const PendingActivity = () => {
                     </button>
                   </td>
                   <td>
-                    <div className="dropdown" style={{ position: "relative" }}>
+                    <div className="dropdown">
                       <button
                         className="btn btn-light dropdown-toggle"
                         type="button"
                         data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        ref={(el) => (dropdownRefs.current[i] = el)}
                       >
-                        {activity.action || "Select Action"}
+                        {a.action || "Select Action"}
                       </button>
                       <ul className="dropdown-menu text-start">
-                        {["Approve Activity", "Reject Activity"].map((action, aIndex) => (
-                          <li key={aIndex}>
+                        {[
+                          "Approve Activity",
+                          "Reject Activity",
+                        ].map((opt, idx) => (
+                          <li key={idx}>
                             <button
                               className="dropdown-item"
-                              onClick={() => handleActionSelect(i, action)}
+                              onClick={() => handleActionSelect(a._id, opt)}
                             >
-                              {action}
+                              {opt}
                             </button>
                           </li>
                         ))}
@@ -238,17 +213,15 @@ const PendingActivity = () => {
                   type="button"
                   className="btn-close"
                   onClick={() => setShowModal(false)}
-                ></button>
+                />
               </div>
               <div className="modal-body text-center">
-                {modalImage && (
-                  <img
-                    src={modalImage}
-                    alt="Attachment"
-                    onError={(e) => (e.target.style.display = "none")}
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
-                )}
+                <img
+                  src={modalImage}
+                  alt="Attachment"
+                  style={{ maxWidth: "100%", height: "auto" }}
+                  onError={(e) => (e.target.style.display = "none")}
+                />
               </div>
             </div>
           </div>

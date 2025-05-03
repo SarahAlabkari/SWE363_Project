@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MenuBar from '../components/MenuBar';
@@ -12,112 +13,30 @@ const links = [
   { path: "/Home", label: "Logout" },
 ];
 
-const eventsData = {
-  Adventure: {
-    description: 'A Fun Adventure Event',
-    region: 'Khobar',
-    capacity: 50,
-    time: '10:00 AM',
-    date: '2023-05-01',
-    venue: 'Adventure Park',
-    price: 20,
-  },
-  ChaseTheFun: {
-    description: 'Chase the Fun',
-    region: 'Riyadh',
-    capacity: 30,
-    time: '12:00 PM',
-    date: '2023-06-01',
-    venue: 'Funland',
-    price: 25,
-  },
-  JoyRide: {
-    description: 'Joy Ride',
-    region: 'Dammam',
-    capacity: 20,
-    time: '2:00 PM',
-    date: '2023-07-01',
-    venue: 'Joy Park',
-    price: 15,
-  },
-  VentureVibe: {
-    description: 'Thrilling outdoor experience',
-    region: 'Jeddah',
-    capacity: 35,
-    time: '4:00 PM',
-    date: '2023-08-01',
-    venue: 'Mountain Base',
-    price: 30,
-  },
-  SparkFest: {
-    description: 'Festival of lights and music',
-    region: 'Abha',
-    capacity: 60,
-    time: '5:00 PM',
-    date: '2023-09-10',
-    venue: 'Spark Grounds',
-    price: 40,
-  },
-  JoyJump: {
-    description: 'Bungee jumping fun day',
-    region: 'Tabuk',
-    capacity: 15,
-    time: '2:00 PM',
-    date: '2023-10-15',
-    venue: 'Jump Arena',
-    price: 35,
-  },
-  OasisQuest: {
-    description: 'Desert exploration adventure',
-    region: 'Hail',
-    capacity: 25,
-    time: '8:00 PM',
-    date: '2023-11-20',
-    venue: 'Oasis Base',
-    price: 50,
-  },
-  DesertVibes: {
-    description: 'Music and camping in the desert',
-    region: 'AlUla',
-    capacity: 40,
-    time: '12:00 PM',
-    date: '2023-12-05',
-    venue: 'Desert Camp',
-    price: 45,
-  },
-};
-
 const EventDetail = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
-  const [eventData, setEventData] = useState(eventsData[eventId] || {});
+  const [eventData, setEventData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [showCancelPopup, setShowCancelPopup] = useState(false);
   const [showSavePopup, setShowSavePopup] = useState(false);
 
+  // Fetch event data from backend
   useEffect(() => {
-    const eventDetails = eventsData[eventId];
-    if (eventDetails) {
-      setEventData(eventDetails);
-    }
+    fetch(`http://localhost:5050/api/activities/${eventId}`)
+      .then(res => res.json())
+      .then(data => setEventData(data))
+      .catch(err => {
+        console.error("Failed to load event:", err);
+        setEventData(null); // Prevent crash
+      });
   }, [eventId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if ((name === "capacity" || name === "price") && value < 1) {
-      setValidationErrors(prev => ({ ...prev, [name]: "Must be a positive number" }));
-    } else if (value.trim() === "") {
-      setValidationErrors(prev => ({ ...prev, [name]: "Field cannot be empty" }));
-    } else {
-      setValidationErrors(prev => {
-        const updated = { ...prev };
-        delete updated[name];
-        return updated;
-      });
-    }
+    if (!eventData) return;
 
     setEventData(prev => ({
       ...prev,
@@ -126,6 +45,8 @@ const EventDetail = () => {
   };
 
   const handleEditToggle = () => {
+    if (!eventData) return;
+
     if (isEditing) {
       const errors = {};
       ["description", "region", "venue", "date", "time", "capacity", "price"].forEach(field => {
@@ -142,183 +63,110 @@ const EventDetail = () => {
         return;
       }
 
-      setShowSavePopup(true); 
+      setShowSavePopup(true);
     } else {
       setIsEditing(true);
     }
   };
 
   const handleSaveConfirm = () => {
-    setIsEditing(false);
-    setShowSavePopup(false);
-    setValidationErrors({});
+    fetch(`http://localhost:5050/api/activities/${eventId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(eventData)
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to update");
+        return res.json();
+      })
+      .then(() => {
+        setIsEditing(false);
+        setShowSavePopup(false);
+        setValidationErrors({});
+      })
+      .catch(err => {
+        alert("Update failed.");
+        console.error(err);
+      });
   };
 
-  const handleCancelClick = () => {
-    setShowCancelPopup(true);
-  };
+  const handleCancelClick = () => setShowCancelPopup(true);
+  const handleConfirmCancel = () => navigate('/Events');
 
-  const handleConfirmCancel = () => {
-    setShowCancelPopup(false);
-    navigate('/Events');
-  };
+  if (!eventData) {
+    return (
+      <>
+        <MenuBar links={links} />
+        <main style={{ padding: '30px', textAlign: 'center' }}>
+          <h2>Loading event data...</h2>
+        </main>
+        <footer><ContactInfo /></footer>
+      </>
+    );
+  }
 
   return (
     <>
       <MenuBar links={links} />
 
+      <header style={{ padding: '30px 20px' }}>
+        <h1>Joyful Journeys</h1>
+        <p>Unforgettable experiences await!</p>
+      </header>
+
       {showCancelPopup && (
-        <div style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 1000,
-        }}>
-          <Popup
-            title="Cancel Event"
-            message="Are you sure you want to cancel this event?"
-            type="warning"
-            showConfirm
-            onConfirm={handleConfirmCancel}
-          />
-        </div>
+        <Popup
+          title="Cancel Event"
+          message="Are you sure you want to cancel this event?"
+          type="warning"
+          showConfirm
+          onConfirm={handleConfirmCancel}
+        />
       )}
 
       {showSavePopup && (
-        <div style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 1000,
-        }}>
-          <Popup
-            title="Confirm Save"
-            message="Are you sure you want to save the changes?"
-            type="success"
-            showConfirm
-            onConfirm={handleSaveConfirm}
-          />
-        </div>
+        <Popup
+          title="Confirm Save"
+          message="Are you sure you want to save the changes?"
+          type="success"
+          showConfirm
+          onConfirm={handleSaveConfirm}
+        />
       )}
 
-      <header style={{ padding: '30px 20px', marginBottom: '30px', textAlign: 'left' }}>
-        <h1>Joyful Journeys</h1>
-        <p>
-        Joyful Journeys is your ultimate destination for unforgettable experiences and vibrant adventures. We specialize in curating unique activities that bring joy, excitement, and connection to individuals, families, and groups. From outdoor escapades to creative workshops, our mission is to inspire and energize people of all ages to explore new horizons and embrace the thrill of the journey!!
-        </p>
-      </header>
+      <main style={{ padding: '20px', backgroundColor: 'white' }}>
+        <div style={{ backgroundColor: '#9abf80', padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+          <h2>Event: {eventId}</h2>
+          <form style={{ display: 'flex', flexDirection: 'column' }}>
+            {['description', 'region', 'capacity', 'venue', 'time', 'price', 'date'].map(field => (
+              <label key={field} style={{ marginBottom: '12px' }}>
+                {field.charAt(0).toUpperCase() + field.slice(1)}:
+                <input
+                  type={field === "date" ? "date" : field === "capacity" || field === "price" ? "number" : "text"}
+                  name={field}
+                  value={eventData[field] || ''}
+                  onChange={handleChange}
+                  readOnly={!isEditing}
+                  style={{ width: '100%', padding: '8px', borderRadius: '4px' }}
+                />
+                {validationErrors[field] && (
+                  <span style={{ color: 'red', fontSize: '12px' }}>{validationErrors[field]}</span>
+                )}
+              </label>
+            ))}
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <button type="button" onClick={handleEditToggle}>{isEditing ? "Save" : "Edit"}</button>
+              <button type="button" onClick={handleCancelClick}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      </main>
 
-      <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
-        <main style={{ padding: '20px' }}>
-          <div
-            style={{
-              backgroundColor: '#9abf80',
-              padding: '20px',
-              borderRadius: '8px',
-              maxWidth: '600px',
-              margin: '20px auto',
-              color: '#584335',
-            }}
-          >
-            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>
-              Event {eventId}
-            </h2>
-
-            <form style={{ display: 'flex', flexDirection: 'column', padding: '6px' }}>
-              {[
-                'description',
-                'region',
-                'capacity',
-                'venue',
-                'time',
-                'price',
-                'date',
-              ].map((field) => (
-                <label key={field} style={{ marginBottom: '15px' }}>
-                  {field.charAt(0).toUpperCase() + field.slice(1)}:
-                  <input
-                    type={field === 'capacity' || field === 'price' ? 'number' : field === 'date' ? 'date' : 'text'}
-                    name={field}
-                    value={eventData[field] || ''}
-                    onChange={handleChange}
-                    readOnly={!isEditing}
-                    style={{
-                      padding: '10px',
-                      border: '1px solid #ccc',
-                      borderRadius: '4px',
-                      width: '96%',
-                      backgroundColor: isEditing ? '#ffffff' : '#f9f9f9',
-                      marginTop: '5px',
-                    }}
-                  />
-                  {validationErrors[field] && (
-                    <span style={{ color: 'red', fontSize: '12px' }}>
-                      {validationErrors[field]}
-                    </span>
-                  )}
-                </label>
-              ))}
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-                <button
-                  type="button"
-                  onClick={handleEditToggle}
-                  style={{
-                    padding: '10px 20px',
-                    border: 'none',
-                    borderRadius: '40px',
-                    cursor: 'pointer',
-                    backgroundColor: '#584335',
-                    color: 'white',
-                    transition: 'background-color 0.3s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = '#e5e3d4';
-                    e.target.style.color = '#584335';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = '#584335';
-                    e.target.style.color = 'white';
-                  }}
-                >
-                  {isEditing ? 'Save Changes' : 'Edit'}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCancelClick}
-                  style={{
-                    padding: '10px 20px',
-                    border: 'none',
-                    borderRadius: '40px',
-                    cursor: 'pointer',
-                    backgroundColor: '#584335',
-                    color: 'white',
-                    transition: 'background-color 0.3s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = '#e5e3d4';
-                    e.target.style.color = '#584335';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = '#584335';
-                    e.target.style.color = 'white';
-                  }}
-                >
-                  Cancel the Event
-                </button>
-              </div>
-            </form>
-          </div>
-        </main>
-      </div>
-
-      <footer>
-        <ContactInfo />
-      </footer>
+      <footer><ContactInfo /></footer>
     </>
   );
 };
 
 export default EventDetail;
+
 
