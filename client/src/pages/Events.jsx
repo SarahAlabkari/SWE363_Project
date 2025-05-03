@@ -18,7 +18,7 @@ const Events = () => {
   const [hoverCreateCard, setHoverCreateCard] = useState(false);
   const [eventsData, setEventsData] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5000/api/activities')
+    fetch('/activities')
 
    
       .then(res => res.json())

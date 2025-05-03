@@ -22,34 +22,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// // ✅ Update complaint status
-// router.patch('/:id/status', async (req, res) => {
-//   try {
-//     const updated = await Complaint.findByIdAndUpdate(
-//       req.params.id,
-//       { status: req.body.status },
-//       { new: true }
-//     );
-//     res.json(updated);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to update status' });
-//   }
-// });
-
-// // ✅ Update complaint action
-// router.patch('/:id/action', async (req, res) => {
-//   try {
-//     const updated = await Complaint.findByIdAndUpdate(
-//       req.params.id,
-//       { action: req.body.action },
-//       { new: true }
-//     );
-//     res.json(updated);
-//   } catch (err) {
-//     res.status(500).json({ error: 'Failed to update action' });
-//   }
-// });
-// POST update for status
 router.post('/:id/status', async (req, res) => {
     try {
       const updated = await Complaint.findByIdAndUpdate(

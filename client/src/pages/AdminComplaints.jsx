@@ -14,7 +14,7 @@ const AdminComplaints = () => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/complaints");
+        const response = await fetch("/complaints");
         const data = await response.json();
         setComplaints(data);
         setFilteredComplaints(data);
@@ -27,14 +27,14 @@ const AdminComplaints = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this complaint?")) return;
-    await fetch(`http://localhost:5000/api/complaints/${id}`, { method: "DELETE" });
+    await fetch(`/complaints/${id}`, { method: "DELETE" });
     const updated = complaints.filter((c) => c._id !== id);
     setComplaints(updated);
     setFilteredComplaints(updated);
   };
 
   const handleStatusChange = async (id, newStatus) => {
-    await fetch(`http://localhost:5000/api/complaints/${id}/status`, {
+    await fetch(`/complaints/${id}/status`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
@@ -47,7 +47,7 @@ const AdminComplaints = () => {
   };
 
   const handleActionChange = async (id, newAction) => {
-    await fetch(`http://localhost:5000/api/complaints/${id}/action`, {
+    await fetch(`/complaints/${id}/action`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: newAction }),
