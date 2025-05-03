@@ -47,7 +47,7 @@ const Login = () => {
             break;          
         case 'guide':
           // Store guide ID locally for use in charts/statistics
-          localStorage.setItem('guideId', data._id);
+          localStorage.setItem('guideId', data.guide.id);
           navigate('/GuideDashboard');
           break;
         case 'provider':

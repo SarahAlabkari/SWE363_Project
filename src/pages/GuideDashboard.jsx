@@ -5,11 +5,11 @@ import TourStatistics from "../components/TourStatistics";
 import GuideTopTours from "../components/GuideTopTours";
 import MenuBar from "../components/MenuBar";
 import Activity from "../components/Activity";
-import Tour from "../components/Tour";
 import CardSlider from "../components/CardSlider";
 import EarningPerMonth from "../components/EarningPerMonth";
 import axios from "axios";
 import "./GuideDashboard.css";
+import GuideTourSlider from '../components/GuideTourSlider';
 
 const GuideDashboard = () => {
   const navLinks = [
@@ -22,14 +22,19 @@ const GuideDashboard = () => {
   ];
 
   const [tours, setTours] = useState([]);
-  const username = "norah123"; // TODO: make dynamic from auth/localStorage later
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
+    const storedUsername = localStorage.getItem('guideUsername');
+    if (!storedUsername) return;
+
+    setUsername(storedUsername);
+
     axios
-      .get(`http://localhost:5000/api/tours/guide/${username}`)
+      .get(`http://localhost:5000/api/tours/guide/${storedUsername}`)
       .then((res) => setTours(res.data))
       .catch((err) => console.error("Error fetching tours:", err));
-  }, [username]);
+  }, []);
 
   return (
     <div>
@@ -58,13 +63,7 @@ const GuideDashboard = () => {
               </CardSlider>
 
               <p className="section-title mt-5">Happining on this month</p>
-              <CardSlider>
-                {tours.length > 0 ? (
-                  tours.map((tour) => <Tour key={tour._id} tour={tour} />)
-                ) : (
-                  <p>No tours to show.</p>
-                )}
-              </CardSlider>
+              <GuideTourSlider />
             </div>
           </div>
 
