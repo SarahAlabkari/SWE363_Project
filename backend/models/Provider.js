@@ -7,7 +7,12 @@ const providerSchema = new mongoose.Schema({
   email:         { type: String, required: true, unique: true },
   password:      { type: String, required: true }, // Stored as plain text
   maaroofNumber: { type: String, required: true },
-  phoneNumber:   { type: String, required: true }
+  phoneNumber:   { type: String, required: true },
+  status: {
+    type: String,
+    enum: ['active', 'inactive'],
+    default: 'active'
+  }  
 });
 
 const Provider = mongoose.model('Provider', providerSchema);

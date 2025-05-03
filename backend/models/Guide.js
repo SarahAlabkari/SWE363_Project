@@ -10,7 +10,12 @@ const guideSchema = new mongoose.Schema({
   firstName:    { type: String, required: true },
   lastName:     { type: String, required: true },
   nationalId:   { type: String, required: true },
-  phoneNumber:  { type: String, required: true }
+  phoneNumber:  { type: String, required: true },
+  status: {
+    type: String,
+    enum: ['active', 'inactive'],
+    default: 'active'
+  }  
 });
 
 // Export the Guide model to be used in routes/controllers

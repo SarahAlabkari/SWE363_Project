@@ -11,7 +11,9 @@ const {
   getMonthlyEarnings,
   getTourStatistics,
   getTopAttendedTours,
-  getGuideDashboardReviews // Correct function from guideController
+  getGuideDashboardReviews, // Correct function from guideController
+  updateGuideStatus, 
+  deleteGuide
 } = require('../controllers/guideController');
 
 // Create a new guide
@@ -34,6 +36,11 @@ router.get('/top-tours/:guideId', getTopAttendedTours);
 
 // Get reviews for a guide
 router.get('/reviews/:guideId', getGuideDashboardReviews);
+
+// user management 
+router.patch('/:id/status', updateGuideStatus);
+router.delete('/:id', deleteGuide);
+
 
 // Get guide by username
 router.get('/:username', async (req, res) => {

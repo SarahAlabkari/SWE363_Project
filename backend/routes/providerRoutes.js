@@ -2,13 +2,17 @@
 
 const express = require('express');
 const router = express.Router();
-const { createProvider, getProviders } = require('../controllers/providerController');
+const { deleteProvider, updateProviderStatus, createProvider, getProviders } = require('../controllers/providerController');
 
 // POST /api/providers
 router.post('/', createProvider);
 
 // GET /api/providers
 router.get('/', getProviders);
+
+//user management
+router.patch('/:id/status', updateProviderStatus);
+router.delete('/:id', deleteProvider);
 
 router.get('/:companyName', async (req, res) => {
     try {
