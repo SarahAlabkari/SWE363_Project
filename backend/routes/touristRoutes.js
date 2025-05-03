@@ -28,6 +28,16 @@ router.post('/:id/add-plan', addToPlan);
 // View plan
 router.get('/:id/myplan', getTouristPlan); 
 
+router.get('/username/:username', async (req, res) => {
+  try {
+    const tourist = await Tourist.findOne({ username: req.params.username });
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+    res.json(tourist);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Remove activity from plan
 
 router.delete('/:id/myplan/:activityId', removeActivityFromPlan);
