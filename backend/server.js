@@ -30,6 +30,7 @@ const activityRoutes = require('./routes/activityRoutes');
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
+const complaintRoutes = require('./routes/complaintRoutes');
 
 // Use routes
 app.use('/api/tourists', touristRoutes);
@@ -47,6 +48,8 @@ app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);
 app.use('/api/tours', tourRoutes); // ✅ ADD THIS
 app.use('/api/activities', activityRoutes);
+app.use('/api/complaints', complaintRoutes);
+
 
 
 // Health check route
