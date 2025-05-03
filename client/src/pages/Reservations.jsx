@@ -11,7 +11,7 @@ const Reservations = () => {
 
   // ✅ Fetch reservations from MongoDB
   useEffect(() => {
-    axios.get('http://localhost:5000/api/reservations')
+    axios.get('/reservations')
       .then((res) => {
         setReservations(res.data);
       })

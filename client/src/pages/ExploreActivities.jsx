@@ -26,7 +26,7 @@ const ExploreActivities = () => {
 
     const fetchCityData = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/cities/${city}`);
+        const res = await fetch(`/cities/${city}`);
         const data = await res.json();
 
         if (!res.ok) {

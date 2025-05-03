@@ -58,7 +58,7 @@ const CreateTourGuideAccount = () => {
     const { confirmPassword, ...payload } = formData; // Exclude confirmPassword
 
     try {
-      const response = await fetch('http://localhost:5000/api/guides', {
+      const response = await fetch('/guides', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

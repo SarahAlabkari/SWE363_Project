@@ -22,7 +22,7 @@ const TourGuides = () => {
   useEffect(() => {
     const fetchGuides = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/guideProfile');
+        const res = await axios.get('/guideProfile');
         setGuides(res.data);
       } catch (err) {
         console.error('Failed to fetch guide profiles:', err);

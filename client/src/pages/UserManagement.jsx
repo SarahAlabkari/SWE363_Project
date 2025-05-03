@@ -12,7 +12,7 @@ const UserManagementPage = () => {
   useEffect(() => {
     const fetchTourists = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/tourists');
+        const res = await axios.get('/tourists');
         const mapped = res.data.map(t => ({
           _id: t._id,
           name: t.fullName,
@@ -30,7 +30,7 @@ const UserManagementPage = () => {
 
     const fetchGuides = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/guides');
+        const res = await axios.get('/guides');
         const mapped = res.data.map(g => ({
           _id: g._id,
           name: `${g.firstName} ${g.lastName}`,
@@ -48,7 +48,7 @@ const UserManagementPage = () => {
 
     const fetchProviders = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/providers');
+        const res = await axios.get('/providers');
         const mapped = res.data.map(p => ({
           _id: p._id,
           name: p.companyName,
@@ -85,7 +85,7 @@ const UserManagementPage = () => {
   const handleActivate = async (user) => {
     const route = getRouteFromLevel(user.level);
     try {
-      await axios.patch(`http://localhost:5000/api/${route}/${user._id}/status`, {
+      await axios.patch(`/${route}/${user._id}/status`, {
         status: 'active'
       });
       setUsers(prev =>
@@ -99,7 +99,7 @@ const UserManagementPage = () => {
   const handleDeactivate = async (user) => {
     const route = getRouteFromLevel(user.level);
     try {
-      await axios.patch(`http://localhost:5000/api/${route}/${user._id}/status`, {
+      await axios.patch(`/${route}/${user._id}/status`, {
         status: 'inactive'
       });
       setUsers(prev =>
@@ -113,7 +113,7 @@ const UserManagementPage = () => {
   const handleDelete = async (user) => {
     const route = getRouteFromLevel(user.level);
     try {
-      await axios.delete(`http://localhost:5000/api/${route}/${user._id}`);
+      await axios.delete(`/${route}/${user._id}`);
       setUsers(prev => prev.filter(u => u._id !== user._id));
     } catch (err) {
       console.error('Failed to delete user:', err);

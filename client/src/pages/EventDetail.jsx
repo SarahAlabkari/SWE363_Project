@@ -25,7 +25,7 @@ const EventDetail = () => {
 
   // Fetch event data from backend
   useEffect(() => {
-    fetch(`http://localhost:5050/api/activities/${eventId}`)
+    fetch(`/activities/${eventId}`)
       .then(res => res.json())
       .then(data => setEventData(data))
       .catch(err => {
@@ -70,7 +70,7 @@ const EventDetail = () => {
   };
 
   const handleSaveConfirm = () => {
-    fetch(`http://localhost:5050/api/activities/${eventId}`, {
+    fetch(`/activities/${eventId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eventData)

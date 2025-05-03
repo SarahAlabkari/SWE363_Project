@@ -24,7 +24,7 @@ const Profile = () => {
   const [newServiceDescription, setNewServiceDescription] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/provider-profile')
+    axios.get('/provider-profile')
       .then((res) => {
         const data = res.data;
         setProfileId(data._id);
@@ -43,7 +43,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put('http://localhost:5000/api/provider-profile', {
+      await axios.put('/provider-profile', {
         _id: profileId, // ⬅️ send id to update existing document
         companyInfo: { name, logo, overview, about },
         contact: { email, phone, telephone },

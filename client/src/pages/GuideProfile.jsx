@@ -20,7 +20,7 @@ const GuideProfile = () => {
   useEffect(() => {
     const fetchGuideData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/guideProfile/${guideName}`);
+        const response = await fetch(`/guideProfile/${guideName}`);
         const data = await response.json();
 
         if (!response.ok) throw new Error(data.message || "Failed to fetch guide");
@@ -40,7 +40,7 @@ const GuideProfile = () => {
 
     const fetchReviews = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/guideReviews/${guideName}`);
+        const response = await fetch(`/guideReviews/${guideName}`);
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || "Failed to fetch reviews");
 
@@ -56,7 +56,7 @@ const GuideProfile = () => {
 
     const fetchActivities = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/activities`);
+        const res = await fetch(`/activities`);
         const data = await res.json();
         setActivities(data);
       } catch (err) {

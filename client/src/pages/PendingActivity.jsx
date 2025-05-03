@@ -16,7 +16,7 @@ const PendingActivity = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/pendingActivities");
+        const res = await fetch("/pendingActivities");
         const data = await res.json();
         setActivities(data);
         setFilteredActivities(data);
@@ -29,7 +29,7 @@ const PendingActivity = () => {
 
   const handleActionSelect = async (id, action) => {
     try {
-      await fetch(`http://localhost:5000/api/pendingActivities/${id}/action`, {
+      await fetch(`/pendingActivities/${id}/action`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action }),

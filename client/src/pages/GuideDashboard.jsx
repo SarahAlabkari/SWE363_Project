@@ -40,7 +40,7 @@ const GuideDashboard = () => {
     const allEventIds = matchingTours.flatMap(t => t.eventIds);
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/activities/byIds`, {
+      const res = await axios.get(`/activities/byIds`, {
         params: { ids: allEventIds.join(',') }
       });
       setActivitiesForSelectedDate(res.data);
@@ -54,7 +54,7 @@ const GuideDashboard = () => {
     if (!guideId) return;
 
     axios
-      .get(`http://localhost:5000/api/tours/guide/id/${guideId}`)
+      .get(`/tours/guide/id/${guideId}`)
       .then((res) => setTours(res.data))
       .catch((err) => console.error("Error fetching tours:", err));
   }, []);

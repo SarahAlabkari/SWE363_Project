@@ -69,7 +69,7 @@ const CreateTouristAccount = () => {
     const { confirmPassword, ...payload } = formData;
 
     try {
-      const response = await fetch('http://localhost:5000/api/tourists', {
+      const response = await fetch('/tourists', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

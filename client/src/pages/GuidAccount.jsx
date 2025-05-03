@@ -32,7 +32,7 @@ const GuideAccount = () => {
 
     const fetchGuideData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/guideProfile/${guideName}`);
+        const response = await fetch(`/guideProfile/${guideName}`);
         const data = await response.json();
 
         if (!response.ok) throw new Error(data.message || 'Failed to fetch guide');
