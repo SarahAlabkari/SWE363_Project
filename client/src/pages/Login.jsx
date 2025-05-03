@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
-import axios from '../api/axiosInstance';
-
+import axios from '../api/axiosInstance'; // using the pre-configured instance
 
 const Login = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -12,7 +11,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  // Handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,27 +20,12 @@ const Login = () => {
     }
 
     try {
-      // const response = await fetch('/auth/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({ identifier: emailOrUsername, password })
-      // });
-
-      // const data = await response.json();
       const response = await axios.post('/auth/login', {
         identifier: emailOrUsername,
-        password
+        password,
       });
 
       const data = response.data;
-
-
-      if (!response.ok) {
-        setErrorMessage(data.message || 'Login failed');
-        return;
-      }
 
       // Redirect user based on their role
       switch (data.role) {
@@ -52,12 +35,11 @@ const Login = () => {
         case 'tourist':
           navigate('/Home');
           break;
-          case 'guide':
-            localStorage.setItem('guideId', data.guide.id); 
-            localStorage.setItem('loggedInGuideUsername', emailOrUsername); 
-            navigate('/GuideDashboard');
-            break;
-          
+        case 'guide':
+          localStorage.setItem('guideId', data.guide.id);
+          localStorage.setItem('loggedInGuideUsername', emailOrUsername);
+          navigate('/GuideDashboard');
+          break;
         case 'provider':
           navigate('/Events');
           break;
@@ -66,7 +48,8 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Login error:', error);
-      setErrorMessage('Something went wrong. Please try again.');
+      const msg = error.response?.data?.message || 'Something went wrong. Please try again.';
+      setErrorMessage(msg);
     }
   };
 
@@ -94,9 +77,7 @@ const Login = () => {
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <div className="forgot-password">
-          
-        </div>
+        <div className="forgot-password"></div>
 
         <button type="submit" className="login-button">Login</button>
 
