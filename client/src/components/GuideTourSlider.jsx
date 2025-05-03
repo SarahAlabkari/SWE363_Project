@@ -31,7 +31,7 @@ const GuideTourSlider = () => {
 
   return (
     <CardSlider>
-      {tours.map((tour, index) => (
+      {Array.isArray(tours) && tours.map((tour, index) => (
         <Tour key={index} tour={tour} />
       ))}
     </CardSlider>
@@ -39,3 +39,4 @@ const GuideTourSlider = () => {
 };
 
 export default GuideTourSlider;
+
