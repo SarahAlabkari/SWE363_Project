@@ -118,7 +118,7 @@ clicking **"Send Request"** on the "Forget Password" page will **directly redire
 
 # 📦 Phase 5 – Back-End Implementation
 
-This phase focuses on the development and demonstration of **back-end functionality** for Tour Guide authentication and data access.
+This phase focuses on the development and demonstration of the **back-end functionality**.
 
 ---
 
