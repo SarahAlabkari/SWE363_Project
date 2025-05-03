@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import axios from '../api/axiosInstance';
+
 
 const Login = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -20,15 +22,22 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ identifier: emailOrUsername, password })
+      // const response = await fetch('/auth/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({ identifier: emailOrUsername, password })
+      // });
+
+      // const data = await response.json();
+      const response = await axios.post('/auth/login', {
+        identifier: emailOrUsername,
+        password
       });
 
-      const data = await response.json();
+      const data = response.data;
+
 
       if (!response.ok) {
         setErrorMessage(data.message || 'Login failed');
