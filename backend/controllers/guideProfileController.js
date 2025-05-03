@@ -1,6 +1,8 @@
+// Path: backend/controllers/guideProfileController.js
+
 const GuideProfile = require('../models/GuideProfile');
 
-// Get guide profile by username
+// Get guide profile by username (case-insensitive)
 const getGuideProfileByUsername = async (req, res) => {
   try {
     const guide = await GuideProfile.findOne({
