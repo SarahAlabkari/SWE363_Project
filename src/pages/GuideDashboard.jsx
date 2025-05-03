@@ -5,11 +5,11 @@ import TourStatistics from "../components/TourStatistics";
 import GuideTopTours from "../components/GuideTopTours";
 import MenuBar from "../components/MenuBar";
 import Activity from "../components/Activity";
-import Tour from "../components/Tour";
 import CardSlider from "../components/CardSlider";
 import EarningPerMonth from "../components/EarningPerMonth";
 import axios from "axios";
 import "./GuideDashboard.css";
+import GuideTourSlider from '../components/GuideTourSlider';
 
 const GuideDashboard = () => {
   const navLinks = [
@@ -21,49 +21,70 @@ const GuideDashboard = () => {
     { label: "Logout", path: "/Home" },
   ];
 
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [activitiesForSelectedDate, setActivitiesForSelectedDate] = useState([]);
   const [tours, setTours] = useState([]);
-  const username = localStorage.getItem('loggedInGuideUsername');
+
+  const handleDateChange = async (dateStr) => {
+    setSelectedDate(dateStr);
+    // const matchingTours = tours.filter(tour => tour.date === dateStr);
+    const matchingTours = tours.filter(tour => {
+      const formattedTourDate = new Date(tour.date).toISOString().split('T')[0];
+      return formattedTourDate === dateStr;
+    });
+
+    if (matchingTours.length === 0) {
+      setActivitiesForSelectedDate([]);
+      return;
+    }
+
+    const allEventIds = matchingTours.flatMap(t => t.eventIds);
+
+    try {
+      const res = await axios.get(`http://localhost:5000/api/activities/byIds`, {
+        params: { ids: allEventIds.join(',') }
+      });
+      setActivitiesForSelectedDate(res.data);
+    } catch (err) {
+      console.error("Error fetching activities for selected date:", err);
+    }
+  };
+
   useEffect(() => {
+    const guideId = localStorage.getItem('guideId');
+    if (!guideId) return;
+
     axios
-      .get(`http://localhost:5000/api/tours/guide/${username}`)
+      .get(`http://localhost:5000/api/tours/guide/id/${guideId}`)
       .then((res) => setTours(res.data))
       .catch((err) => console.error("Error fetching tours:", err));
-  }, [username]);
+  }, []);
 
   return (
     <div>
       <MenuBar links={navLinks} />
-
       <div className="min-vh-100">
-        <main
-          className="d-flex flex-column"
-          style={{ padding: "3rem 2rem", gap: "5rem" }}
-        >
+        <main className="d-flex flex-column" style={{ padding: "3rem 2rem", gap: "5rem" }}>
           {/* Row 1: Calendar + Sliders */}
-          <div
-            className="flex flex-col lg:flex-row flex-wrap gap-12 w-full"
-            id="dashboardRow1"
-          >
+          <div className="flex flex-col lg:flex-row flex-wrap gap-12 w-full" id="dashboardRow1">
             <div className="w-full lg:w-1/3 min-w-[300px]">
-              <CalendarComponent />
+              <CalendarComponent onDateChange={handleDateChange} />
             </div>
 
             <div className="w-full lg:w-2/3 min-w-[300px]">
-              <p className="section-title">Happining on this day</p>
+              <p className="section-title">Happening on this day</p>
               <CardSlider>
-                <Activity />
-                <Activity />
-                <Activity />
-              </CardSlider>
-
-              <p className="section-title mt-5">Happining on this month</p>
-              <CardSlider>
-                {tours.length > 0 ? (
-                  tours.map((tour) => <Tour key={tour._id} tour={tour} />)
+                {activitiesForSelectedDate.length > 0 ? (
+                  activitiesForSelectedDate.map((activity, index) => (
+                    <Activity key={index} activity={activity} />
+                  ))
                 ) : (
-                  <p>No tours to show.</p>
+                  <p style={{ paddingLeft: '2rem' }}>No activities on this day.</p>
                 )}
               </CardSlider>
+
+              <p className="section-title mt-5">Happening on this month</p>
+              <GuideTourSlider />
             </div>
           </div>
 

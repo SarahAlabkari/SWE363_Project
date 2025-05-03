@@ -44,7 +44,7 @@ const Login = () => {
           navigate('/Home');
           break;
           case 'guide':
-            localStorage.setItem('guideId', data.userId); // ✅ Correct ID key from backend
+            localStorage.setItem('guideId', data.guide.id); // ✅ Correct ID key from backend
             localStorage.setItem('loggedInGuideUsername', emailOrUsername); // ✅ Save username/email used
             navigate('/GuideDashboard');
             break;

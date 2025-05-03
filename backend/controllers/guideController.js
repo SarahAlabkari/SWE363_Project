@@ -178,6 +178,47 @@ const getTourStatistics = async (req, res) => {
   res.status(501).json({ message: "getTourStatistics not yet implemented" });
 };
 
+// @desc    Update guide status (active/inactive)
+const updateGuideStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const guide = await Guide.findByIdAndUpdate(id, { status }, { new: true });
+    if (!guide) return res.status(404).json({ message: 'Guide not found' });
+
+    res.status(200).json(guide);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc    Delete guide
+const deleteGuide = async (req, res) => {
+  console.log("➡️ DELETE guide route hit with ID:", req.params.id);
+
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    console.log("❌ Invalid ID format");
+    return res.status(400).json({ message: 'Invalid guide ID' });
+  }
+
+  try {
+    const guide = await Guide.findByIdAndDelete(req.params.id);
+    if (!guide) {
+      console.log("❌ Guide not found");
+      return res.status(404).json({ message: 'Guide not found' });
+    }
+
+    res.status(200).json({ message: 'Guide deleted successfully' });
+  } catch (err) {
+    console.error("❌ Error deleting guide:", err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+
 module.exports = {
   createGuide,
   getGuides,
@@ -185,5 +226,7 @@ module.exports = {
   getMonthlyEarnings,
   getTourStatistics,
   getTopAttendedTours,
-  getGuideDashboardReviews // Exported for use in routes
+  getGuideDashboardReviews, // Exported for use in routes
+  deleteGuide,
+  updateGuideStatus
 };

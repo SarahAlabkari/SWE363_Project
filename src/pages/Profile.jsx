@@ -1,36 +1,62 @@
-import React, { useState, useRef } from 'react';
+// ✅ Full working Profile.jsx (frontend page)
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/AcProfile.css';
 import Navbar from '../components/Navbar';
+import axios from 'axios';
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState("Joyful Journeys");
-  const [overview, setOverview] = useState("Joyful Journeys is a premium travel and adventure company specializing in desert experiences and outdoor excursions.");
-  const [about, setAbout] = useState("At Joyful Journeys, we believe that every journey should be as extraordinary as the destination.");
-  const [email, setEmail] = useState("Joyful@gmail.com");
-  const [phone, setPhone] = useState("966556748762");
-  const [telephone, setTelephone] = useState("01778655");
-
-  const [certifications, setCertifications] = useState(["/maroof.jpg"]);
-  const [services, setServices] = useState([
-    {
-      image: "/hiking in desert.jpg",
-      title: "Hiking",
-      description: "Experience the thrill of hiking! Walk through scenic trails, breathe fresh air, and discover the beauty of nature – one step at a time."
-    },
-    {
-      image: "/camles-riding.jpg",
-      title: "Camel Riding",
-      description: "Ride through the golden sands on a camel’s back! Feel the rhythm of the desert, enjoy the calm breeze, and connect with timeless Bedouin tradition."
-    }
-  ]);
-  const [logo, setLogo] = useState("/joyful.jpg");
+  const [name, setName] = useState('');
+  const [overview, setOverview] = useState('');
+  const [about, setAbout] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [certifications, setCertifications] = useState([]);
+  const [services, setServices] = useState([]);
+  const [logo, setLogo] = useState('');
+  const [profileId, setProfileId] = useState(null); // ⬅️ important for updating
 
   const logoInputRef = useRef(null);
   const certInputRef = useRef(null);
   const [newServiceImage, setNewServiceImage] = useState(null);
-  const [newServiceTitle, setNewServiceTitle] = useState("");
-  const [newServiceDescription, setNewServiceDescription] = useState("");
+  const [newServiceTitle, setNewServiceTitle] = useState('');
+  const [newServiceDescription, setNewServiceDescription] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/provider-profile')
+      .then((res) => {
+        const data = res.data;
+        setProfileId(data._id);
+        setName(data.companyInfo?.name || '');
+        setLogo(data.companyInfo?.logo || '');
+        setOverview(data.companyInfo?.overview || '');
+        setAbout(data.companyInfo?.about || '');
+        setEmail(data.contact?.email || '');
+        setPhone(data.contact?.phone || '');
+        setTelephone(data.contact?.telephone || '');
+        setCertifications(data.certifications || []);
+        setServices(data.services || []);
+      })
+      .catch((err) => console.error('Failed to load profile:', err));
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      await axios.put('http://localhost:5000/api/provider-profile', {
+        _id: profileId, // ⬅️ send id to update existing document
+        companyInfo: { name, logo, overview, about },
+        contact: { email, phone, telephone },
+        certifications,
+        services
+      });
+      setIsEditing(false);
+      alert('✅ Profile updated successfully');
+    } catch (err) {
+      console.error('Failed to save profile:', err);
+      alert('❌ Error saving profile');
+    }
+  };
 
   const handleRemoveCert = (index) => {
     const updated = [...certifications];
@@ -46,17 +72,10 @@ const Profile = () => {
 
   const handleAddService = () => {
     if (newServiceImage && newServiceTitle) {
-      setServices([
-        ...services,
-        {
-          image: newServiceImage,
-          title: newServiceTitle,
-          description: newServiceDescription
-        }
-      ]);
+      setServices([...services, { image: newServiceImage, title: newServiceTitle, description: newServiceDescription }]);
       setNewServiceImage(null);
-      setNewServiceTitle("");
-      setNewServiceDescription("");
+      setNewServiceTitle('');
+      setNewServiceDescription('');
     }
   };
 
@@ -70,20 +89,11 @@ const Profile = () => {
           {isEditing ? (
             <div style={{ position: 'relative' }}>
               <img className="profile-logo" src={logo} alt="Company Logo" />
-              <button className="upload-btn" onClick={() => logoInputRef.current.click()}>
-                Upload
-              </button>
-              <input
-                type="file"
-                accept="image/*"
-                ref={logoInputRef}
-                style={{ display: 'none' }}
+              <button className="upload-btn" onClick={() => logoInputRef.current.click()}>Upload</button>
+              <input type="file" accept="image/*" ref={logoInputRef} style={{ display: 'none' }}
                 onChange={(e) => {
                   const file = e.target.files[0];
-                  if (file) {
-                    const url = URL.createObjectURL(file);
-                    setLogo(url);
-                  }
+                  if (file) setLogo(URL.createObjectURL(file));
                 }}
               />
             </div>
@@ -125,39 +135,13 @@ const Profile = () => {
             ))}
             {isEditing && (
               <div className="service-card">
-                <div className="service-image-wrapper">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        const url = URL.createObjectURL(file);
-                        setNewServiceImage(url);
-                      }
-                    }}
-                  />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={newServiceTitle}
-                  onChange={(e) => setNewServiceTitle(e.target.value)}
-                  className="body-text"
-                />
-                <textarea
-                  placeholder="Description"
-                  value={newServiceDescription}
-                  onChange={(e) => setNewServiceDescription(e.target.value)}
-                  className="body-text"
-                />
-                <button
-                  className="upload-btn"
-                  style={{ position: 'static', marginTop: '10px' }}
-                  onClick={handleAddService}
-                >
-                  Add
-                </button>
+                <input type="file" accept="image/*" onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) setNewServiceImage(URL.createObjectURL(file));
+                }} />
+                <input type="text" placeholder="Title" value={newServiceTitle} onChange={(e) => setNewServiceTitle(e.target.value)} className="body-text" />
+                <textarea placeholder="Description" value={newServiceDescription} onChange={(e) => setNewServiceDescription(e.target.value)} className="body-text" />
+                <button className="upload-btn" style={{ marginTop: '10px' }} onClick={handleAddService}>Add</button>
               </div>
             )}
           </div>
@@ -175,17 +159,10 @@ const Profile = () => {
             {isEditing && (
               <>
                 <button className="add-button" onClick={() => certInputRef.current.click()}>+ Add</button>
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={certInputRef}
-                  style={{ display: 'none' }}
+                <input type="file" accept="image/*" ref={certInputRef} style={{ display: 'none' }}
                   onChange={(e) => {
                     const file = e.target.files[0];
-                    if (file) {
-                      const url = URL.createObjectURL(file);
-                      setCertifications([...certifications, url]);
-                    }
+                    if (file) setCertifications([...certifications, URL.createObjectURL(file)]);
                   }}
                 />
               </>
@@ -210,8 +187,11 @@ const Profile = () => {
           )}
         </div>
 
-        <button className="edit-button" onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? "Save Changes" : "Edit Profile"}
+        <button className="edit-button" onClick={() => {
+          if (isEditing) handleSave();
+          else setIsEditing(true);
+        }}>
+          {isEditing ? 'Save Changes' : 'Edit Profile'}
         </button>
       </div>
     </>

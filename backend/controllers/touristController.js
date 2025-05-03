@@ -202,6 +202,34 @@ const getWishlist = async (req, res) => {
   }
 };
 
+// @desc Update tourist status
+const updateTouristStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const tourist = await Tourist.findByIdAndUpdate(id, { status }, { new: true });
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+
+    res.status(200).json(tourist);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc Delete tourist
+const deleteTourist = async (req, res) => {
+  try {
+    const tourist = await Tourist.findByIdAndDelete(req.params.id);
+    if (!tourist) return res.status(404).json({ message: 'Tourist not found' });
+
+    res.status(200).json({ message: 'Tourist deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 module.exports = {
   createTourist,
   loginTourist,
@@ -211,5 +239,7 @@ module.exports = {
   removeActivityFromPlan,
   addToWishlist,
   removeFromWishlist,
-  getWishlist
+  getWishlist,
+  deleteTourist,
+  updateTouristStatus
 };

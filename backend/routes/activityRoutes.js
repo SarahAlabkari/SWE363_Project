@@ -4,20 +4,17 @@ const router = express.Router();
 const {
     getActivities,
     createActivity,
-    getActivityById
-  } = require('../controllers/activityController');
-  
+    getActivityById,
+    getActivitiesByIds // ✅ imported
+} = require('../controllers/activityController');
 
-// GET /api/activities
+// Make sure this comes FIRST
+router.get('/byIds', getActivitiesByIds); // ✅ specific route
+
+// Other routes
 router.get('/', getActivities);
-
-// POST /api/activities
 router.post('/', createActivity);
-
-// view activity by ID
-
-router.get('/:id', getActivityById);
-
+router.get('/:id', getActivityById); // ❗ keep this at the bottom
 
 
 
