@@ -13,7 +13,7 @@ const GuideTopTours = () => {
         if (!guideId) return;
 
         // Fetch top 3 tours sorted by attendee count for this guide
-        const response = await axios.get(`http://localhost:5000/api/guides/top-tours/${guideId}`);
+        const response = await axios.get(`/guides/top-tours/${guideId}`);
         setTopTours(response.data);
       } catch (error) {
         console.error('Failed to fetch top attended tours:', error);

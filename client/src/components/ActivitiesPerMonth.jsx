@@ -25,7 +25,7 @@ const ActivitiesPerMonth = ({ guideId }) => {
   const [activities, setActivities] = useState(Array(12).fill(0));
 
   useEffect(() => {
-    axios.get(`/api/guide/available-years/${guideId}`)
+    axios.get(`/guide/available-years/${guideId}`)
       .then((res) => setAvailableYears(res.data))
       .catch(() => setAvailableYears([]));
   }, [guideId]);

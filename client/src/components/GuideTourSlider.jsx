@@ -13,7 +13,7 @@ const GuideTourSlider = () => {
         const guideId = localStorage.getItem('guideId'); // ✅ Get guide ID from storage
         if (!guideId) return;
 
-          const res = await axios.get(`/api/tours/guide/id/${guideId}`);
+          const res = await axios.get(`/tours/guide/id/${guideId}`);
 
         setTours(res.data);
       } catch (err) {

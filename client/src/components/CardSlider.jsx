@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import axios from 'axios'; 
 
 const CardSlider = ({ children }) => {
   const scrollRef = useRef(null);

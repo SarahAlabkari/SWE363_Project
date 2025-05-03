@@ -19,7 +19,7 @@ const GuideReviews = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/api/reviews/guide/${guideId}`);
+        const response = await axios.get(`/reviews/guide/${guideId}`);
         setReviews(response.data);
       } catch (error) {
         console.error('❌ Failed to fetch guide reviews:', error.message);

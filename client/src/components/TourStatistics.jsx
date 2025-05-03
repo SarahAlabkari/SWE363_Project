@@ -24,7 +24,7 @@ const TourStatistics = () => {
   useEffect(() => {
     if (fromDate && toDate) {
       axios
-        .get(`http://localhost:5000/api/guides/tour-stats/${guideId}?from=${fromDate}&to=${toDate}`)
+        .get(`/guides/tour-stats/${guideId}?from=${fromDate}&to=${toDate}`)
         .then((res) => setStats(res.data))
         .catch((err) => console.error("Error fetching statistics:", err));
     }

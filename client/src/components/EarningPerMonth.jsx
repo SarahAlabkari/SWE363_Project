@@ -27,7 +27,7 @@ const EarningPerMonth = () => {
   const [earnings, setEarnings] = useState(new Array(12).fill(0));
 
   useEffect(() => {
-    axios.get(`/api/guides/earnings-years/${guideId}`)
+    axios.get(`/guides/earnings-years/${guideId}`)
       .then((res) => setAvailableYears(res.data))
       .catch(() => setAvailableYears([]));
   }, []);
