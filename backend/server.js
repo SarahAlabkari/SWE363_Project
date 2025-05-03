@@ -2,14 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cors = require('cors');
-
-
-
-
-
-
-
-
 const authRoutes = require('./routes/authRoutes');
 require('dotenv').config();
 
@@ -33,14 +25,17 @@ const adminRoutes = require('./routes/adminRoutes');
 const tourRoutes = require('./routes/tourRoutes'); // ✅ ADD THIS
 const activityRoutes = require('./routes/activityRoutes');
 
+const tourRoutes = require('./routes/tourRoutes'); 
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
+
 
 // Use routes
 app.use('/api/tourists', touristRoutes);
 app.use('/api/guides', guideRoutes);
 app.use('/api/providers', providerRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.use('/api/cities', cityRoutes);
 app.use('/api/guideProfile', guideProfileRoutes);
@@ -54,6 +49,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tours', tourRoutes); // ✅ ADD THIS
 app.use('/api/activities', activityRoutes);
 
+app.use('/api/auth', authRoutes);
+app.use('/api/tours', tourRoutes); // ADD THIS
 
 // Health check route
 app.get('/', (req, res) => {
