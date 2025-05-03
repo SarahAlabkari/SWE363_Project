@@ -116,41 +116,73 @@ After logging in, users are redirected to their specific landing pages according
 clicking **"Send Request"** on the "Forget Password" page will **directly redirect** the user to the **Reset Password** page after a short success message.
 - In a fully connected system, this action would instead send an actual email containing a password reset link.
 
-# 📦 Phase 5 – Back-End Implementation
+## 📦 Phase 5: Back-End Integration & API Testing
 
-This phase focuses on the development and demonstration of the **back-end functionality**.
+This phase demonstrates the successful connection between the **backend**, **MongoDB database**, and **Postman API testing** for authentication and data retrieval of **Jadwill** actors.
 
 ---
 
-## 📂 Folder Structure (`/backend`)
+### 🛠️ Backend Setup
+
+#### 1. Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+#### 2. Install Dependencies:
+
+```bash
+npm install
+```
+
+#### 3. Create a `.env` file with the following variables:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=3d
+```
+
+⚠️ Do **not** push the `.env` file to GitHub as it contains sensitive information.
+
+#### 4. Start the Backend Server:
+
+```bash
+node server.js
+```
+
+#### 5. Run the Front-End from a new terminal:
+
+```bash
+npm start
+```
+
+---
+
+### 📁 Folder Structure of `backend/`
 
 ```
 backend/
-├── config/          # MongoDB connection setup (db.js)
-├── controllers/     # Route handler logic (e.g., login, guide fetch)
-├── models/          # Mongoose schemas for each user type
-├── routes/          # API route definitions for each user role
-├── utils/           # Reusable helper functions (e.g., token generation)
-├── .gitignore       # Exclude node_modules, .env, etc.
-├── README.md        # Optional back-end-specific documentation
-├── package.json     # Lists dependencies and scripts
-├── package-lock.json# Auto-generated dependency lock file
-└── server.js        # Main Express server file
+├── config/             # MongoDB connection setup (db.js)
+├── controllers/        # Logic for routes (e.g., authController.js, guideController.js)
+├── models/             # Mongoose schemas (e.g., Guide.js, Admin.js)
+├── routes/             # Route definitions (e.g., authRoutes.js, guideRoutes.js)
+├── utils/              # Helper functions (e.g., validation, hashing)
+├── .gitignore          # Files to ignore in Git
+├── package.json        # Project metadata and dependencies
+├── package-lock.json   # Dependency lock file
+├── server.js           # Main backend server file
 ```
 
 ---
 
-## 📸 API Testing via Postman
+## 🧪 Postman Test Cases
 
-### ✅ Case 1: Successful Login (Tour Guide)
+### ✅ 1. Guide Login – Successful
 
-**Endpoint:**
-
-```
-POST /api/auth/login
-```
-
-**Request:**
+**POST** `http://localhost:5000/api/auth/login`
 
 ```json
 {
@@ -159,15 +191,14 @@ POST /api/auth/login
 }
 ```
 
-**Response:** 200 OK with token and guide data
-
-📷 Screenshot: `./screenshots/GuidePost.png`
+📸 Screenshot:
+![Guide Sign Up - Valid](./screenshots/GuidePost.png)
 
 ---
 
-### ❌ Case 2: Invalid Login
+### ❌ 2. Guide Login – Invalid Credentials
 
-**Request:**
+**POST** `http://localhost:5000/api/auth/login`
 
 ```json
 {
@@ -176,35 +207,38 @@ POST /api/auth/login
 }
 ```
 
-**Response:** 401 Unauthorized with `"Invalid credentials"`
-
-📷 Screenshot: `./screenshots/GuidePostInvalid.png`
+📸 Screenshot:
+![Guide Sign Up - Invalid](./screenshots/GuidePostInvalid.png)
 
 ---
 
-### 🔍 Case 3: Get Guide by Username
+### ✅ 3. GET Guide by Username
 
-**Endpoint:**
+**GET** `http://localhost:5000/api/guides/ahmed-al-zahrani`
+
+**Headers:**
 
 ```
-GET /api/guides/ahmed-al-zahrani
+Content-Type: application/json
 ```
 
 **Response:**
 
 ```json
 {
-  "_id": "66815c561db0309482fffb086",
+  "_id": "6815c561db0309482fff0b86",
   "username": "ahmed-al-zahrani",
-  "email": "Ahmed.alzahrani23@gmai.com",
+  "email": "Ahmed.alzahrani23@gmail.com",
   "firstName": "Ahmed",
   "lastName": "Al-Zahrani",
   "nationalId": "1005678901",
-  "phoneNumber": "0505678901"
+  "phoneNumber": "0505678901",
+  "__v": 0
 }
 ```
 
-📷 Screenshot: `./screenshots/GuideGetByUsername.png`
+📸 Screenshot:
+![Guide Get by Username](./screenshots/GuideGetByUsername.png)
 
 ---
 
