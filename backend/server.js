@@ -22,10 +22,8 @@ const touristRoutes = require('./routes/touristRoutes');
 const guideRoutes = require('./routes/guideRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const tourRoutes = require('./routes/tourRoutes'); // ✅ ADD THIS
-const activityRoutes = require('./routes/activityRoutes');
-
-const tourRoutes = require('./routes/tourRoutes'); 
+const tourRoutes = require('./routes/tourRoutes');
+const activityRoutes = require('./routes/activityRoutes'); 
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
