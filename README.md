@@ -189,6 +189,7 @@ Authenticates a user or admin and returns a JWT token.
   }
 }
 ```
+![Guide Sign Up - Valid](./screenshots/GuidePost.png)
 
 #### 👤 GET /api/guide/\:username
 
