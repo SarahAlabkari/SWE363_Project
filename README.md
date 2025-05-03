@@ -116,12 +116,113 @@ After logging in, users are redirected to their specific landing pages according
 clicking **"Send Request"** on the "Forget Password" page will **directly redirect** the user to the **Reset Password** page after a short success message.
 - In a fully connected system, this action would instead send an actual email containing a password reset link.
 
-## Contributors
+## 🛠️ Back-End Setup
+
+### 📁 How to Set Up and Run the Back-End
+
+Follow these steps to set up and run the back-end server locally:
+
+1. **Navigate to the back-end directory**
+
+```bash
+cd backend
+```
+
+2. **Install Dependencies**
+
+```bash
+npm install
+```
+
+3. **Create a `.env` file** inside the `backend/` directory with the following content:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRES_IN=3d
+```
+
+⚠️ *Do not push this `.env` file to GitHub. It contains sensitive credentials.*
+
+4. **Run the Server**
+
+```bash
+node server.js
+```
+
+5. **Run the Front-End in a Separate Terminal**
+
+```bash
+npm start
+```
+
+### 📡 API Documentation
+
+#### 🔐 POST /api/auth/login
+
+Authenticates a user or admin and returns a JWT token.
+
+* **Method:** POST
+* **URL:** `http://localhost:5000/api/auth/login`
+
+**Request Body:**
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+**Success Response:**
+
+```json
+{
+  "message": "Login successful",
+  "role": "guide",
+  "token": "<jwt_token>",
+  "guide": {
+    "id": "<guide_id>",
+    "username": "guide",
+    "email": "guide@jadwill.com"
+  }
+}
+```
+
+#### 👤 GET /api/guide/\:username
+
+Fetches the guide profile by username.
+
+* **Method:** GET
+* **URL:** `http://localhost:5000/api/guide/guide`
+
+**Headers:**
+
+```
+Authorization: Bearer <jwt_token>
+```
+
+**Success Response:**
+
+```json
+{
+  "_id": "<guide_id>",
+  "username": "guide",
+  "email": "guide@jadwill.com",
+  "bio": "Your guide bio here",
+  "phone": "0500000000"
+}
+```
+
+## 👩‍💻 Contributors
 
 Developed by **Team 21**:
-- Lamees Alikhwan
-- Sarah Alabkari
-- Nora Alkuwaihes
-- Reem Abdelgawad
-- Walah Alrobayan
-- Aminah Laznam
+
+* Lamees Alikhwan
+* Sarah Alabkari
+* Nora Alkuwaihes
+* Reem Abdelgawad
+* Walah Alrobayan
+* Aminah Laznam
+

@@ -74,4 +74,17 @@ const getActivityById = async (req, res) => {
     }
   };
 
-module.exports = {  getActivityById , getActivities, createActivity };
+  const getActivitiesByIds = async (req, res) => {
+  try {
+    const ids = (req.query.ids || '').split(',').filter(Boolean);
+    const mongoose = require('mongoose');
+    const objectIds = ids.map(id => new mongoose.Types.ObjectId(id));
+    const activities = await Activity.find({ _id: { $in: objectIds } });
+    res.status(200).json(activities);
+  } catch (err) {
+    console.error("Error fetching activities by IDs:", err);
+    res.status(500).json({ message: 'Failed to fetch activities by IDs' });
+  }
+};
+
+module.exports = {  getActivityById , getActivities, createActivity, getActivitiesByIds };
