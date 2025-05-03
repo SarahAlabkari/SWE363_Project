@@ -116,8 +116,6 @@ After logging in, users are redirected to their specific landing pages according
 clicking **"Send Request"** on the "Forget Password" page will **directly redirect** the user to the **Reset Password** page after a short success message.
 - In a fully connected system, this action would instead send an actual email containing a password reset link.
 
-## Contributors
-
 ## 🛠️ Back-End Setup
 
 ### 📁 How to Set Up and Run the Back-End
