@@ -27,7 +27,6 @@ const GuideDashboard = () => {
 
   const handleDateChange = async (dateStr) => {
     setSelectedDate(dateStr);
-    // const matchingTours = tours.filter(tour => tour.date === dateStr);
     const matchingTours = tours.filter(tour => {
       const formattedTourDate = new Date(tour.date).toISOString().split('T')[0];
       return formattedTourDate === dateStr;

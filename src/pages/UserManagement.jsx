@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MenuBar from '../components/MenuBar';
 import UserManagementList from '../components/UserManagementList';
 import '../App.css';
 import AdminMenuBar from '../components/AdminMenuBar';
@@ -54,7 +53,7 @@ const UserManagementPage = () => {
           _id: p._id,
           name: p.companyName,
           email: p.email,
-          username: p.email.split('@')[0], // or use companyName as username if preferred
+          username: p.email.split('@')[0], 
           level: 'Activity Provider',
           status: p.status || 'active',
           notifications: true
