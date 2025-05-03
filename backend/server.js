@@ -25,7 +25,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const tourRoutes = require('./routes/tourRoutes'); // ✅ ADD THIS
 const activityRoutes = require('./routes/activityRoutes');
 
-const tourRoutes = require('./routes/tourRoutes'); 
+//const tourRoutes = require('./routes/tourRoutes'); 
 
 const cityRoutes = require('./routes/cityRoutes');
 const guideProfileRoutes = require('./routes/guideProfileRoutes');
@@ -42,7 +42,11 @@ app.use('/api/guideProfile', guideProfileRoutes);
 
 const guideReviewsRoutes = require('./routes/guideReviewsRoutes');
 app.use('/api/guideReviews', guideReviewsRoutes);
+const providerProfileRoutes = require('./routes/providerProfileRoutes');
+app.use('/api/provider-profile', providerProfileRoutes);
 
+const activityProviderReservationRoutes = require('./routes/activityProviderReservationRoutes');
+app.use('/api/reservations', activityProviderReservationRoutes);
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);
