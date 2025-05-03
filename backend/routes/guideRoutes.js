@@ -14,6 +14,9 @@ const {
   getGuideDashboardReviews, // Correct function from guideController
   updateGuideStatus, 
   deleteGuide
+  getGuideDashboardReviews, // Correct function from guideController
+  updateGuideStatus, 
+  deleteGuide
 } = require('../controllers/guideController');
 
 // Create a new guide
@@ -40,20 +43,6 @@ router.get('/reviews/:guideId', getGuideDashboardReviews);
 // user management 
 router.patch('/:id/status', updateGuideStatus);
 router.delete('/:id', deleteGuide);
-
-
-// Get guide by username
-router.get('/:username', async (req, res) => {
-  try {
-    const guide = await require('../models/Guide').findOne({ username: req.params.username });
-    if (!guide) {
-      return res.status(404).json({ message: 'Guide not found' });
-    }
-    res.json(guide);
-  } catch (err) {
-    res.status(500).json({ message: 'Server error' });
-  }
-});
 
 
 module.exports = router;

@@ -3,11 +3,12 @@
 const express = require('express');
 const router = express.Router();
 const { deleteProvider, updateProviderStatus, createProvider, getProviders } = require('../controllers/providerController');
+const { deleteProvider, updateProviderStatus, createProvider, getProviders } = require('../controllers/providerController');
 
-// POST /api/providers
+// 📦 Create a new provider
 router.post('/', createProvider);
 
-// GET /api/providers
+// 📄 Get all providers
 router.get('/', getProviders);
 
 //user management
