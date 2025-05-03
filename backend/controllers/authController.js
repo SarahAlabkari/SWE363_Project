@@ -59,6 +59,7 @@ const login = async (req, res) => {
         email: result.user.email
       }
     });
+    
   }
 
   return res.status(401).json({ message: 'Invalid credentials' });
