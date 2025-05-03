@@ -22,8 +22,7 @@ const GuideDashboard = () => {
   ];
 
   const [tours, setTours] = useState([]);
-  const username = "norah123"; // TODO: make dynamic from auth/localStorage later
-
+  const username = localStorage.getItem('loggedInGuideUsername');
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/tours/guide/${username}`)
