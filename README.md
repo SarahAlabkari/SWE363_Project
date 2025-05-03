@@ -170,8 +170,8 @@ Authenticates a user or admin and returns a JWT token.
 
 ```json
 {
-  "identifier": "guide",
-  "password": "guide123"
+  "username": "admin",
+  "password": "admin123"
 }
 ```
 
