@@ -59,4 +59,31 @@ const getProviders = async (req, res) => {
   }
 };
 
-module.exports = { createProvider, getProviders };
+const updateProviderStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const provider = await Provider.findByIdAndUpdate(id, { status }, { new: true });
+    if (!provider) return res.status(404).json({ message: 'Provider not found' });
+
+    res.status(200).json(provider);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const deleteProvider = async (req, res) => {
+  try {
+    const provider = await Provider.findByIdAndDelete(req.params.id);
+    if (!provider) return res.status(404).json({ message: 'Provider not found' });
+
+    res.status(200).json({ message: 'Provider deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+module.exports = { deleteProvider, updateProviderStatus, createProvider, getProviders };

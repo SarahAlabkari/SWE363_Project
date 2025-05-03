@@ -10,7 +10,9 @@ const {
   removeActivityFromPlan, 
   addToWishlist,
   removeFromWishlist,
-  getWishlist
+  getWishlist,
+  updateTouristStatus,
+  deleteTourist
 } = require('../controllers/touristController');
 
 
@@ -47,5 +49,10 @@ router.delete('/:id/myplan/:activityId', removeActivityFromPlan);
 router.get('/:id/wishlist', getWishlist);
 router.post('/:id/wishlist', addToWishlist);
 router.delete('/:id/wishlist/:activityId', removeFromWishlist);
+
+// user management routes
+router.patch('/:id/status', updateTouristStatus);
+router.delete('/:id', deleteTourist);
+
 
 module.exports = router;

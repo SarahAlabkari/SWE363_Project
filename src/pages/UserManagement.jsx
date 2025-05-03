@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import MenuBar from '../components/MenuBar';
 import UserManagementList from '../components/UserManagementList';
 import '../App.css';
@@ -7,47 +8,117 @@ import AdminMenuBar from '../components/AdminMenuBar';
 const UserManagementPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [levelFilter, setLevelFilter] = useState('');
-  const [users, setUsers] = useState([
-    {
-      name: 'Lamees Alikhwan',
-      email: 'lamees@example.com',
-      username: 'lamees01',
-      level: 'Activity Provider',
-      status: 'active',
-      notifications: true,
-    },
-    {
-      name: 'Aisha Salem',
-      email: 'aisha@example.com',
-      username: 'aisha_s',
-      level: 'Tourist',
-      status: 'inactive',
-      notifications: false,
-    },
-    {
-      name: 'Noura AlZahrani',
-      email: 'noura@example.com',
-      username: 'noura22',
-      level: 'Tour Guide',
-      status: 'active',
-      notifications: true,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
-  const handleActivate = (user) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.username === user.username ? { ...u, status: 'active' } : u))
-    );
+  useEffect(() => {
+    const fetchTourists = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/tourists');
+        const mapped = res.data.map(t => ({
+          _id: t._id,
+          name: t.fullName,
+          email: t.email,
+          username: t.username,
+          level: 'Tourist',
+          status: t.status || 'active',
+          notifications: true
+        }));
+        setUsers(mapped);
+      } catch (err) {
+        console.error('Failed to fetch tourists:', err);
+      }
+    };
+
+    const fetchGuides = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/guides');
+        const mapped = res.data.map(g => ({
+          _id: g._id,
+          name: `${g.firstName} ${g.lastName}`,
+          email: g.email,
+          username: g.username,
+          level: 'Tour Guide',
+          status: g.status || 'active',
+          notifications: true
+        }));
+        setUsers(mapped);
+      } catch (err) {
+        console.error('Failed to fetch guides:', err);
+      }
+    };
+
+    const fetchProviders = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/providers');
+        const mapped = res.data.map(p => ({
+          _id: p._id,
+          name: p.companyName,
+          email: p.email,
+          username: p.email.split('@')[0], // or use companyName as username if preferred
+          level: 'Activity Provider',
+          status: p.status || 'active',
+          notifications: true
+        }));
+        setUsers(mapped);
+      } catch (err) {
+        console.error('Failed to fetch providers:', err);
+      }
+    };
+
+    if (levelFilter === 'Tourist') {
+      fetchTourists();
+    } else if (levelFilter === 'Tour Guide') {
+      fetchGuides();
+    } else if (levelFilter === 'Activity Provider') {
+      fetchProviders();
+    } else {
+      setUsers([]);
+    }
+  }, [levelFilter]);
+
+  const getRouteFromLevel = (level) => {
+    if (level === 'Tourist') return 'tourists';
+    if (level === 'Tour Guide') return 'guides';
+    if (level === 'Activity Provider') return 'providers';
+    return '';
   };
 
-  const handleDeactivate = (user) => {
-    setUsers((prev) =>
-      prev.map((u) => (u.username === user.username ? { ...u, status: 'inactive' } : u))
-    );
+  const handleActivate = async (user) => {
+    const route = getRouteFromLevel(user.level);
+    try {
+      await axios.patch(`http://localhost:5000/api/${route}/${user._id}/status`, {
+        status: 'active'
+      });
+      setUsers(prev =>
+        prev.map(u => (u._id === user._id ? { ...u, status: 'active' } : u))
+      );
+    } catch (err) {
+      console.error('Failed to activate user:', err);
+    }
   };
 
-  const handleDelete = (user) => {
-    setUsers((prev) => prev.filter((u) => u.username !== user.username));
+  const handleDeactivate = async (user) => {
+    const route = getRouteFromLevel(user.level);
+    try {
+      await axios.patch(`http://localhost:5000/api/${route}/${user._id}/status`, {
+        status: 'inactive'
+      });
+      setUsers(prev =>
+        prev.map(u => (u._id === user._id ? { ...u, status: 'inactive' } : u))
+      );
+    } catch (err) {
+      console.error('Failed to deactivate user:', err);
+    }
+  };
+
+  const handleDelete = async (user) => {
+    const route = getRouteFromLevel(user.level);
+    try {
+      await axios.delete(`http://localhost:5000/api/${route}/${user._id}`);
+      setUsers(prev => prev.filter(u => u._id !== user._id));
+    } catch (err) {
+      console.error('Failed to delete user:', err);
+    }
   };
 
   const filteredUsers = users.filter((user) => {
@@ -67,7 +138,7 @@ const UserManagementPage = () => {
             value={levelFilter}
             onChange={(e) => setLevelFilter(e.target.value)}
           >
-            <option value="">Filter By</option>
+            <option value="">Select User Type</option>
             <option value="Tourist">Tourist</option>
             <option value="Activity Provider">Activity Provider</option>
             <option value="Tour Guide">Tour Guide</option>
