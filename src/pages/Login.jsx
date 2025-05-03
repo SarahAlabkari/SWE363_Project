@@ -40,16 +40,15 @@ const Login = () => {
         case 'admin':
           navigate('/AdminDashboard');
           break;
-          case 'tourist':
-            console.log(data)
-            localStorage.setItem('touristId', data.tourist.id);
-            navigate('/Home');
-            break;          
-        case 'guide':
-          // Store guide ID locally for use in charts/statistics
-          localStorage.setItem('guideId', data.guide.id);
-          navigate('/GuideDashboard');
+        case 'tourist':
+          navigate('/Home');
           break;
+          case 'guide':
+            localStorage.setItem('guideId', data.userId); // ✅ Correct ID key from backend
+            localStorage.setItem('loggedInGuideUsername', emailOrUsername); // ✅ Save username/email used
+            navigate('/GuideDashboard');
+            break;
+          
         case 'provider':
           navigate('/Events');
           break;
@@ -86,9 +85,9 @@ const Login = () => {
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <p className="forgot-password">
-          <Link to="/ForgetPassword">Forgot Password?</Link>
-        </p>
+        <div className="forgot-password">
+          
+        </div>
 
         <button type="submit" className="login-button">Login</button>
 

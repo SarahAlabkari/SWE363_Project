@@ -22,8 +22,7 @@ const GuideDashboard = () => {
   ];
 
   const [tours, setTours] = useState([]);
-  const [username, setUsername] = useState('');
-
+  const username = localStorage.getItem('loggedInGuideUsername');
   useEffect(() => {
     const storedUsername = localStorage.getItem('guideUsername');
     if (!storedUsername) return;
