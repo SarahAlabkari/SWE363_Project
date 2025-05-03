@@ -40,7 +40,11 @@ app.use('/api/guideProfile', guideProfileRoutes);
 
 const guideReviewsRoutes = require('./routes/guideReviewsRoutes');
 app.use('/api/guideReviews', guideReviewsRoutes);
+const providerProfileRoutes = require('./routes/providerProfileRoutes');
+app.use('/api/provider-profile', providerProfileRoutes);
 
+const activityProviderReservationRoutes = require('./routes/activityProviderReservationRoutes');
+app.use('/api/reservations', activityProviderReservationRoutes);
 
 app.use('/api/admin', adminRoutes); // Use singular `/admin`
 app.use('/api/auth', authRoutes);
