@@ -14,9 +14,6 @@ const {
   getGuideDashboardReviews, // Correct function from guideController
   updateGuideStatus, 
   deleteGuide
-  getGuideDashboardReviews, // Correct function from guideController
-  updateGuideStatus, 
-  deleteGuide
 } = require('../controllers/guideController');
 
 // Create a new guide
